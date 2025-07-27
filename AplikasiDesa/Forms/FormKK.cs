@@ -11,54 +11,15 @@ namespace AplikasiDesa.Forms
     public partial class FormKK : Form
     {
         private Timer typingTimer;
-        private Timer sessionTimer;
 
         public FormKK()
         {
             InitializeComponent();
-            VerifySession();
             typingTimer = new Timer();
             typingTimer.Interval = 300;
             typingTimer.Tick += TypeTimerTick;
-            sessionTimer = new Timer();
-            sessionTimer.Interval = 600000; // Periksa setiap 10 menit
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
             LoadPengajuanKK();
             LoadStatisticsKK();
-        }
-
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                Session1.ClearSession();
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1321,14 +1282,5 @@ namespace AplikasiDesa.Forms
             LoadStatisticsKK();
         }
         #endregion Pengelolaan Kartu Keluarga
-
-        private void FormKK_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (sessionTimer != null)
-            {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
-            }
-        }
     }
 }

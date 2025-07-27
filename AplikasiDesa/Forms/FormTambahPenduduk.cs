@@ -9,52 +9,13 @@ namespace AplikasiDesa
 {
     public partial class FormTambahPenduduk : Form
     {
-        private System.Windows.Forms.Timer sessionTimer;
         public FormTambahPenduduk()
         {
             InitializeComponent();
-            VerifySession();
             CultureInfo culture = new CultureInfo("id-ID");
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             LoadDatabasePenduduk();
-            sessionTimer = new System.Windows.Forms.Timer();
-            sessionTimer.Interval = 600000; // Periksa setiap 10 menit
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
-        }
-
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                Session1.ClearSession();
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -351,7 +312,7 @@ namespace AplikasiDesa
                 return;
             }
 
-            if (!InputSanitizer.ValidateNIK(txtNIK.Text) || !InputSanitizer.ValidateNIK(txtNIKAyah.Text) || !InputSanitizer.ValidateNIK(txtNIKIbu.Text))
+            if (!InputSanitizer.ValidateNIK(txtNIK.Text) || !string.IsNullOrEmpty(txtNIKAyah.Text) && !InputSanitizer.ValidateNIK(txtNIKAyah.Text) || !string.IsNullOrEmpty(txtNIKIbu.Text) && !InputSanitizer.ValidateNIK(txtNIKIbu.Text))
             {
                 MessageBox.Show("NIK harus terdiri dari 16 angka.", "Peringatan",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1123,15 +1084,6 @@ namespace AplikasiDesa
             }
         }
         #endregion Manajemen Database Penduduk
-
-        private void FormTambahPenduduk_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (sessionTimer != null)
-            {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
-            }
-        }
 
         //// Kode untuk mengenkripsi ulang field tertentu pada tabel Penduduk
         //private void EncryptPendudukFields()

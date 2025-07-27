@@ -17,12 +17,10 @@ namespace AplikasiDesa
     public partial class FormAKM : Form
     {
         private Timer typingTimer;
-        private Timer sessionTimer;
 
         public FormAKM()
         {
             InitializeComponent();
-            VerifySession();
             typingTimer = new Timer();
             typingTimer.Interval = 300;
             typingTimer.Tick += TypeTimerTick;
@@ -32,47 +30,12 @@ namespace AplikasiDesa
             txtNomorSurat.Text = GenerateNomorSurat();
             string loggedInUserName = Session1.LoggedInUserName;
             txtNamaPetugas.Text = loggedInUserName;
-            sessionTimer = new Timer();
-            sessionTimer.Interval = 600000; // Periksa setiap 10 menit
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
 
             LoadIssuedSuratHistory();
             LoadStatisticsKK();
         }
 
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                Session1.ClearSession();
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
-        }
 
         #region Pelaporan Kematian
         private void comboBoxNama_KeyDown(object sender, KeyEventArgs e)
@@ -344,8 +307,7 @@ namespace AplikasiDesa
 
         private void btnLapor_Click(object sender, EventArgs e)
         {
-            if (comboBoxNonSurat.SelectedItem == null ||
-                dtpHariTglNonSurat.Value == null)
+            if (comboBoxNonSurat.SelectedItem == null)
             {
                 MessageBox.Show("Silakan pilih nama dan tanggal kematian terlebih dahulu.",
                                "Data Tidak Lengkap", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -595,15 +557,39 @@ namespace AplikasiDesa
         #endregion Pelaporan Kematian
 
         #region Riwayat Kematian
+
+        private void ConfigureDataGridView()
+        {
+            dataGridViewSurat.Columns["Id"].HeaderText = "ID";
+            dataGridViewSurat.Columns["Nomor_Surat"].HeaderText = "Nomor Surat";
+            dataGridViewSurat.Columns["NIK_Terlapor"].HeaderText = "NIK Terlapor";
+            dataGridViewSurat.Columns["Nama_Terlapor"].HeaderText = "Nama Terlapor";
+            dataGridViewSurat.Columns["Tanggal_Kematian"].HeaderText = "Tanggal Kematian";
+            dataGridViewSurat.Columns["Penyebab_Kematian"].HeaderText = "Penyebab Kematian";
+            dataGridViewSurat.Columns["Nama_Pelapor"].HeaderText = "Nama Pelapor";
+            dataGridViewSurat.Columns["Tanggal_Terbit"].HeaderText = "Tanggal Terbit";
+            dataGridViewSurat.Columns["Nama_Petugas"].HeaderText = "Nama Petugas";
+        }
+
         private void LoadIssuedSuratHistory()
         {
-            using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+            try
             {
-                string sql = "SELECT * FROM daftar_surat_kematian ORDER BY Tanggal_Terbit DESC";
-                var result = connection.Query<DaftarSurat>(sql);
-                dataGridViewSurat.DataSource = result;
-                //dataGridViewSurat.Columns["Nama_Petugas"].HeaderText = "Nama Petugas";
-                //dataGridViewSurat.Columns["Nama_Terlapor"].HeaderText = "Nama Terlapor"; // Add this line
+                using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+                {
+                    string sql = "SELECT * FROM daftar_surat_kematian ORDER BY Tanggal_Terbit DESC";
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(sql, connection);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dataGridViewSurat.DataSource = dt;
+                    ConfigureDataGridView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -627,18 +613,29 @@ namespace AplikasiDesa
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            string filter = txtSearch.Text;
-            using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
-            {
-                string sql = @"SELECT * FROM daftar_surat_kematian 
-                               WHERE Nomor_Surat LIKE @Filter
-                               OR NIK_Terlapor LIKE @Filter
-                               OR Nama_Terlapor LIKE @Filter
-                               OR Nama_Pelapor LIKE @Filter
-                               OR Tanggal_Terbit LIKE @Filter";
+            string keyword = txtSearch.Text.Trim();
 
-                var result = connection.Query<DaftarSurat>(sql, new { Filter = "%" + filter + "%" });
-                dataGridViewSurat.DataSource = result;
+            try
+            {
+                using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+                {
+                    string sql = @"SELECT * FROM daftar_surat_kematian 
+                               WHERE Nomor_Surat LIKE @keyword
+                               OR NIK_Terlapor LIKE @keyword
+                               OR Nama_Terlapor LIKE @keyword
+                               OR Nama_Pelapor LIKE @keyword
+                               OR Tanggal_Terbit LIKE @keyword
+                               ORDER BY Tanggal_Terbit DESC";
+
+                    var result = connection.Query(sql, new { keyword = $"%{keyword}%" });
+                    dataGridViewSurat.DataSource = result.ToList();
+                    ConfigureDataGridView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error mencari data: {ex.Message}", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -750,12 +747,19 @@ namespace AplikasiDesa
             }
         }
 
-        private void FormAKM_FormClosing(object sender, FormClosingEventArgs e)
+        bool visible = false;
+
+        private void iconButton1_Click(object sender, EventArgs e)
         {
-            if (sessionTimer != null)
+            if (visible == false)
             {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
+                panel8.Visible = true;
+                visible = true;
+            }
+            else
+            {
+                panel8.Visible = false;
+                visible = false;
             }
         }
     }

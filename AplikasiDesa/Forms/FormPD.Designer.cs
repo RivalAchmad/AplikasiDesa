@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             comboBoxNomorKK = new ComboBox();
             textBoxNamaKepalaKeluarga = new TextBox();
             comboBoxAlasanPindah = new ComboBox();
@@ -72,6 +75,7 @@
             tabPage1 = new TabPage();
             panel2 = new Panel();
             panel1 = new Panel();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
             panel8 = new Panel();
             label40 = new Label();
             btnTambahData = new Button();
@@ -115,6 +119,7 @@
             // 
             // comboBoxNomorKK
             // 
+            comboBoxNomorKK.Anchor = AnchorStyles.None;
             comboBoxNomorKK.FormattingEnabled = true;
             comboBoxNomorKK.Location = new Point(147, 51);
             comboBoxNomorKK.Margin = new Padding(4);
@@ -127,6 +132,7 @@
             // 
             // textBoxNamaKepalaKeluarga
             // 
+            textBoxNamaKepalaKeluarga.Anchor = AnchorStyles.None;
             textBoxNamaKepalaKeluarga.Location = new Point(147, 91);
             textBoxNamaKepalaKeluarga.Margin = new Padding(4);
             textBoxNamaKepalaKeluarga.Name = "textBoxNamaKepalaKeluarga";
@@ -135,6 +141,7 @@
             // 
             // comboBoxAlasanPindah
             // 
+            comboBoxAlasanPindah.Anchor = AnchorStyles.None;
             comboBoxAlasanPindah.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxAlasanPindah.FormattingEnabled = true;
             comboBoxAlasanPindah.Items.AddRange(new object[] { "Pekerjaan", "Pendidikan", "Keamanan", "Kesehatan", "Perumahan", "Keluarga" });
@@ -146,6 +153,7 @@
             // 
             // comboBoxKlasifikasiPindah
             // 
+            comboBoxKlasifikasiPindah.Anchor = AnchorStyles.None;
             comboBoxKlasifikasiPindah.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxKlasifikasiPindah.FormattingEnabled = true;
             comboBoxKlasifikasiPindah.Items.AddRange(new object[] { "Dalam satu Desa/Kelurahan", "Antar Desa/Kelurahan", "Antar Kecamatan", "Antar Kab/Kota", "Antar Provinsi" });
@@ -157,6 +165,7 @@
             // 
             // comboBoxJenisKepindahan
             // 
+            comboBoxJenisKepindahan.Anchor = AnchorStyles.None;
             comboBoxJenisKepindahan.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxJenisKepindahan.FormattingEnabled = true;
             comboBoxJenisKepindahan.Items.AddRange(new object[] { "Kep. Keluarga", "Kep. Keluarga & Seluruh Angg. Keluarga", "Kep. Keluarga & Sbg. Angg. Keluarga", "Angg. Keluarga" });
@@ -168,6 +177,7 @@
             // 
             // comboBoxStatusYangPindah
             // 
+            comboBoxStatusYangPindah.Anchor = AnchorStyles.None;
             comboBoxStatusYangPindah.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxStatusYangPindah.FormattingEnabled = true;
             comboBoxStatusYangPindah.Items.AddRange(new object[] { "Numpang KK", "Membuat KK Baru", "Nama Kep. Keluarga dan Nomor Keluarga Tetap" });
@@ -179,6 +189,7 @@
             // 
             // dateTimePickerTanggalPindah
             // 
+            dateTimePickerTanggalPindah.Anchor = AnchorStyles.None;
             dateTimePickerTanggalPindah.Location = new Point(158, 587);
             dateTimePickerTanggalPindah.Margin = new Padding(4);
             dateTimePickerTanggalPindah.Name = "dateTimePickerTanggalPindah";
@@ -187,7 +198,9 @@
             // 
             // checkedListBoxAnggotaKeluarga
             // 
+            checkedListBoxAnggotaKeluarga.Anchor = AnchorStyles.None;
             checkedListBoxAnggotaKeluarga.FormattingEnabled = true;
+            checkedListBoxAnggotaKeluarga.HorizontalScrollbar = true;
             checkedListBoxAnggotaKeluarga.Location = new Point(422, 51);
             checkedListBoxAnggotaKeluarga.Margin = new Padding(4);
             checkedListBoxAnggotaKeluarga.Name = "checkedListBoxAnggotaKeluarga";
@@ -196,17 +209,23 @@
             // 
             // btnExportToExcel
             // 
-            btnExportToExcel.Location = new Point(861, 633);
+            btnExportToExcel.Anchor = AnchorStyles.None;
+            btnExportToExcel.BackColor = Color.FromArgb(72, 126, 176);
+            btnExportToExcel.FlatStyle = FlatStyle.Flat;
+            btnExportToExcel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnExportToExcel.ForeColor = Color.White;
+            btnExportToExcel.Location = new Point(681, 627);
             btnExportToExcel.Margin = new Padding(4);
             btnExportToExcel.Name = "btnExportToExcel";
             btnExportToExcel.Size = new Size(161, 54);
             btnExportToExcel.TabIndex = 9;
-            btnExportToExcel.Text = "Export to Excel";
-            btnExportToExcel.UseVisualStyleBackColor = true;
+            btnExportToExcel.Text = "CETAK EXCEL";
+            btnExportToExcel.UseVisualStyleBackColor = false;
             btnExportToExcel.Click += btnExportToExcel_Click;
             // 
             // textBoxAlamat
             // 
+            textBoxAlamat.Anchor = AnchorStyles.None;
             textBoxAlamat.Location = new Point(158, 221);
             textBoxAlamat.Margin = new Padding(2);
             textBoxAlamat.Name = "textBoxAlamat";
@@ -216,6 +235,7 @@
             // 
             // textBoxRT
             // 
+            textBoxRT.Anchor = AnchorStyles.None;
             textBoxRT.Location = new Point(158, 346);
             textBoxRT.Margin = new Padding(2);
             textBoxRT.Name = "textBoxRT";
@@ -224,6 +244,7 @@
             // 
             // textBoxRW
             // 
+            textBoxRW.Anchor = AnchorStyles.None;
             textBoxRW.Location = new Point(286, 345);
             textBoxRW.Margin = new Padding(2);
             textBoxRW.Name = "textBoxRW";
@@ -232,27 +253,32 @@
             // 
             // KEPINDAHAN
             // 
+            KEPINDAHAN.Anchor = AnchorStyles.None;
             KEPINDAHAN.AutoSize = true;
-            KEPINDAHAN.Font = new Font("Segoe UI Black", 22F, FontStyle.Bold | FontStyle.Underline);
-            KEPINDAHAN.Location = new Point(238, 5);
+            KEPINDAHAN.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            KEPINDAHAN.ForeColor = Color.White;
+            KEPINDAHAN.Location = new Point(314, 9);
             KEPINDAHAN.Margin = new Padding(2, 0, 2, 0);
             KEPINDAHAN.Name = "KEPINDAHAN";
-            KEPINDAHAN.Size = new Size(619, 50);
+            KEPINDAHAN.Size = new Size(483, 41);
             KEPINDAHAN.TabIndex = 13;
             KEPINDAHAN.Text = "FORMULIR SURAT KEPINDAHAN";
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Location = new Point(55, 42);
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(53, 43);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(85, 40);
+            label1.Size = new Size(87, 40);
             label1.TabIndex = 14;
             label1.Text = "Cari Kepala\r\nKeluarga";
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Location = new Point(23, 94);
             label2.Margin = new Padding(2, 0, 2, 0);
@@ -263,6 +289,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.Location = new Point(158, 200);
             label3.Margin = new Padding(2, 0, 2, 0);
@@ -273,6 +300,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
             label4.Location = new Point(129, 350);
             label4.Margin = new Padding(2, 0, 2, 0);
@@ -283,6 +311,7 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Location = new Point(251, 348);
             label5.Margin = new Padding(2, 0, 2, 0);
@@ -293,6 +322,7 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
             label6.Location = new Point(52, 381);
             label6.Margin = new Padding(2, 0, 2, 0);
@@ -303,6 +333,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
             label7.Location = new Point(81, 415);
             label7.Margin = new Padding(2, 0, 2, 0);
@@ -313,6 +344,7 @@
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
             label8.Location = new Point(34, 465);
             label8.Margin = new Padding(2, 0, 2, 0);
@@ -323,6 +355,7 @@
             // 
             // label9
             // 
+            label9.Anchor = AnchorStyles.None;
             label9.AutoSize = true;
             label9.Location = new Point(34, 548);
             label9.Margin = new Padding(2, 0, 2, 0);
@@ -333,6 +366,7 @@
             // 
             // label10
             // 
+            label10.Anchor = AnchorStyles.None;
             label10.AutoSize = true;
             label10.Location = new Point(81, 508);
             label10.Margin = new Padding(2, 0, 2, 0);
@@ -343,6 +377,7 @@
             // 
             // label11
             // 
+            label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
             label11.Location = new Point(42, 591);
             label11.Margin = new Padding(2, 0, 2, 0);
@@ -353,6 +388,7 @@
             // 
             // label12
             // 
+            label12.Anchor = AnchorStyles.None;
             label12.AutoSize = true;
             label12.Location = new Point(508, 348);
             label12.Margin = new Padding(2, 0, 2, 0);
@@ -363,6 +399,7 @@
             // 
             // label13
             // 
+            label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
             label13.Location = new Point(386, 350);
             label13.Margin = new Padding(2, 0, 2, 0);
@@ -373,6 +410,7 @@
             // 
             // label14
             // 
+            label14.Anchor = AnchorStyles.None;
             label14.AutoSize = true;
             label14.Location = new Point(414, 200);
             label14.Margin = new Padding(2, 0, 2, 0);
@@ -383,6 +421,7 @@
             // 
             // textRWBaru
             // 
+            textRWBaru.Anchor = AnchorStyles.None;
             textRWBaru.Location = new Point(542, 345);
             textRWBaru.Margin = new Padding(2);
             textRWBaru.Name = "textRWBaru";
@@ -391,6 +430,7 @@
             // 
             // textRTBaru
             // 
+            textRTBaru.Anchor = AnchorStyles.None;
             textRTBaru.Location = new Point(414, 346);
             textRTBaru.Margin = new Padding(2);
             textRTBaru.Name = "textRTBaru";
@@ -399,6 +439,7 @@
             // 
             // richAlamatBaru
             // 
+            richAlamatBaru.Anchor = AnchorStyles.None;
             richAlamatBaru.Location = new Point(414, 221);
             richAlamatBaru.Margin = new Padding(2);
             richAlamatBaru.Name = "richAlamatBaru";
@@ -408,6 +449,7 @@
             // 
             // label15
             // 
+            label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
             label15.Location = new Point(681, 412);
             label15.Margin = new Padding(2, 0, 2, 0);
@@ -418,6 +460,7 @@
             // 
             // label16
             // 
+            label16.Anchor = AnchorStyles.None;
             label16.AutoSize = true;
             label16.Location = new Point(681, 350);
             label16.Margin = new Padding(2, 0, 2, 0);
@@ -428,6 +471,7 @@
             // 
             // label17
             // 
+            label17.Anchor = AnchorStyles.None;
             label17.AutoSize = true;
             label17.Location = new Point(681, 285);
             label17.Margin = new Padding(2, 0, 2, 0);
@@ -438,6 +482,7 @@
             // 
             // label18
             // 
+            label18.Anchor = AnchorStyles.None;
             label18.AutoSize = true;
             label18.Location = new Point(681, 221);
             label18.Margin = new Padding(2, 0, 2, 0);
@@ -448,6 +493,7 @@
             // 
             // kodepos
             // 
+            kodepos.Anchor = AnchorStyles.None;
             kodepos.AutoSize = true;
             kodepos.Location = new Point(681, 478);
             kodepos.Margin = new Padding(2, 0, 2, 0);
@@ -458,6 +504,7 @@
             // 
             // comboBoxDesa
             // 
+            comboBoxDesa.Anchor = AnchorStyles.None;
             comboBoxDesa.Enabled = false;
             comboBoxDesa.FormattingEnabled = true;
             comboBoxDesa.Location = new Point(681, 435);
@@ -468,6 +515,7 @@
             // 
             // comboBoxKecamatan
             // 
+            comboBoxKecamatan.Anchor = AnchorStyles.None;
             comboBoxKecamatan.Enabled = false;
             comboBoxKecamatan.FormattingEnabled = true;
             comboBoxKecamatan.Location = new Point(681, 373);
@@ -478,6 +526,7 @@
             // 
             // comboBoxKota
             // 
+            comboBoxKota.Anchor = AnchorStyles.None;
             comboBoxKota.Enabled = false;
             comboBoxKota.FormattingEnabled = true;
             comboBoxKota.Location = new Point(681, 308);
@@ -488,6 +537,7 @@
             // 
             // comboBoxProv
             // 
+            comboBoxProv.Anchor = AnchorStyles.None;
             comboBoxProv.FormattingEnabled = true;
             comboBoxProv.Location = new Point(681, 244);
             comboBoxProv.Name = "comboBoxProv";
@@ -497,6 +547,7 @@
             // 
             // comboBoxKodePos
             // 
+            comboBoxKodePos.Anchor = AnchorStyles.None;
             comboBoxKodePos.Enabled = false;
             comboBoxKodePos.FormattingEnabled = true;
             comboBoxKodePos.Location = new Point(681, 501);
@@ -506,12 +557,14 @@
             // 
             // tabControl1
             // 
+            tabControl1.Appearance = TabAppearance.FlatButtons;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(0, 0);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(7, 7);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1117, 825);
+            tabControl1.Size = new Size(1103, 811);
             tabControl1.TabIndex = 46;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
@@ -519,26 +572,29 @@
             // 
             tabPage1.Controls.Add(panel2);
             tabPage1.Controls.Add(panel1);
-            tabPage1.Location = new Point(4, 29);
+            tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1109, 792);
+            tabPage1.Size = new Size(1095, 775);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Formulir";
+            tabPage1.Text = "📝 Formulir";
             tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            panel2.BackColor = Color.LightGray;
+            panel2.BackColor = Color.FromArgb(75, 80, 105);
             panel2.Controls.Add(KEPINDAHAN);
-            panel2.Location = new Point(6, 6);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1096, 60);
+            panel2.Size = new Size(1089, 60);
             panel2.TabIndex = 46;
             // 
             // panel1
             // 
-            panel1.BackColor = Color.LightGray;
+            panel1.Anchor = AnchorStyles.None;
+            panel1.BackColor = Color.WhiteSmoke;
+            panel1.Controls.Add(iconButton1);
             panel1.Controls.Add(panel8);
             panel1.Controls.Add(label23);
             panel1.Controls.Add(txtPetugas);
@@ -589,24 +645,40 @@
             panel1.Controls.Add(label13);
             panel1.Location = new Point(6, 72);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1096, 714);
+            panel1.Size = new Size(1083, 697);
             panel1.TabIndex = 47;
+            // 
+            // iconButton1
+            // 
+            iconButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            iconButton1.BackColor = Color.WhiteSmoke;
+            iconButton1.FlatStyle = FlatStyle.Flat;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+            iconButton1.IconColor = Color.Black;
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.Location = new Point(1028, 642);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(55, 55);
+            iconButton1.TabIndex = 200;
+            iconButton1.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click;
             // 
             // panel8
             // 
-            panel8.BackColor = Color.LightGray;
+            panel8.BackColor = SystemColors.Control;
             panel8.Controls.Add(label40);
             panel8.Controls.Add(btnTambahData);
-            panel8.Location = new Point(414, 591);
+            panel8.Location = new Point(823, 573);
             panel8.Name = "panel8";
-            panel8.Size = new Size(226, 120);
+            panel8.Size = new Size(260, 124);
             panel8.TabIndex = 197;
+            panel8.Visible = false;
             // 
             // label40
             // 
             label40.AutoSize = true;
             label40.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label40.Location = new Point(2, 7);
+            label40.Location = new Point(4, 5);
             label40.Name = "label40";
             label40.Size = new Size(221, 60);
             label40.TabIndex = 49;
@@ -614,11 +686,13 @@
             // 
             // btnTambahData
             // 
-            btnTambahData.BackColor = SystemColors.ButtonFace;
-            btnTambahData.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnTambahData.Location = new Point(23, 70);
+            btnTambahData.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnTambahData.BackColor = SystemColors.ActiveCaption;
+            btnTambahData.FlatStyle = FlatStyle.Flat;
+            btnTambahData.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTambahData.Location = new Point(7, 69);
             btnTambahData.Name = "btnTambahData";
-            btnTambahData.Size = new Size(180, 43);
+            btnTambahData.Size = new Size(194, 43);
             btnTambahData.TabIndex = 47;
             btnTambahData.Text = "Tambah Data Penduduk";
             btnTambahData.UseVisualStyleBackColor = false;
@@ -626,6 +700,7 @@
             // 
             // label23
             // 
+            label23.Anchor = AnchorStyles.None;
             label23.AutoSize = true;
             label23.Location = new Point(422, 27);
             label23.Margin = new Padding(2, 0, 2, 0);
@@ -636,6 +711,7 @@
             // 
             // txtPetugas
             // 
+            txtPetugas.Anchor = AnchorStyles.None;
             txtPetugas.Location = new Point(757, 583);
             txtPetugas.Margin = new Padding(4);
             txtPetugas.Name = "txtPetugas";
@@ -644,6 +720,7 @@
             // 
             // label21
             // 
+            label21.Anchor = AnchorStyles.None;
             label21.AutoSize = true;
             label21.Location = new Point(681, 586);
             label21.Margin = new Padding(2, 0, 2, 0);
@@ -654,6 +731,7 @@
             // 
             // txtNoSurat
             // 
+            txtNoSurat.Anchor = AnchorStyles.None;
             txtNoSurat.Location = new Point(757, 548);
             txtNoSurat.Margin = new Padding(4);
             txtNoSurat.Name = "txtNoSurat";
@@ -662,6 +740,7 @@
             // 
             // label20
             // 
+            label20.Anchor = AnchorStyles.None;
             label20.AutoSize = true;
             label20.Location = new Point(681, 551);
             label20.Margin = new Padding(2, 0, 2, 0);
@@ -672,6 +751,7 @@
             // 
             // txtNoKK
             // 
+            txtNoKK.Anchor = AnchorStyles.None;
             txtNoKK.Location = new Point(147, 126);
             txtNoKK.Margin = new Padding(4);
             txtNoKK.Name = "txtNoKK";
@@ -680,6 +760,7 @@
             // 
             // label19
             // 
+            label19.Anchor = AnchorStyles.None;
             label19.AutoSize = true;
             label19.Location = new Point(86, 129);
             label19.Margin = new Padding(2, 0, 2, 0);
@@ -690,6 +771,7 @@
             // 
             // comboBoxStatusKK
             // 
+            comboBoxStatusKK.Anchor = AnchorStyles.None;
             comboBoxStatusKK.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxStatusKK.FormattingEnabled = true;
             comboBoxStatusKK.Items.AddRange(new object[] { "Numpang KK", "Membuat KK Baru", "Tidak ada anggota keluarga yang tinggal", "Nomor KK Tetap" });
@@ -704,17 +786,18 @@
             tabPage2.Controls.Add(panel6);
             tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(panel4);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1109, 792);
+            tabPage2.Size = new Size(1095, 775);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "Riwayat";
+            tabPage2.Text = "📜 Riwayat";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel6
             // 
-            panel6.BackColor = Color.LightGray;
+            panel6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel6.BackColor = Color.WhiteSmoke;
             panel6.Controls.Add(lblPerBulanKategori);
             panel6.Controls.Add(lblTotalTahunKategori);
             panel6.Controls.Add(label24);
@@ -723,16 +806,17 @@
             panel6.Controls.Add(label39);
             panel6.Controls.Add(label41);
             panel6.Controls.Add(label42);
-            panel6.Location = new Point(8, 576);
+            panel6.Location = new Point(15, 588);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1093, 210);
+            panel6.Size = new Size(1066, 171);
             panel6.TabIndex = 131;
             // 
             // lblPerBulanKategori
             // 
+            lblPerBulanKategori.Anchor = AnchorStyles.None;
             lblPerBulanKategori.AutoSize = true;
             lblPerBulanKategori.Font = new Font("Segoe UI", 10.2F);
-            lblPerBulanKategori.Location = new Point(374, 103);
+            lblPerBulanKategori.Location = new Point(393, 96);
             lblPerBulanKategori.Name = "lblPerBulanKategori";
             lblPerBulanKategori.Size = new Size(502, 23);
             lblPerBulanKategori.TabIndex = 26;
@@ -740,9 +824,10 @@
             // 
             // lblTotalTahunKategori
             // 
+            lblTotalTahunKategori.Anchor = AnchorStyles.None;
             lblTotalTahunKategori.AutoSize = true;
             lblTotalTahunKategori.Font = new Font("Segoe UI", 10.2F);
-            lblTotalTahunKategori.Location = new Point(374, 137);
+            lblTotalTahunKategori.Location = new Point(393, 130);
             lblTotalTahunKategori.Name = "lblTotalTahunKategori";
             lblTotalTahunKategori.Size = new Size(505, 23);
             lblTotalTahunKategori.TabIndex = 27;
@@ -750,9 +835,10 @@
             // 
             // label24
             // 
+            label24.Anchor = AnchorStyles.None;
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label24.Location = new Point(20, 63);
+            label24.Location = new Point(39, 56);
             label24.Name = "label24";
             label24.Size = new Size(104, 28);
             label24.TabIndex = 23;
@@ -760,10 +846,11 @@
             // 
             // comboBoxTahun
             // 
+            comboBoxTahun.Anchor = AnchorStyles.None;
             comboBoxTahun.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTahun.FormattingEnabled = true;
             comboBoxTahun.Items.AddRange(new object[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" });
-            comboBoxTahun.Location = new Point(132, 137);
+            comboBoxTahun.Location = new Point(151, 130);
             comboBoxTahun.Name = "comboBoxTahun";
             comboBoxTahun.Size = new Size(189, 28);
             comboBoxTahun.TabIndex = 22;
@@ -771,10 +858,11 @@
             // 
             // comboBoxBulan
             // 
+            comboBoxBulan.Anchor = AnchorStyles.None;
             comboBoxBulan.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxBulan.FormattingEnabled = true;
             comboBoxBulan.Items.AddRange(new object[] { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" });
-            comboBoxBulan.Location = new Point(132, 102);
+            comboBoxBulan.Location = new Point(151, 95);
             comboBoxBulan.Name = "comboBoxBulan";
             comboBoxBulan.Size = new Size(189, 28);
             comboBoxBulan.TabIndex = 18;
@@ -782,9 +870,10 @@
             // 
             // label39
             // 
+            label39.Anchor = AnchorStyles.None;
             label39.AutoSize = true;
             label39.Font = new Font("Segoe UI", 10.2F);
-            label39.Location = new Point(27, 137);
+            label39.Location = new Point(46, 130);
             label39.Name = "label39";
             label39.Size = new Size(56, 23);
             label39.TabIndex = 21;
@@ -792,9 +881,10 @@
             // 
             // label41
             // 
+            label41.Anchor = AnchorStyles.None;
             label41.AutoSize = true;
             label41.Font = new Font("Segoe UI", 10.2F);
-            label41.Location = new Point(27, 103);
+            label41.Location = new Point(46, 96);
             label41.Name = "label41";
             label41.Size = new Size(53, 23);
             label41.TabIndex = 20;
@@ -802,9 +892,10 @@
             // 
             // label42
             // 
+            label42.Anchor = AnchorStyles.None;
             label42.AutoSize = true;
             label42.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            label42.Location = new Point(256, 11);
+            label42.Location = new Point(264, 12);
             label42.Name = "label42";
             label42.Size = new Size(581, 32);
             label42.TabIndex = 6;
@@ -812,45 +903,54 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.LightGray;
+            panel3.BackColor = Color.FromArgb(75, 80, 105);
             panel3.Controls.Add(lblRiwayat);
-            panel3.Location = new Point(6, 6);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1097, 60);
+            panel3.Size = new Size(1089, 60);
             panel3.TabIndex = 47;
             // 
             // lblRiwayat
             // 
+            lblRiwayat.Anchor = AnchorStyles.None;
             lblRiwayat.AutoSize = true;
-            lblRiwayat.Font = new Font("Segoe UI Black", 22F, FontStyle.Bold);
-            lblRiwayat.Location = new Point(383, 5);
+            lblRiwayat.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRiwayat.ForeColor = Color.White;
+            lblRiwayat.Location = new Point(339, 9);
             lblRiwayat.Margin = new Padding(2, 0, 2, 0);
             lblRiwayat.Name = "lblRiwayat";
-            lblRiwayat.Size = new Size(453, 50);
+            lblRiwayat.Size = new Size(459, 41);
             lblRiwayat.TabIndex = 14;
-            lblRiwayat.Text = "Riwayat Pindah/Datang";
+            lblRiwayat.Text = "RIWAYAT SURAT KEPINDAHAN";
             // 
             // panel4
             // 
-            panel4.BackColor = Color.LightGray;
+            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel4.BackColor = Color.WhiteSmoke;
             panel4.Controls.Add(btnDelete);
             panel4.Controls.Add(label22);
             panel4.Controls.Add(dataGridView1);
             panel4.Controls.Add(label29);
             panel4.Controls.Add(txtNomorSurat);
-            panel4.Location = new Point(8, 72);
+            panel4.Location = new Point(15, 79);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1095, 498);
+            panel4.Size = new Size(1066, 491);
             panel4.TabIndex = 48;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(28, 442);
+            btnDelete.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnDelete.BackColor = Color.FromArgb(198, 67, 72);
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(28, 419);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(124, 36);
+            btnDelete.Size = new Size(149, 45);
             btnDelete.TabIndex = 19;
             btnDelete.Text = "Hapus Riwayat";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // label22
@@ -866,15 +966,48 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(247, 248, 250);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(158, 163, 181);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(75, 80, 105);
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.BackgroundColor = Color.FromArgb(235, 237, 241);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(75, 80, 105);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(10, 8, 10, 8);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(52, 56, 73);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle3.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(158, 163, 181);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(75, 80, 105);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.GridColor = Color.FromArgb(158, 163, 181);
             dataGridView1.Location = new Point(28, 88);
             dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 82;
-            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.RowTemplate.Height = 35;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1039, 347);
+            dataGridView1.Size = new Size(1011, 324);
             dataGridView1.TabIndex = 3;
             // 
             // label29
@@ -893,6 +1026,7 @@
             txtNomorSurat.Location = new Point(28, 50);
             txtNomorSurat.Margin = new Padding(4);
             txtNomorSurat.Name = "txtNomorSurat";
+            txtNomorSurat.PlaceholderText = "🔎";
             txtNomorSurat.Size = new Size(526, 27);
             txtNomorSurat.TabIndex = 4;
             txtNomorSurat.TextChanged += txtNomorSurat_TextChanged;
@@ -905,8 +1039,8 @@
             Controls.Add(tabControl1);
             Margin = new Padding(4);
             Name = "FormPD";
-            Text = "Form1";
-            FormClosing += FormPD_FormClosing;
+            Padding = new Padding(7);
+            Text = "Pengajuan Surat Keterangan Kepindahan";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -1001,5 +1135,6 @@
         private Panel panel8;
         private Label label40;
         private Button btnTambahData;
+        private FontAwesome.Sharp.IconButton iconButton1;
     }
 }

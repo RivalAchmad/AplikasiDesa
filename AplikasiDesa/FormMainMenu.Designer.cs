@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             panelMenu = new Panel();
             BtnStat = new FontAwesome.Sharp.IconButton();
             btnDP = new FontAwesome.Sharp.IconButton();
@@ -46,6 +47,10 @@
             iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             panelShadow = new Panel();
             panelDesktop = new Panel();
+            label3 = new Label();
+            label2 = new Label();
+            pictureBox3 = new PictureBox();
+            label1 = new Label();
             pictureBox2 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             dropdownContainer = new FlowLayoutPanel();
@@ -66,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconCurrentChildForm).BeginInit();
             panelDesktop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             dropdownContainer.SuspendLayout();
             panel1.SuspendLayout();
@@ -344,7 +350,12 @@
             // 
             // panelDesktop
             // 
+            panelDesktop.AutoScroll = true;
             panelDesktop.BackColor = Color.FromArgb(36, 32, 175);
+            panelDesktop.Controls.Add(label3);
+            panelDesktop.Controls.Add(label2);
+            panelDesktop.Controls.Add(pictureBox3);
+            panelDesktop.Controls.Add(label1);
             panelDesktop.Controls.Add(pictureBox2);
             panelDesktop.Dock = DockStyle.Fill;
             panelDesktop.Location = new Point(220, 84);
@@ -352,11 +363,56 @@
             panelDesktop.Size = new Size(962, 552);
             panelDesktop.TabIndex = 3;
             // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label3.AutoSize = true;
+            label3.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(82, 509);
+            label3.Name = "label3";
+            label3.Size = new Size(240, 19);
+            label3.TabIndex = 5;
+            label3.Text = "Politeknik Siber dan Sandi Negara";
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.Font = new Font("Times New Roman", 10.2F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            label2.Location = new Point(82, 490);
+            label2.Name = "label2";
+            label2.Size = new Size(299, 19);
+            label2.TabIndex = 4;
+            label2.Text = "Dikembangkan oleh: Rival Achmad Firdaus";
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(6, 476);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(70, 64);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 3;
+            pictureBox3.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(202, 83);
+            label1.Name = "label1";
+            label1.Size = new Size(576, 35);
+            label1.TabIndex = 2;
+            label1.Text = "APLIKASI MANAJEMEN PERSURATAN";
+            // 
             // pictureBox2
             // 
-            pictureBox2.Anchor = AnchorStyles.None;
+            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox2.Image = Properties.Resources.Desa_Cibeuteung_Muara;
-            pictureBox2.Location = new Point(246, 109);
+            pictureBox2.Location = new Point(246, 121);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(481, 281);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -549,12 +605,14 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             ClientSize = new Size(1182, 636);
             Controls.Add(dropdownContainer);
             Controls.Add(panelDesktop);
             Controls.Add(panelShadow);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormMainMenu";
             Text = "Menu Utama";
             FormClosing += FormMainMenu_FormClosing;
@@ -566,6 +624,8 @@
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconCurrentChildForm).EndInit();
             panelDesktop.ResumeLayout(false);
+            panelDesktop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             dropdownContainer.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -608,5 +668,9 @@
         private FontAwesome.Sharp.IconButton btnLogout;
         private Panel panel5;
         private FontAwesome.Sharp.IconButton btnmngUser;
+        private Label label1;
+        private PictureBox pictureBox3;
+        private Label label3;
+        private Label label2;
     }
 }

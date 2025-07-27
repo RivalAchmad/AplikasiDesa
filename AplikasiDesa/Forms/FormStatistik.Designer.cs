@@ -120,6 +120,8 @@
             chartKelainanFisik = new System.Windows.Forms.DataVisualization.Charting.Chart();
             chartDisabilitas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             lblKesehatanTitle = new Label();
+            panel2 = new Panel();
+            label18 = new Label();
             tabControl.SuspendLayout();
             tabDemografiDasar.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -147,18 +149,20 @@
             ((System.ComponentModel.ISupportInitialize)chartGolonganDarah).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chartKelainanFisik).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chartDisabilitas).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl
             // 
-            tabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl.Appearance = TabAppearance.FlatButtons;
             tabControl.Controls.Add(tabDemografiDasar);
             tabControl.Controls.Add(tabPersebaranGeografis);
             tabControl.Controls.Add(tabPendidikanPekerjaan);
             tabControl.Controls.Add(tabAgamaPerkawinan);
             tabControl.Controls.Add(tabKesehatan);
             tabControl.Font = new Font("Segoe UI", 10F);
-            tabControl.Location = new Point(0, 58);
+            tabControl.Location = new Point(0, 69);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
             tabControl.Size = new Size(1047, 591);
@@ -170,12 +174,12 @@
             tabDemografiDasar.Controls.Add(tableLayoutPanel3);
             tabDemografiDasar.Controls.Add(panelSummary);
             tabDemografiDasar.Controls.Add(lblDemografiTitle);
-            tabDemografiDasar.Location = new Point(4, 32);
+            tabDemografiDasar.Location = new Point(4, 35);
             tabDemografiDasar.Name = "tabDemografiDasar";
             tabDemografiDasar.Padding = new Padding(3);
-            tabDemografiDasar.Size = new Size(1039, 555);
+            tabDemografiDasar.Size = new Size(1039, 552);
             tabDemografiDasar.TabIndex = 0;
-            tabDemografiDasar.Text = "Demografi Dasar";
+            tabDemografiDasar.Text = "👩🏼‍👨🏼‍👶🏼‍👦🏼 Demografi Dasar";
             // 
             // tableLayoutPanel3
             // 
@@ -189,7 +193,7 @@
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(1003, 375);
+            tableLayoutPanel3.Size = new Size(1003, 372);
             tableLayoutPanel3.TabIndex = 4;
             // 
             // chartJenisKelamin
@@ -208,7 +212,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             chartJenisKelamin.Series.Add(series1);
-            chartJenisKelamin.Size = new Size(495, 369);
+            chartJenisKelamin.Size = new Size(495, 366);
             chartJenisKelamin.TabIndex = 2;
             chartJenisKelamin.Text = "Rasio Jenis Kelamin";
             title1.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -232,7 +236,7 @@
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             chartUsiaDistribusi.Series.Add(series2);
-            chartUsiaDistribusi.Size = new Size(496, 369);
+            chartUsiaDistribusi.Size = new Size(496, 366);
             chartUsiaDistribusi.TabIndex = 1;
             chartUsiaDistribusi.Text = "Distribusi Usia";
             title2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -350,12 +354,12 @@
             tabPersebaranGeografis.BackColor = Color.WhiteSmoke;
             tabPersebaranGeografis.Controls.Add(tableLayoutPanel4);
             tabPersebaranGeografis.Controls.Add(lblPersebaranTitle);
-            tabPersebaranGeografis.Location = new Point(4, 32);
+            tabPersebaranGeografis.Location = new Point(4, 35);
             tabPersebaranGeografis.Name = "tabPersebaranGeografis";
             tabPersebaranGeografis.Padding = new Padding(3);
-            tabPersebaranGeografis.Size = new Size(1039, 555);
+            tabPersebaranGeografis.Size = new Size(1039, 552);
             tabPersebaranGeografis.TabIndex = 1;
-            tabPersebaranGeografis.Text = "Persebaran Geografis";
+            tabPersebaranGeografis.Text = "🗺️ Persebaran Geografis";
             // 
             // tableLayoutPanel4
             // 
@@ -366,12 +370,12 @@
             tableLayoutPanel4.Controls.Add(chartDusunDistribusi, 0, 0);
             tableLayoutPanel4.Controls.Add(panel1, 1, 1);
             tableLayoutPanel4.Controls.Add(panel6, 1, 0);
-            tableLayoutPanel4.Location = new Point(20, 75);
+            tableLayoutPanel4.Location = new Point(20, 64);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 2;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Size = new Size(998, 460);
+            tableLayoutPanel4.Size = new Size(998, 457);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // chartDusunDistribusi
@@ -385,13 +389,14 @@
             chartDusunDistribusi.Legends.Add(legend3);
             chartDusunDistribusi.Location = new Point(3, 3);
             chartDusunDistribusi.Name = "chartDusunDistribusi";
+            chartDusunDistribusi.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
             tableLayoutPanel4.SetRowSpan(chartDusunDistribusi, 2);
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series3.Legend = "Legend1";
             series3.Name = "Series1";
             chartDusunDistribusi.Series.Add(series3);
-            chartDusunDistribusi.Size = new Size(493, 454);
+            chartDusunDistribusi.Size = new Size(493, 451);
             chartDusunDistribusi.TabIndex = 2;
             chartDusunDistribusi.Text = "Distribusi Penduduk per Dusun";
             title3.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -411,9 +416,9 @@
             panel1.Controls.Add(label5);
             panel1.Controls.Add(label6);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(502, 233);
+            panel1.Location = new Point(502, 231);
             panel1.Name = "panel1";
-            panel1.Size = new Size(493, 224);
+            panel1.Size = new Size(493, 223);
             panel1.TabIndex = 132;
             // 
             // lblBulan
@@ -513,7 +518,7 @@
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(502, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(493, 224);
+            panel6.Size = new Size(493, 222);
             panel6.TabIndex = 131;
             // 
             // lblRT
@@ -615,11 +620,11 @@
             tabPendidikanPekerjaan.BackColor = Color.WhiteSmoke;
             tabPendidikanPekerjaan.Controls.Add(lblPendidikanPekerjaanTitle);
             tabPendidikanPekerjaan.Controls.Add(tableLayoutPanel5);
-            tabPendidikanPekerjaan.Location = new Point(4, 32);
+            tabPendidikanPekerjaan.Location = new Point(4, 35);
             tabPendidikanPekerjaan.Name = "tabPendidikanPekerjaan";
-            tabPendidikanPekerjaan.Size = new Size(1039, 555);
+            tabPendidikanPekerjaan.Size = new Size(1039, 552);
             tabPendidikanPekerjaan.TabIndex = 2;
-            tabPendidikanPekerjaan.Text = "Pendidikan & Pekerjaan";
+            tabPendidikanPekerjaan.Text = "🏛️ Pendidikan & Pekerjaan";
             // 
             // lblPendidikanPekerjaanTitle
             // 
@@ -640,11 +645,11 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel5.Controls.Add(chartPekerjaan, 1, 0);
             tableLayoutPanel5.Controls.Add(chartPendidikan, 0, 0);
-            tableLayoutPanel5.Location = new Point(18, 66);
+            tableLayoutPanel5.Location = new Point(18, 56);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new Size(1005, 473);
+            tableLayoutPanel5.Size = new Size(1005, 470);
             tableLayoutPanel5.TabIndex = 3;
             // 
             // chartPekerjaan
@@ -658,12 +663,13 @@
             chartPekerjaan.Legends.Add(legend4);
             chartPekerjaan.Location = new Point(505, 3);
             chartPekerjaan.Name = "chartPekerjaan";
+            chartPekerjaan.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series4.Legend = "Legend1";
             series4.Name = "Series1";
             chartPekerjaan.Series.Add(series4);
-            chartPekerjaan.Size = new Size(497, 467);
+            chartPekerjaan.Size = new Size(497, 464);
             chartPekerjaan.TabIndex = 1;
             chartPekerjaan.Text = "Jenis Pekerjaan";
             title4.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -682,12 +688,13 @@
             chartPendidikan.Legends.Add(legend5);
             chartPendidikan.Location = new Point(3, 3);
             chartPendidikan.Name = "chartPendidikan";
+            chartPendidikan.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series5.ChartArea = "ChartArea1";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series5.Legend = "Legend1";
             series5.Name = "Series1";
             chartPendidikan.Series.Add(series5);
-            chartPendidikan.Size = new Size(496, 467);
+            chartPendidikan.Size = new Size(496, 464);
             chartPendidikan.TabIndex = 2;
             chartPendidikan.Text = "Tingkat Pendidikan";
             title5.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -700,11 +707,11 @@
             tabAgamaPerkawinan.BackColor = Color.WhiteSmoke;
             tabAgamaPerkawinan.Controls.Add(lblAgamaPerkawinanTitle);
             tabAgamaPerkawinan.Controls.Add(tableLayoutPanel6);
-            tabAgamaPerkawinan.Location = new Point(4, 32);
+            tabAgamaPerkawinan.Location = new Point(4, 35);
             tabAgamaPerkawinan.Name = "tabAgamaPerkawinan";
-            tabAgamaPerkawinan.Size = new Size(1039, 555);
+            tabAgamaPerkawinan.Size = new Size(1039, 552);
             tabAgamaPerkawinan.TabIndex = 3;
-            tabAgamaPerkawinan.Text = "Agama & Status Perkawinan";
+            tabAgamaPerkawinan.Text = "💒 Agama & Status Perkawinan";
             // 
             // lblAgamaPerkawinanTitle
             // 
@@ -725,11 +732,11 @@
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel6.Controls.Add(chartPerkawinan, 1, 0);
             tableLayoutPanel6.Controls.Add(chartAgama, 0, 0);
-            tableLayoutPanel6.Location = new Point(18, 66);
+            tableLayoutPanel6.Location = new Point(18, 56);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel6.Size = new Size(1005, 473);
+            tableLayoutPanel6.Size = new Size(1005, 470);
             tableLayoutPanel6.TabIndex = 3;
             // 
             // chartPerkawinan
@@ -743,12 +750,13 @@
             chartPerkawinan.Legends.Add(legend6);
             chartPerkawinan.Location = new Point(505, 3);
             chartPerkawinan.Name = "chartPerkawinan";
+            chartPerkawinan.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series6.ChartArea = "ChartArea1";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series6.Legend = "Legend1";
             series6.Name = "Series1";
             chartPerkawinan.Series.Add(series6);
-            chartPerkawinan.Size = new Size(497, 467);
+            chartPerkawinan.Size = new Size(497, 464);
             chartPerkawinan.TabIndex = 1;
             chartPerkawinan.Text = "Status Perkawinan";
             title6.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -767,12 +775,13 @@
             chartAgama.Legends.Add(legend7);
             chartAgama.Location = new Point(3, 3);
             chartAgama.Name = "chartAgama";
+            chartAgama.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series7.ChartArea = "ChartArea1";
             series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series7.Legend = "Legend1";
             series7.Name = "Series1";
             chartAgama.Series.Add(series7);
-            chartAgama.Size = new Size(496, 467);
+            chartAgama.Size = new Size(496, 464);
             chartAgama.TabIndex = 2;
             chartAgama.Text = "Distribusi Agama";
             title7.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -785,11 +794,11 @@
             tabKesehatan.BackColor = Color.WhiteSmoke;
             tabKesehatan.Controls.Add(tableLayoutPanel2);
             tabKesehatan.Controls.Add(lblKesehatanTitle);
-            tabKesehatan.Location = new Point(4, 32);
+            tabKesehatan.Location = new Point(4, 35);
             tabKesehatan.Name = "tabKesehatan";
-            tabKesehatan.Size = new Size(1039, 555);
+            tabKesehatan.Size = new Size(1039, 552);
             tabKesehatan.TabIndex = 4;
-            tabKesehatan.Text = "Kesehatan";
+            tabKesehatan.Text = "🏥 Kesehatan";
             // 
             // tableLayoutPanel2
             // 
@@ -805,7 +814,7 @@
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(1005, 491);
+            tableLayoutPanel2.Size = new Size(1005, 488);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // chartGolonganDarah
@@ -819,12 +828,13 @@
             chartGolonganDarah.Legends.Add(legend8);
             chartGolonganDarah.Location = new Point(3, 3);
             chartGolonganDarah.Name = "chartGolonganDarah";
+            chartGolonganDarah.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
             series8.ChartArea = "ChartArea1";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series8.Legend = "Legend1";
             series8.Name = "Series1";
             chartGolonganDarah.Series.Add(series8);
-            chartGolonganDarah.Size = new Size(496, 239);
+            chartGolonganDarah.Size = new Size(496, 238);
             chartGolonganDarah.TabIndex = 0;
             chartGolonganDarah.Text = "Distribusi Golongan Darah";
             title8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
@@ -843,12 +853,13 @@
             chartKelainanFisik.Legends.Add(legend9);
             chartKelainanFisik.Location = new Point(505, 3);
             chartKelainanFisik.Name = "chartKelainanFisik";
+            chartKelainanFisik.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series9.Legend = "Legend1";
             series9.Name = "Series1";
             chartKelainanFisik.Series.Add(series9);
-            chartKelainanFisik.Size = new Size(497, 239);
+            chartKelainanFisik.Size = new Size(497, 238);
             chartKelainanFisik.TabIndex = 1;
             chartKelainanFisik.Text = "Persentase Penduduk dengan Kelainan Fisik/Mental";
             title9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
@@ -866,14 +877,15 @@
             chartDisabilitas.Dock = DockStyle.Fill;
             legend10.Name = "Legend1";
             chartDisabilitas.Legends.Add(legend10);
-            chartDisabilitas.Location = new Point(3, 248);
+            chartDisabilitas.Location = new Point(3, 247);
             chartDisabilitas.Name = "chartDisabilitas";
+            chartDisabilitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
             series10.ChartArea = "ChartArea1";
             series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series10.Legend = "Legend1";
             series10.Name = "Series1";
             chartDisabilitas.Series.Add(series10);
-            chartDisabilitas.Size = new Size(999, 240);
+            chartDisabilitas.Size = new Size(999, 238);
             chartDisabilitas.TabIndex = 2;
             chartDisabilitas.Text = "Jenis Disabilitas";
             title10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
@@ -892,16 +904,37 @@
             lblKesehatanTitle.Text = "Data Kesehatan Penduduk";
             lblKesehatanTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(255, 204, 188);
+            panel2.Controls.Add(label18);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1047, 67);
+            panel2.TabIndex = 30;
+            // 
+            // label18
+            // 
+            label18.Anchor = AnchorStyles.None;
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.Location = new Point(323, 12);
+            label18.Name = "label18";
+            label18.Size = new Size(415, 41);
+            label18.TabIndex = 23;
+            label18.Text = "STATISTIK KEPENDUDUKAN";
+            // 
             // FormStatistik
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1047, 650);
+            ClientSize = new Size(1047, 661);
+            Controls.Add(panel2);
             Controls.Add(tabControl);
             Name = "FormStatistik";
             Text = "Statistik Penduduk Desa";
-            FormClosing += FormStatistik_FormClosing;
             Load += FormStatistik_Load;
             tabControl.ResumeLayout(false);
             tabDemografiDasar.ResumeLayout(false);
@@ -932,6 +965,8 @@
             ((System.ComponentModel.ISupportInitialize)chartGolonganDarah).EndInit();
             ((System.ComponentModel.ISupportInitialize)chartKelainanFisik).EndInit();
             ((System.ComponentModel.ISupportInitialize)chartDisabilitas).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -989,5 +1024,7 @@
         private TableLayoutPanel tableLayoutPanel4;
         private TableLayoutPanel tableLayoutPanel5;
         private TableLayoutPanel tableLayoutPanel6;
+        private Panel panel2;
+        private Label label18;
     }
 }

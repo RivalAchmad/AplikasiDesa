@@ -16,12 +16,10 @@ namespace AplikasiDesa.Forms
     public partial class FormDomisili : Form
     {
         private Timer typingTimer;
-        private Timer sessionTimer;
 
         public FormDomisili()
         {
             InitializeComponent();
-            VerifySession();
             typingTimer = new Timer();
             typingTimer.Interval = 300;
             typingTimer.Tick += TypeTimerTick;
@@ -29,45 +27,8 @@ namespace AplikasiDesa.Forms
             CultureInfo culture = new CultureInfo("id-ID");
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
-            sessionTimer = new Timer();
-            sessionTimer.Interval = 600000; // Periksa setiap 10 menit
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
             LoadSKD();
             LoadStatistikSKD();
-        }
-
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                Session1.ClearSession();
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -450,6 +411,14 @@ namespace AplikasiDesa.Forms
         #endregion Formulir
 
         #region Riwayat
+        private void ConfigureDataGridView()
+        {
+            dataGridView1.Columns["Id"].HeaderText = "ID";
+            dataGridView1.Columns["No_Surat"].HeaderText = "Nomor Surat";
+            dataGridView1.Columns["Tanggal_Terbit"].HeaderText = "Tanggal Terbit";
+            dataGridView1.Columns["Nama_Pemohon"].HeaderText = "Nama Pemohon";
+        }
+
         private void LoadSKD()
         {
             using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
@@ -461,6 +430,7 @@ namespace AplikasiDesa.Forms
                 adapter.Fill(dt);
 
                 dataGridView1.DataSource = dt;
+                ConfigureDataGridView();
             }
         }
 
@@ -484,6 +454,7 @@ namespace AplikasiDesa.Forms
                 adapter.Fill(dt);
 
                 dataGridView1.DataSource = dt;
+                ConfigureDataGridView();
             }
         }
 
@@ -586,12 +557,19 @@ namespace AplikasiDesa.Forms
         }
         #endregion Riwayat
 
-        private void FormDomisili_FormClosing(object sender, FormClosingEventArgs e)
+        bool visible = false;
+
+        private void iconButton1_Click(object sender, EventArgs e)
         {
-            if (sessionTimer != null)
+            if (visible == false)
             {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
+                panel8.Visible = true;
+                visible = true;
+            }
+            else
+            {
+                panel8.Visible = false;
+                visible = false;
             }
         }
     }

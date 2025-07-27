@@ -8,7 +8,6 @@ namespace AplikasiDesa.Forms
 {
     public partial class FormManageUsers : Form
     {
-        private int _selectedUserId = 0;
         private string _currentUsername = string.Empty;
         private System.Windows.Forms.Timer sessionTimer;
 
@@ -31,27 +30,11 @@ namespace AplikasiDesa.Forms
         {
             if (!Session1.IsSessionValid())
             {
-                Session1.ClearSession();
                 MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
                               "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
+                Session1.ClearSession();
+                this.Close();
+                Application.Restart();
             }
         }
 

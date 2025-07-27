@@ -26,6 +26,10 @@ namespace AplikasiDesa
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
             panelMenu.Controls.Add(leftBorderBtn);
+            if (currentChildForm != null)
+            {
+                this.MinimumSize = currentChildForm.MinimumSize;
+            }
 
             string loggedInUser = Session1.LoggedInUser;
             string loggedInUserName = Session1.LoggedInUserName;
@@ -37,27 +41,11 @@ namespace AplikasiDesa
         {
             if (!Session1.IsSessionValid())
             {
-                Session1.ClearSession();
                 MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
                               "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
+                Session1.ClearSession();
+                this.Close();
+                Application.Restart();
             }
         }
 
@@ -68,13 +56,15 @@ namespace AplikasiDesa
 
         private struct RGBColors
         {
-            public static Color color1 = Color.FromArgb(172, 126, 241);
-            public static Color color2 = Color.FromArgb(249, 118, 176);
-            public static Color color3 = Color.FromArgb(253, 138, 114);
-            public static Color color4 = Color.FromArgb(95, 77, 221);
-            public static Color color5 = Color.FromArgb(249, 88, 155);
-            public static Color color6 = Color.FromArgb(24, 161, 251);
-            public static Color color7 = Color.FromArgb(24, 161, 251);
+            public static Color color1 = Color.FromArgb(221, 213, 243);
+            public static Color color2 = Color.FromArgb(173, 236, 223);
+            public static Color color3 = Color.FromArgb(245, 214, 117);
+            public static Color color4 = Color.FromArgb(163, 57, 99);
+            public static Color color5 = Color.FromArgb(75, 80, 105);
+            public static Color color6 = Color.FromArgb(15, 94, 101);
+            public static Color color7 = Color.FromArgb(244, 143, 177);
+            public static Color color8 = Color.FromArgb(255, 204, 188);
+            public static Color color9 = Color.FromArgb(57, 67, 100);
         }
 
         private void ActivateButton(object senderBtn, Color color)
@@ -122,11 +112,19 @@ namespace AplikasiDesa
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
-            panelDesktop.Controls.Add(childForm);
-            panelDesktop.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
-            lblTitleChildForm.Text = childForm.Text;
+            childForm.AutoScaleMode = AutoScaleMode.Dpi;
+            if (!childForm.IsDisposed)
+            {
+                panelDesktop.Controls.Add(childForm);
+                panelDesktop.Tag = childForm;
+                childForm.BringToFront();
+                childForm.Show();
+                lblTitleChildForm.Text = childForm.Text;
+            }
+            else
+            {
+                // Optionally, show a message or handle session expiration gracefully
+            }
         }
 
         private void btnKTP_Click(object sender, EventArgs e)
@@ -167,19 +165,22 @@ namespace AplikasiDesa
 
         private void btnDP_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color6);
+            ActivateButton(sender, RGBColors.color7);
             OpenChildForm(new FormTambahPenduduk());
         }
 
         private void BtnStat_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color7);
+            ActivateButton(sender, RGBColors.color8);
             OpenChildForm(new FormStatistik());
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            currentChildForm.Close();
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
             Reset();
         }
 
@@ -224,12 +225,14 @@ namespace AplikasiDesa
         {
             timer1.Start();
 
-            FormProfil profilForm = new FormProfil();
-            profilForm.ShowDialog();
-            if (profilForm.DialogResult == DialogResult.OK)
+            using (FormProfil profilForm = new FormProfil())
             {
-                string loggedInUserName = Session1.LoggedInUserName;
-                iconButton1.Text = $"Selamat datang, {loggedInUserName}";
+                DialogResult result = profilForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string loggedInUserName = Session1.LoggedInUserName;
+                    iconButton1.Text = $"Selamat datang, {loggedInUserName}";
+                }
             }
         }
 
@@ -266,7 +269,6 @@ namespace AplikasiDesa
         {
             try
             {
-                // Check if the current user has Admin Utama role
                 using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
                     connection.Open();
@@ -281,7 +283,7 @@ namespace AplikasiDesa
 
                     if (jabatan == "Admin Utama")
                     {
-                        ActivateButton(sender, RGBColors.color7);
+                        ActivateButton(sender, RGBColors.color9);
                         OpenChildForm(new FormManageUsers());
                     }
                     else

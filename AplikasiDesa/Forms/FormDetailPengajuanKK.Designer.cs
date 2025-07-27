@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel2 = new Panel();
             label2 = new Label();
             lblNomorKKValue = new Label();
@@ -55,7 +57,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = SystemColors.AppWorkspace;
+            panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(label2);
             panel2.Controls.Add(lblNomorKKValue);
             panel2.Controls.Add(lblNomorKK);
@@ -73,16 +75,16 @@
             panel2.Controls.Add(lblID);
             panel2.Controls.Add(btnClose);
             panel2.Controls.Add(dataGridViewAnggota);
-            panel2.Location = new Point(0, 105);
+            panel2.Location = new Point(12, 97);
             panel2.Name = "panel2";
-            panel2.Size = new Size(795, 509);
+            panel2.Size = new Size(772, 507);
             panel2.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(51, 160);
+            label2.Location = new Point(34, 160);
             label2.Name = "label2";
             label2.Size = new Size(257, 31);
             label2.TabIndex = 22;
@@ -216,47 +218,79 @@
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(628, 460);
+            btnClose.Anchor = AnchorStyles.None;
+            btnClose.BackColor = Color.FromArgb(198, 67, 72);
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnClose.ForeColor = Color.White;
+            btnClose.Location = new Point(653, 465);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(116, 39);
             btnClose.TabIndex = 5;
             btnClose.Text = "Tutup";
-            btnClose.UseVisualStyleBackColor = true;
+            btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
             // dataGridViewAnggota
             // 
             dataGridViewAnggota.AllowUserToAddRows = false;
             dataGridViewAnggota.AllowUserToDeleteRows = false;
+            dataGridViewAnggota.AllowUserToResizeRows = false;
+            dataGridViewAnggota.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewAnggota.BorderStyle = BorderStyle.None;
+            dataGridViewAnggota.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewAnggota.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(10, 8, 10, 8);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewAnggota.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewAnggota.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAnggota.Location = new Point(51, 194);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewAnggota.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewAnggota.EnableHeadersVisualStyles = false;
+            dataGridViewAnggota.Location = new Point(34, 194);
             dataGridViewAnggota.MultiSelect = false;
             dataGridViewAnggota.Name = "dataGridViewAnggota";
             dataGridViewAnggota.ReadOnly = true;
+            dataGridViewAnggota.RowHeadersVisible = false;
             dataGridViewAnggota.RowHeadersWidth = 51;
+            dataGridViewAnggota.RowTemplate.Height = 35;
             dataGridViewAnggota.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewAnggota.Size = new Size(693, 247);
+            dataGridViewAnggota.Size = new Size(709, 247);
             dataGridViewAnggota.TabIndex = 3;
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.AppWorkspace;
+            panel1.BackColor = Color.FromArgb(173, 236, 223);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(0, 1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(795, 98);
+            panel1.Size = new Size(796, 84);
             panel1.TabIndex = 3;
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(163, 28);
+            label1.Location = new Point(110, 20);
             label1.Name = "label1";
-            label1.Size = new Size(476, 41);
+            label1.Size = new Size(574, 41);
             label1.TabIndex = 0;
-            label1.Text = "Detail Pengajuan Kartu Keluarga";
+            label1.Text = "DETAIL PENGAJUAN KARTU KELUARGA";
             // 
             // FormDetailPengajuanKK
             // 
@@ -265,8 +299,10 @@
             ClientSize = new Size(796, 616);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FormDetailPengajuanKK";
-            Text = "FormDetailPengajuanKK";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Form Detail Pengajuan KK";
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnggota).EndInit();
@@ -276,7 +312,6 @@
         }
 
         #endregion
-        private Button btnUpdateNomorKK;
         private Panel panel2;
         private DataGridView dataGridViewAnggota;
         private Panel panel1;

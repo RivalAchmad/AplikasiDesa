@@ -370,7 +370,6 @@
             Name = "FormProfil";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Profil Pengguna";
-            FormClosing += FormProfil_FormClosing;
             panelHeader.ResumeLayout(false);
             panelHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox).EndInit();

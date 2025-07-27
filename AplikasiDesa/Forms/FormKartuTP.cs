@@ -18,12 +18,10 @@ namespace AplikasiDesa
     public partial class FormKartuTP : Form
     {
         private Timer typingTimer;
-        private Timer sessionTimer;
 
         public FormKartuTP()
         {
             InitializeComponent();
-            VerifySession();
             LoadSKSKTP();
             LoadStatistikSksKtp();
             LoadFormKTP();
@@ -34,46 +32,9 @@ namespace AplikasiDesa
             txtNoSurat.Text = GenerateNomorSurat();
             txtKades.Text = Session1.LoggedInUserName;
             textBoxPejabatDesa.Text = Session1.LoggedInUserName;
-            sessionTimer = new Timer();
-            sessionTimer.Interval = 600000; // Periksa setiap 10 menit
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
             CultureInfo culture = new CultureInfo("id-ID");
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
-        }
-
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                Session1.ClearSession();
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
         }
 
         #region Surat dan Form
@@ -692,6 +653,24 @@ namespace AplikasiDesa
         #endregion Surat dan Form
 
         #region Riwayat
+        private void ConfigureSKSData()
+        {
+            dataGridView1.Columns["id"].HeaderText = "ID";
+            dataGridView1.Columns["no_surat"].HeaderText = "Nomor Surat";
+            dataGridView1.Columns["tanggal_dikeluarkan"].HeaderText = "Tanggal Terbit";
+            dataGridView1.Columns["nama_pemohon"].HeaderText = "Nama Pemohon";
+            dataGridView1.Columns["petugas"].HeaderText = "Nama Petugas";
+        }
+
+        private void ConfigureFormData()
+        {
+            dataGridView2.Columns["id"].HeaderText = "ID";
+            dataGridView2.Columns["nama_lengkap"].HeaderText = "Nama Pemohon";
+            dataGridView2.Columns["jenis_pengajuan"].HeaderText = "Jenis Pengajuan";
+            dataGridView2.Columns["tanggal_dikeluarkan"].HeaderText = "Tanggal Terbit";
+            dataGridView2.Columns["petugas"].HeaderText = "Nama Petugas";
+        }
+
         private void LoadSKSKTP()
         {
             using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
@@ -703,6 +682,7 @@ namespace AplikasiDesa
                 adapter.Fill(dt);
 
                 dataGridView1.DataSource = dt;
+                ConfigureSKSData();
             }
         }
 
@@ -726,6 +706,7 @@ namespace AplikasiDesa
                 adapter.Fill(dt);
 
                 dataGridView1.DataSource = dt;
+                ConfigureSKSData();
             }
         }
 
@@ -839,6 +820,7 @@ namespace AplikasiDesa
                 adapter.Fill(dt);
 
                 dataGridView2.DataSource = dt;
+                ConfigureFormData();
             }
         }
 
@@ -863,6 +845,7 @@ namespace AplikasiDesa
                 adapter.Fill(dt);
 
                 dataGridView2.DataSource = dt;
+                ConfigureFormData();
             }
         }
 
@@ -1015,12 +998,34 @@ namespace AplikasiDesa
             }
         }
 
-        private void FormKartuTP_FormClosing(object sender, FormClosingEventArgs e)
+        bool visible1 = false;
+        bool visible2 = false;
+
+        private void iconButton1_Click(object sender, EventArgs e)
         {
-            if (sessionTimer != null)
+            if (visible1 == false)
             {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
+                panel8.Visible = true;
+                visible1 = true;
+            }
+            else
+            {
+                panel8.Visible = false;
+                visible1 = false;
+            }
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            if (visible2 == false)
+            {
+                panel3.Visible = true;
+                visible2 = true;
+            }
+            else
+            {
+                panel3.Visible = false;
+                visible2 = false;
             }
         }
     }

@@ -12,51 +12,12 @@ namespace AplikasiDesa.Forms
     public partial class FormProfil : Form
     {
         private int _petugasId;
-        private System.Windows.Forms.Timer sessionTimer;
         private const int MinPasswordLength = 8;
 
         public FormProfil()
         {
             InitializeComponent();
             LoadUserData();
-            VerifySession();
-            sessionTimer = new System.Windows.Forms.Timer();
-            sessionTimer.Interval = 600000; // Periksa setiap 10 menit
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
-        }
-
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                Session1.ClearSession();
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
         }
 
         private void txtPassword_TextChanged(object sender, EventArgs e)
@@ -330,15 +291,6 @@ namespace AplikasiDesa.Forms
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
         {
             txtPassword.UseSystemPasswordChar = !chkShowPassword.Checked;
-        }
-
-        private void FormProfil_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (sessionTimer != null)
-            {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
-            }
         }
     }
 }

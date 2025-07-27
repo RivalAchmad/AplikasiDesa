@@ -28,6 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             panel4 = new Panel();
             label28 = new Label();
             groupBox4 = new GroupBox();
@@ -107,12 +116,11 @@
             label34 = new Label();
             label35 = new Label();
             label31 = new Label();
-            panel3 = new Panel();
+            panel2 = new Panel();
             btnHapus = new Button();
+            label9 = new Label();
             btnUpdateNomorKK = new Button();
             btnDetail = new Button();
-            panel2 = new Panel();
-            label9 = new Label();
             label27 = new Label();
             dataGridViewPengajuan = new DataGridView();
             textCariSurat = new TextBox();
@@ -133,7 +141,6 @@
             panel7.SuspendLayout();
             tabPage2.SuspendLayout();
             panel6.SuspendLayout();
-            panel3.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPengajuan).BeginInit();
             panel5.SuspendLayout();
@@ -141,19 +148,20 @@
             // 
             // panel4
             // 
-            panel4.BackColor = Color.LightGray;
+            panel4.BackColor = Color.FromArgb(173, 236, 223);
             panel4.Controls.Add(label28);
-            panel4.Location = new Point(6, 6);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(3, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1220, 60);
+            panel4.Size = new Size(1216, 60);
             panel4.TabIndex = 41;
             // 
             // label28
             // 
-            label28.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label28.Anchor = AnchorStyles.None;
             label28.AutoSize = true;
-            label28.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            label28.Location = new Point(383, 9);
+            label28.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label28.Location = new Point(381, 9);
             label28.Name = "label28";
             label28.RightToLeft = RightToLeft.No;
             label28.Size = new Size(472, 41);
@@ -163,7 +171,8 @@
             // 
             // groupBox4
             // 
-            groupBox4.BackColor = Color.LightGray;
+            groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox4.BackColor = Color.WhiteSmoke;
             groupBox4.Controls.Add(label4);
             groupBox4.Controls.Add(label3);
             groupBox4.Controls.Add(txtSearch);
@@ -208,13 +217,48 @@
             // dataGridViewAnggota
             // 
             dataGridViewAnggota.AllowUserToAddRows = false;
-            dataGridViewAnggota.BackgroundColor = Color.LightGray;
+            dataGridViewAnggota.AllowUserToDeleteRows = false;
+            dataGridViewAnggota.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(213, 247, 239);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(173, 236, 223);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(69, 150, 129);
+            dataGridViewAnggota.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewAnggota.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewAnggota.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            dataGridViewAnggota.BackgroundColor = Color.FromArgb(240, 252, 248);
+            dataGridViewAnggota.BorderStyle = BorderStyle.None;
+            dataGridViewAnggota.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewAnggota.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dataGridViewAnggota.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(102, 194, 165);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(69, 150, 129);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridViewAnggota.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewAnggota.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewAnggota.Columns.AddRange(new DataGridViewColumn[] { btnTambah });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(173, 236, 223);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(69, 150, 129);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridViewAnggota.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewAnggota.EnableHeadersVisualStyles = false;
+            dataGridViewAnggota.GridColor = Color.FromArgb(173, 236, 223);
             dataGridViewAnggota.Location = new Point(15, 84);
             dataGridViewAnggota.Name = "dataGridViewAnggota";
+            dataGridViewAnggota.ReadOnly = true;
+            dataGridViewAnggota.RowHeadersVisible = false;
             dataGridViewAnggota.RowHeadersWidth = 51;
+            dataGridViewAnggota.RowTemplate.Height = 35;
+            dataGridViewAnggota.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridViewAnggota.Size = new Size(885, 121);
             dataGridViewAnggota.TabIndex = 0;
             dataGridViewAnggota.CellContentClick += dataGridViewAnggota_CellContentClick;
@@ -224,13 +268,15 @@
             btnTambah.HeaderText = "Tambah";
             btnTambah.MinimumWidth = 6;
             btnTambah.Name = "btnTambah";
+            btnTambah.ReadOnly = true;
             btnTambah.Text = "Tambah";
             btnTambah.UseColumnTextForButtonValue = true;
-            btnTambah.Width = 125;
+            btnTambah.Width = 94;
             // 
             // groupBox1
             // 
-            groupBox1.BackColor = Color.LightGray;
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.BackColor = Color.WhiteSmoke;
             groupBox1.Controls.Add(radioButton3);
             groupBox1.Controls.Add(radioButton2);
             groupBox1.Controls.Add(label25);
@@ -280,15 +326,16 @@
             groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
             groupBox1.Location = new Point(6, 72);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1220, 361);
+            groupBox1.Size = new Size(1210, 361);
             groupBox1.TabIndex = 42;
             groupBox1.TabStop = false;
             // 
             // radioButton3
             // 
+            radioButton3.Anchor = AnchorStyles.None;
             radioButton3.AutoSize = true;
             radioButton3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton3.Location = new Point(787, 9);
+            radioButton3.Location = new Point(780, 9);
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size(424, 24);
             radioButton3.TabIndex = 66;
@@ -298,9 +345,10 @@
             // 
             // radioButton2
             // 
+            radioButton2.Anchor = AnchorStyles.None;
             radioButton2.AutoSize = true;
             radioButton2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton2.Location = new Point(465, 9);
+            radioButton2.Location = new Point(458, 9);
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(316, 24);
             radioButton2.TabIndex = 65;
@@ -310,9 +358,10 @@
             // 
             // label25
             // 
+            label25.Anchor = AnchorStyles.None;
             label25.AutoSize = true;
             label25.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label25.Location = new Point(14, 11);
+            label25.Location = new Point(7, 11);
             label25.Name = "label25";
             label25.Size = new Size(113, 20);
             label25.TabIndex = 64;
@@ -320,9 +369,10 @@
             // 
             // radioButton1
             // 
+            radioButton1.Anchor = AnchorStyles.None;
             radioButton1.AutoSize = true;
             radioButton1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton1.Location = new Point(133, 9);
+            radioButton1.Location = new Point(126, 9);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(326, 24);
             radioButton1.TabIndex = 63;
@@ -332,7 +382,9 @@
             // 
             // label24
             // 
+            label24.Anchor = AnchorStyles.None;
             label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label24.Location = new Point(87, 44);
             label24.Name = "label24";
             label24.Size = new Size(217, 28);
@@ -341,7 +393,9 @@
             // 
             // label23
             // 
+            label23.Anchor = AnchorStyles.None;
             label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label23.Location = new Point(654, 44);
             label23.Name = "label23";
             label23.Size = new Size(272, 28);
@@ -350,6 +404,7 @@
             // 
             // numericUpDown2
             // 
+            numericUpDown2.Anchor = AnchorStyles.None;
             numericUpDown2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             numericUpDown2.Location = new Point(842, 183);
             numericUpDown2.Name = "numericUpDown2";
@@ -358,7 +413,7 @@
             // 
             // label21
             // 
-            label21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label21.Anchor = AnchorStyles.None;
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label21.Location = new Point(657, 190);
@@ -369,7 +424,7 @@
             // 
             // textBox18
             // 
-            textBox18.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox18.Anchor = AnchorStyles.None;
             textBox18.BackColor = SystemColors.Window;
             textBox18.Font = new Font("Segoe UI", 9F);
             textBox18.Location = new Point(911, 322);
@@ -379,7 +434,7 @@
             // 
             // textBox17
             // 
-            textBox17.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox17.Anchor = AnchorStyles.None;
             textBox17.BackColor = SystemColors.Window;
             textBox17.Font = new Font("Segoe UI", 9F);
             textBox17.Location = new Point(911, 289);
@@ -389,7 +444,7 @@
             // 
             // label19
             // 
-            label19.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label19.Anchor = AnchorStyles.None;
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label19.Location = new Point(655, 292);
@@ -400,7 +455,7 @@
             // 
             // textBox5
             // 
-            textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox5.Anchor = AnchorStyles.None;
             textBox5.BackColor = SystemColors.Window;
             textBox5.Font = new Font("Segoe UI", 9F);
             textBox5.Location = new Point(842, 289);
@@ -410,7 +465,7 @@
             // 
             // label20
             // 
-            label20.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label20.Anchor = AnchorStyles.None;
             label20.AutoSize = true;
             label20.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label20.Location = new Point(655, 325);
@@ -421,7 +476,7 @@
             // 
             // textBox16
             // 
-            textBox16.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox16.Anchor = AnchorStyles.None;
             textBox16.BackColor = SystemColors.Window;
             textBox16.Font = new Font("Segoe UI", 9F);
             textBox16.Location = new Point(842, 322);
@@ -431,6 +486,7 @@
             // 
             // numericUpDown1
             // 
+            numericUpDown1.Anchor = AnchorStyles.None;
             numericUpDown1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             numericUpDown1.Location = new Point(273, 187);
             numericUpDown1.Name = "numericUpDown1";
@@ -439,7 +495,7 @@
             // 
             // label18
             // 
-            label18.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label18.Anchor = AnchorStyles.None;
             label18.AutoSize = true;
             label18.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label18.Location = new Point(655, 226);
@@ -450,7 +506,7 @@
             // 
             // textBox15
             // 
-            textBox15.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox15.Anchor = AnchorStyles.None;
             textBox15.BackColor = SystemColors.Window;
             textBox15.Font = new Font("Segoe UI", 9F);
             textBox15.Location = new Point(842, 223);
@@ -460,7 +516,7 @@
             // 
             // label17
             // 
-            label17.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label17.Anchor = AnchorStyles.None;
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label17.Location = new Point(363, 194);
@@ -471,7 +527,7 @@
             // 
             // textBox14
             // 
-            textBox14.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox14.Anchor = AnchorStyles.None;
             textBox14.BackColor = SystemColors.Window;
             textBox14.Font = new Font("Segoe UI", 9F);
             textBox14.Location = new Point(419, 190);
@@ -481,7 +537,7 @@
             // 
             // label13
             // 
-            label13.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label13.Location = new Point(969, 153);
@@ -492,7 +548,7 @@
             // 
             // label16
             // 
-            label16.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label16.Anchor = AnchorStyles.None;
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label16.Location = new Point(655, 120);
@@ -503,7 +559,7 @@
             // 
             // textBox13
             // 
-            textBox13.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox13.Anchor = AnchorStyles.None;
             textBox13.BackColor = SystemColors.Window;
             textBox13.Font = new Font("Segoe UI", 9F);
             textBox13.Location = new Point(842, 117);
@@ -513,7 +569,7 @@
             // 
             // label11
             // 
-            label11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label11.Location = new Point(655, 259);
@@ -524,7 +580,7 @@
             // 
             // textBox8
             // 
-            textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox8.Anchor = AnchorStyles.None;
             textBox8.BackColor = SystemColors.Window;
             textBox8.Font = new Font("Segoe UI", 9F);
             textBox8.Location = new Point(842, 256);
@@ -534,7 +590,7 @@
             // 
             // label12
             // 
-            label12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label12.Anchor = AnchorStyles.None;
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label12.Location = new Point(932, 189);
@@ -545,7 +601,7 @@
             // 
             // textBox9
             // 
-            textBox9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox9.Anchor = AnchorStyles.None;
             textBox9.BackColor = SystemColors.Window;
             textBox9.Font = new Font("Segoe UI", 9F);
             textBox9.Location = new Point(996, 186);
@@ -555,7 +611,7 @@
             // 
             // textBox10
             // 
-            textBox10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox10.Anchor = AnchorStyles.None;
             textBox10.BackColor = SystemColors.Window;
             textBox10.Font = new Font("Segoe UI", 9F);
             textBox10.Location = new Point(1045, 150);
@@ -565,7 +621,7 @@
             // 
             // label14
             // 
-            label14.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label14.Anchor = AnchorStyles.None;
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label14.Location = new Point(655, 153);
@@ -576,7 +632,7 @@
             // 
             // textBox11
             // 
-            textBox11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox11.Anchor = AnchorStyles.None;
             textBox11.BackColor = SystemColors.Window;
             textBox11.Font = new Font("Segoe UI", 9F);
             textBox11.Location = new Point(842, 150);
@@ -586,7 +642,7 @@
             // 
             // label15
             // 
-            label15.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label15.Location = new Point(655, 87);
@@ -597,7 +653,7 @@
             // 
             // textBox12
             // 
-            textBox12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox12.Anchor = AnchorStyles.None;
             textBox12.BackColor = SystemColors.Window;
             textBox12.Font = new Font("Segoe UI", 9F);
             textBox12.Location = new Point(842, 84);
@@ -607,7 +663,7 @@
             // 
             // label10
             // 
-            label10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label10.Anchor = AnchorStyles.None;
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.Location = new Point(88, 266);
@@ -618,7 +674,7 @@
             // 
             // textBox7
             // 
-            textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox7.Anchor = AnchorStyles.None;
             textBox7.BackColor = SystemColors.Window;
             textBox7.Font = new Font("Segoe UI", 9F);
             textBox7.Location = new Point(273, 260);
@@ -628,7 +684,7 @@
             // 
             // label8
             // 
-            label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label8.Location = new Point(88, 233);
@@ -639,7 +695,7 @@
             // 
             // textBox6
             // 
-            textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox6.Anchor = AnchorStyles.None;
             textBox6.BackColor = SystemColors.Window;
             textBox6.Font = new Font("Segoe UI", 9F);
             textBox6.Location = new Point(273, 227);
@@ -649,7 +705,7 @@
             // 
             // label7
             // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label7.Location = new Point(88, 194);
@@ -660,7 +716,7 @@
             // 
             // label6
             // 
-            label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label6.Location = new Point(459, 157);
@@ -671,7 +727,7 @@
             // 
             // textBox4
             // 
-            textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox4.Anchor = AnchorStyles.None;
             textBox4.BackColor = SystemColors.Window;
             textBox4.Font = new Font("Segoe UI", 9F);
             textBox4.Location = new Point(496, 154);
@@ -681,7 +737,7 @@
             // 
             // label5
             // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.Location = new Point(363, 157);
@@ -692,7 +748,7 @@
             // 
             // textBox3
             // 
-            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox3.Anchor = AnchorStyles.None;
             textBox3.BackColor = SystemColors.Window;
             textBox3.Font = new Font("Segoe UI", 9F);
             textBox3.Location = new Point(394, 154);
@@ -702,7 +758,7 @@
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(88, 160);
@@ -713,7 +769,7 @@
             // 
             // textBox2
             // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox2.Anchor = AnchorStyles.None;
             textBox2.BackColor = SystemColors.Window;
             textBox2.Font = new Font("Segoe UI", 9F);
             textBox2.Location = new Point(273, 154);
@@ -723,7 +779,7 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(88, 127);
@@ -734,7 +790,7 @@
             // 
             // textBox1
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox1.Anchor = AnchorStyles.None;
             textBox1.BackColor = SystemColors.Window;
             textBox1.Font = new Font("Segoe UI", 9F);
             textBox1.Location = new Point(273, 121);
@@ -744,6 +800,7 @@
             // 
             // comboBoxNama
             // 
+            comboBoxNama.Anchor = AnchorStyles.None;
             comboBoxNama.AutoCompleteMode = AutoCompleteMode.Suggest;
             comboBoxNama.Font = new Font("Segoe UI", 10.2F, FontStyle.Underline, GraphicsUnit.Point, 0);
             comboBoxNama.FormattingEnabled = true;
@@ -757,7 +814,7 @@
             // 
             // label22
             // 
-            label22.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label22.Anchor = AnchorStyles.None;
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 9F);
             label22.Location = new Point(88, 87);
@@ -769,12 +826,46 @@
             // dataGridViewKK
             // 
             dataGridViewKK.AllowUserToAddRows = false;
+            dataGridViewKK.AllowUserToResizeRows = false;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(213, 247, 239);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(173, 236, 223);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(69, 150, 129);
+            dataGridViewKK.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewKK.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewKK.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            dataGridViewKK.BackgroundColor = Color.FromArgb(240, 252, 248);
+            dataGridViewKK.BorderStyle = BorderStyle.None;
+            dataGridViewKK.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewKK.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(102, 194, 165);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(69, 150, 129);
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dataGridViewKK.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewKK.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewKK.Columns.AddRange(new DataGridViewColumn[] { Hapus });
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(173, 236, 223);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(69, 150, 129);
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataGridViewKK.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewKK.EnableHeadersVisualStyles = false;
+            dataGridViewKK.GridColor = Color.FromArgb(173, 236, 223);
             dataGridViewKK.Location = new Point(15, 45);
             dataGridViewKK.Name = "dataGridViewKK";
+            dataGridViewKK.RowHeadersVisible = false;
             dataGridViewKK.RowHeadersWidth = 51;
-            dataGridViewKK.Size = new Size(884, 210);
+            dataGridViewKK.RowTemplate.Height = 35;
+            dataGridViewKK.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dataGridViewKK.Size = new Size(884, 199);
             dataGridViewKK.TabIndex = 43;
             dataGridViewKK.CellContentClick += dataGridViewKK_CellContentClick;
             dataGridViewKK.DataError += dataGridViewKK_DataError;
@@ -786,22 +877,23 @@
             Hapus.Name = "Hapus";
             Hapus.Text = "Hapus";
             Hapus.UseColumnTextForButtonValue = true;
-            Hapus.Width = 125;
+            Hapus.Width = 80;
             // 
             // panel1
             // 
-            panel1.BackColor = Color.LightGray;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.BackColor = Color.WhiteSmoke;
             panel1.Controls.Add(label26);
             panel1.Controls.Add(dataGridViewKK);
             panel1.Location = new Point(6, 668);
             panel1.Name = "panel1";
-            panel1.Size = new Size(913, 269);
+            panel1.Size = new Size(913, 258);
             panel1.TabIndex = 44;
             // 
             // label26
             // 
             label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label26.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label26.Location = new Point(14, 4);
             label26.Name = "label26";
             label26.Size = new Size(264, 31);
@@ -810,28 +902,35 @@
             // 
             // button1
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(1006, 829);
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.BackColor = Color.FromArgb(72, 126, 176);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(986, 828);
             button1.Name = "button1";
-            button1.Size = new Size(130, 53);
+            button1.Size = new Size(174, 64);
             button1.TabIndex = 45;
-            button1.Text = "PRINT";
-            button1.UseVisualStyleBackColor = true;
+            button1.Text = "CETAK FORM";
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // tabControl1
             // 
+            tabControl1.Appearance = TabAppearance.FlatButtons;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(3, 3);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(7, 7);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1240, 976);
+            tabControl1.Size = new Size(1230, 968);
             tabControl1.TabIndex = 46;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPage1
             // 
+            tabPage1.AutoScroll = true;
             tabPage1.Controls.Add(panel8);
             tabPage1.Controls.Add(panel7);
             tabPage1.Controls.Add(panel4);
@@ -839,17 +938,18 @@
             tabPage1.Controls.Add(groupBox4);
             tabPage1.Controls.Add(panel1);
             tabPage1.Controls.Add(groupBox1);
-            tabPage1.Location = new Point(4, 29);
+            tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1232, 943);
+            tabPage1.Size = new Size(1222, 932);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Form Biodata Keluarga";
+            tabPage1.Text = "📝 Form Biodata Keluarga";
             tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel8
             // 
-            panel8.BackColor = SystemColors.AppWorkspace;
+            panel8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel8.BackColor = SystemColors.ButtonHighlight;
             panel8.Controls.Add(label37);
             panel8.Controls.Add(btnTambahData);
             panel8.Location = new Point(941, 451);
@@ -860,8 +960,9 @@
             // label37
             // 
             label37.AutoSize = true;
+            label37.BackColor = Color.Transparent;
             label37.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label37.Location = new Point(5, 9);
+            label37.Location = new Point(3, 9);
             label37.Name = "label37";
             label37.Size = new Size(253, 69);
             label37.TabIndex = 49;
@@ -869,18 +970,21 @@
             // 
             // btnTambahData
             // 
+            btnTambahData.BackColor = SystemColors.ActiveCaption;
+            btnTambahData.FlatStyle = FlatStyle.Flat;
             btnTambahData.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTambahData.Location = new Point(32, 90);
             btnTambahData.Name = "btnTambahData";
             btnTambahData.Size = new Size(196, 45);
             btnTambahData.TabIndex = 47;
             btnTambahData.Text = "Tambah Data Penduduk";
-            btnTambahData.UseVisualStyleBackColor = true;
+            btnTambahData.UseVisualStyleBackColor = false;
             btnTambahData.Click += btnTambahData_Click;
             // 
             // panel7
             // 
-            panel7.BackColor = SystemColors.AppWorkspace;
+            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel7.BackColor = SystemColors.Info;
             panel7.Controls.Add(label36);
             panel7.Location = new Point(941, 668);
             panel7.Name = "panel7";
@@ -890,6 +994,7 @@
             // label36
             // 
             label36.AutoSize = true;
+            label36.BackColor = Color.Transparent;
             label36.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label36.Location = new Point(3, 17);
             label36.Name = "label36";
@@ -900,20 +1005,20 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(panel6);
-            tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(panel2);
             tabPage2.Controls.Add(panel5);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1232, 943);
+            tabPage2.Size = new Size(1222, 932);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "Pengelolaan Pengajuan Kartu Keluarga";
+            tabPage2.Text = "📜 Pengelolaan Pengajuan Kartu Keluarga";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel6
             // 
-            panel6.BackColor = SystemColors.AppWorkspace;
+            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel6.BackColor = Color.WhiteSmoke;
             panel6.Controls.Add(lblPerBulanKategori);
             panel6.Controls.Add(lblTotalTahunKategori);
             panel6.Controls.Add(label32);
@@ -924,16 +1029,17 @@
             panel6.Controls.Add(label34);
             panel6.Controls.Add(label35);
             panel6.Controls.Add(label31);
-            panel6.Location = new Point(746, 110);
+            panel6.Location = new Point(728, 120);
             panel6.Name = "panel6";
-            panel6.Size = new Size(480, 396);
+            panel6.Size = new Size(478, 295);
             panel6.TabIndex = 6;
             // 
             // lblPerBulanKategori
             // 
+            lblPerBulanKategori.Anchor = AnchorStyles.None;
             lblPerBulanKategori.AutoSize = true;
             lblPerBulanKategori.Font = new Font("Segoe UI", 10.2F);
-            lblPerBulanKategori.Location = new Point(20, 216);
+            lblPerBulanKategori.Location = new Point(13, 216);
             lblPerBulanKategori.Name = "lblPerBulanKategori";
             lblPerBulanKategori.Size = new Size(447, 23);
             lblPerBulanKategori.TabIndex = 26;
@@ -941,9 +1047,10 @@
             // 
             // lblTotalTahunKategori
             // 
+            lblTotalTahunKategori.Anchor = AnchorStyles.None;
             lblTotalTahunKategori.AutoSize = true;
             lblTotalTahunKategori.Font = new Font("Segoe UI", 10.2F);
-            lblTotalTahunKategori.Location = new Point(20, 246);
+            lblTotalTahunKategori.Location = new Point(13, 246);
             lblTotalTahunKategori.Name = "lblTotalTahunKategori";
             lblTotalTahunKategori.Size = new Size(450, 23);
             lblTotalTahunKategori.TabIndex = 27;
@@ -951,9 +1058,10 @@
             // 
             // label32
             // 
+            label32.Anchor = AnchorStyles.None;
             label32.AutoSize = true;
             label32.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label32.Location = new Point(20, 70);
+            label32.Location = new Point(13, 70);
             label32.Name = "label32";
             label32.Size = new Size(104, 28);
             label32.TabIndex = 23;
@@ -961,10 +1069,11 @@
             // 
             // comboBoxTahun
             // 
+            comboBoxTahun.Anchor = AnchorStyles.None;
             comboBoxTahun.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTahun.FormattingEnabled = true;
             comboBoxTahun.Items.AddRange(new object[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" });
-            comboBoxTahun.Location = new Point(125, 174);
+            comboBoxTahun.Location = new Point(118, 174);
             comboBoxTahun.Name = "comboBoxTahun";
             comboBoxTahun.Size = new Size(189, 28);
             comboBoxTahun.TabIndex = 22;
@@ -972,10 +1081,11 @@
             // 
             // comboBoxJenisFormulir
             // 
+            comboBoxJenisFormulir.Anchor = AnchorStyles.None;
             comboBoxJenisFormulir.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxJenisFormulir.FormattingEnabled = true;
             comboBoxJenisFormulir.Items.AddRange(new object[] { "Semua", "WNI", "Orang Asing", "WNI Luar Negeri" });
-            comboBoxJenisFormulir.Location = new Point(125, 106);
+            comboBoxJenisFormulir.Location = new Point(118, 106);
             comboBoxJenisFormulir.Name = "comboBoxJenisFormulir";
             comboBoxJenisFormulir.Size = new Size(189, 28);
             comboBoxJenisFormulir.TabIndex = 17;
@@ -983,10 +1093,11 @@
             // 
             // comboBoxBulan
             // 
+            comboBoxBulan.Anchor = AnchorStyles.None;
             comboBoxBulan.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxBulan.FormattingEnabled = true;
             comboBoxBulan.Items.AddRange(new object[] { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" });
-            comboBoxBulan.Location = new Point(125, 140);
+            comboBoxBulan.Location = new Point(118, 140);
             comboBoxBulan.Name = "comboBoxBulan";
             comboBoxBulan.Size = new Size(189, 28);
             comboBoxBulan.TabIndex = 18;
@@ -994,9 +1105,10 @@
             // 
             // label33
             // 
+            label33.Anchor = AnchorStyles.None;
             label33.AutoSize = true;
             label33.Font = new Font("Segoe UI", 9F);
-            label33.Location = new Point(20, 177);
+            label33.Location = new Point(13, 177);
             label33.Name = "label33";
             label33.Size = new Size(47, 20);
             label33.TabIndex = 21;
@@ -1004,9 +1116,10 @@
             // 
             // label34
             // 
+            label34.Anchor = AnchorStyles.None;
             label34.AutoSize = true;
             label34.Font = new Font("Segoe UI", 9F);
-            label34.Location = new Point(20, 109);
+            label34.Location = new Point(13, 109);
             label34.Name = "label34";
             label34.Size = new Size(99, 20);
             label34.TabIndex = 19;
@@ -1014,9 +1127,10 @@
             // 
             // label35
             // 
+            label35.Anchor = AnchorStyles.None;
             label35.AutoSize = true;
             label35.Font = new Font("Segoe UI", 9F);
-            label35.Location = new Point(20, 143);
+            label35.Location = new Point(13, 143);
             label35.Name = "label35";
             label35.Size = new Size(46, 20);
             label35.TabIndex = 20;
@@ -1024,6 +1138,7 @@
             // 
             // label31
             // 
+            label31.Anchor = AnchorStyles.Top;
             label31.AutoSize = true;
             label31.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label31.Location = new Point(52, 15);
@@ -1032,59 +1147,37 @@
             label31.TabIndex = 6;
             label31.Text = "Jumlah Pengajuan Kartu Keluarga";
             // 
-            // panel3
-            // 
-            panel3.BackColor = SystemColors.AppWorkspace;
-            panel3.Controls.Add(btnHapus);
-            panel3.Controls.Add(btnUpdateNomorKK);
-            panel3.Controls.Add(btnDetail);
-            panel3.Location = new Point(6, 512);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(734, 109);
-            panel3.TabIndex = 5;
-            // 
-            // btnHapus
-            // 
-            btnHapus.Location = new Point(296, 31);
-            btnHapus.Name = "btnHapus";
-            btnHapus.Size = new Size(118, 43);
-            btnHapus.TabIndex = 2;
-            btnHapus.Text = "Hapus Data";
-            btnHapus.UseVisualStyleBackColor = true;
-            btnHapus.Click += btnHapus_Click;
-            // 
-            // btnUpdateNomorKK
-            // 
-            btnUpdateNomorKK.Location = new Point(159, 31);
-            btnUpdateNomorKK.Name = "btnUpdateNomorKK";
-            btnUpdateNomorKK.Size = new Size(118, 43);
-            btnUpdateNomorKK.TabIndex = 1;
-            btnUpdateNomorKK.Text = "Update No. KK";
-            btnUpdateNomorKK.UseVisualStyleBackColor = true;
-            btnUpdateNomorKK.Click += btnUpdateNomorKK_Click;
-            // 
-            // btnDetail
-            // 
-            btnDetail.Location = new Point(21, 31);
-            btnDetail.Name = "btnDetail";
-            btnDetail.Size = new Size(118, 43);
-            btnDetail.TabIndex = 0;
-            btnDetail.Text = "Lihat Detail";
-            btnDetail.UseVisualStyleBackColor = true;
-            btnDetail.Click += btnDetail_Click;
-            // 
             // panel2
             // 
-            panel2.BackColor = SystemColors.AppWorkspace;
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.BackColor = Color.WhiteSmoke;
+            panel2.Controls.Add(btnHapus);
             panel2.Controls.Add(label9);
+            panel2.Controls.Add(btnUpdateNomorKK);
+            panel2.Controls.Add(btnDetail);
             panel2.Controls.Add(label27);
             panel2.Controls.Add(dataGridViewPengajuan);
             panel2.Controls.Add(textCariSurat);
             panel2.Controls.Add(label29);
-            panel2.Location = new Point(6, 110);
+            panel2.Location = new Point(15, 120);
             panel2.Name = "panel2";
-            panel2.Size = new Size(734, 396);
+            panel2.Size = new Size(697, 667);
             panel2.TabIndex = 4;
+            // 
+            // btnHapus
+            // 
+            btnHapus.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnHapus.BackColor = Color.FromArgb(198, 67, 72);
+            btnHapus.FlatStyle = FlatStyle.Flat;
+            btnHapus.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnHapus.ForeColor = Color.White;
+            btnHapus.Location = new Point(313, 598);
+            btnHapus.Name = "btnHapus";
+            btnHapus.Size = new Size(118, 43);
+            btnHapus.TabIndex = 2;
+            btnHapus.Text = "Hapus Data";
+            btnHapus.UseVisualStyleBackColor = false;
+            btnHapus.Click += btnHapus_Click;
             // 
             // label9
             // 
@@ -1095,6 +1188,36 @@
             label9.Size = new Size(537, 20);
             label9.TabIndex = 5;
             label9.Text = "Masukkan NIK / Nama Kepala Keluarga / Jenis Formulir / Tanggal (yyyy-mm-dd)";
+            // 
+            // btnUpdateNomorKK
+            // 
+            btnUpdateNomorKK.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnUpdateNomorKK.BackColor = Color.FromArgb(95, 183, 120);
+            btnUpdateNomorKK.FlatStyle = FlatStyle.Flat;
+            btnUpdateNomorKK.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnUpdateNomorKK.ForeColor = Color.White;
+            btnUpdateNomorKK.Location = new Point(164, 598);
+            btnUpdateNomorKK.Name = "btnUpdateNomorKK";
+            btnUpdateNomorKK.Size = new Size(129, 43);
+            btnUpdateNomorKK.TabIndex = 1;
+            btnUpdateNomorKK.Text = "Update No. KK";
+            btnUpdateNomorKK.UseVisualStyleBackColor = false;
+            btnUpdateNomorKK.Click += btnUpdateNomorKK_Click;
+            // 
+            // btnDetail
+            // 
+            btnDetail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnDetail.BackColor = Color.Orange;
+            btnDetail.FlatStyle = FlatStyle.Flat;
+            btnDetail.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnDetail.ForeColor = Color.White;
+            btnDetail.Location = new Point(26, 598);
+            btnDetail.Name = "btnDetail";
+            btnDetail.Size = new Size(118, 43);
+            btnDetail.TabIndex = 0;
+            btnDetail.Text = "Lihat Detail";
+            btnDetail.UseVisualStyleBackColor = false;
+            btnDetail.Click += btnDetail_Click;
             // 
             // label27
             // 
@@ -1109,30 +1232,65 @@
             // dataGridViewPengajuan
             // 
             dataGridViewPengajuan.AllowUserToAddRows = false;
-            dataGridViewPengajuan.AllowUserToDeleteRows = false;
+            dataGridViewPengajuan.AllowUserToResizeRows = false;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(213, 247, 239);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(173, 236, 223);
+            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(69, 150, 129);
+            dataGridViewPengajuan.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewPengajuan.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewPengajuan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewPengajuan.BackgroundColor = Color.FromArgb(240, 252, 248);
+            dataGridViewPengajuan.BorderStyle = BorderStyle.None;
+            dataGridViewPengajuan.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewPengajuan.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(102, 194, 165);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridViewCellStyle8.Padding = new Padding(10, 8, 10, 8);
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(69, 150, 129);
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dataGridViewPengajuan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewPengajuan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewPengajuan.Location = new Point(21, 133);
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle9.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(173, 236, 223);
+            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(69, 150, 129);
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dataGridViewPengajuan.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewPengajuan.EnableHeadersVisualStyles = false;
+            dataGridViewPengajuan.GridColor = Color.FromArgb(173, 236, 223);
+            dataGridViewPengajuan.Location = new Point(26, 133);
             dataGridViewPengajuan.MultiSelect = false;
             dataGridViewPengajuan.Name = "dataGridViewPengajuan";
             dataGridViewPengajuan.ReadOnly = true;
+            dataGridViewPengajuan.RowHeadersVisible = false;
             dataGridViewPengajuan.RowHeadersWidth = 51;
+            dataGridViewPengajuan.RowTemplate.Height = 35;
             dataGridViewPengajuan.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewPengajuan.Size = new Size(693, 247);
+            dataGridViewPengajuan.Size = new Size(646, 459);
             dataGridViewPengajuan.TabIndex = 3;
             // 
             // textCariSurat
             // 
-            textCariSurat.Location = new Point(21, 102);
+            textCariSurat.Location = new Point(26, 102);
             textCariSurat.Name = "textCariSurat";
-            textCariSurat.Size = new Size(642, 27);
+            textCariSurat.PlaceholderText = "🔎";
+            textCariSurat.Size = new Size(626, 27);
             textCariSurat.TabIndex = 2;
             textCariSurat.TextChanged += textCariSurat_TextChanged;
             // 
             // label29
             // 
+            label29.Anchor = AnchorStyles.Top;
             label29.AutoSize = true;
             label29.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            label29.Location = new Point(176, 15);
+            label29.Location = new Point(164, 15);
             label29.Name = "label29";
             label29.Size = new Size(376, 32);
             label29.TabIndex = 0;
@@ -1140,23 +1298,24 @@
             // 
             // panel5
             // 
-            panel5.BackColor = SystemColors.AppWorkspace;
+            panel5.BackColor = Color.FromArgb(173, 236, 223);
             panel5.Controls.Add(label30);
-            panel5.Location = new Point(6, 6);
+            panel5.Dock = DockStyle.Top;
+            panel5.Location = new Point(3, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(1220, 98);
+            panel5.Size = new Size(1216, 98);
             panel5.TabIndex = 3;
             // 
             // label30
             // 
-            label30.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label30.Anchor = AnchorStyles.None;
             label30.AutoSize = true;
             label30.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label30.Location = new Point(325, 27);
+            label30.Location = new Point(359, 28);
             label30.Name = "label30";
-            label30.Size = new Size(409, 41);
+            label30.Size = new Size(500, 41);
             label30.TabIndex = 0;
-            label30.Text = "Pengelolaan Kartu Keluarga";
+            label30.Text = "PENGELOLAAN KARTU KELUARGA";
             // 
             // FormKK
             // 
@@ -1166,8 +1325,8 @@
             ClientSize = new Size(1244, 982);
             Controls.Add(tabControl1);
             Name = "FormKK";
-            Text = "FormKK";
-            FormClosing += FormKK_FormClosing;
+            Padding = new Padding(7);
+            Text = "Pengajuan Kartu Keluarga";
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             groupBox4.ResumeLayout(false);
@@ -1189,7 +1348,6 @@
             tabPage2.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
-            panel3.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPengajuan).EndInit();
@@ -1212,8 +1370,6 @@
         private DataGridView dataGridViewKK;
         private Panel panel1;
         private ComboBox comboBoxNama;
-        private DataGridViewButtonColumn btnTambah;
-        private DataGridViewButtonColumn Hapus;
         private Label label2;
         private TextBox textBox2;
         private Label label1;
@@ -1263,7 +1419,6 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private Panel panel3;
         private Button btnUpdateNomorKK;
         private Button btnDetail;
         private Panel panel2;
@@ -1291,5 +1446,7 @@
         private Label label37;
         private Button btnTambahData;
         private Button btnHapus;
+        private DataGridViewButtonColumn btnTambah;
+        private DataGridViewButtonColumn Hapus;
     }
 }

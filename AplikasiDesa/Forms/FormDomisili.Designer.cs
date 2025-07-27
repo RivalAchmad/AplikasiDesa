@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            panel1 = new Panel();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
             panel8 = new Panel();
             label40 = new Label();
             btnTambahData = new Button();
-            panel1 = new Panel();
             txtKetuaRT = new TextBox();
             label10 = new Label();
             cmbBoxCari = new ComboBox();
@@ -84,8 +88,8 @@
             label12 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            panel8.SuspendLayout();
             panel1.SuspendLayout();
+            panel8.SuspendLayout();
             panel2.SuspendLayout();
             tabPage2.SuspendLayout();
             panel6.SuspendLayout();
@@ -96,63 +100,36 @@
             // 
             // tabControl1
             // 
+            tabControl1.Appearance = TabAppearance.FlatButtons;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(12, 12);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(7, 7);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1038, 649);
+            tabControl1.Size = new Size(973, 659);
+            tabControl1.SizeMode = TabSizeMode.FillToRight;
             tabControl1.TabIndex = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(panel8);
+            tabPage1.BackColor = SystemColors.Control;
             tabPage1.Controls.Add(panel1);
             tabPage1.Controls.Add(panel2);
-            tabPage1.Location = new Point(4, 29);
+            tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1030, 616);
+            tabPage1.Size = new Size(965, 623);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Formulir";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.LightGray;
-            panel8.Controls.Add(label40);
-            panel8.Controls.Add(btnTambahData);
-            panel8.Location = new Point(47, 465);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(258, 135);
-            panel8.TabIndex = 197;
-            // 
-            // label40
-            // 
-            label40.AutoSize = true;
-            label40.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label40.Location = new Point(2, 4);
-            label40.Name = "label40";
-            label40.Size = new Size(253, 69);
-            label40.TabIndex = 49;
-            label40.Text = "Tambah data baru apabila data \r\npenduduk yang diinginkan \r\nbelum ada pada database";
-            // 
-            // btnTambahData
-            // 
-            btnTambahData.BackColor = SystemColors.ButtonFace;
-            btnTambahData.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnTambahData.Location = new Point(30, 79);
-            btnTambahData.Name = "btnTambahData";
-            btnTambahData.Size = new Size(196, 45);
-            btnTambahData.TabIndex = 47;
-            btnTambahData.Text = "Tambah Data Penduduk";
-            btnTambahData.UseVisualStyleBackColor = false;
-            btnTambahData.Click += btnTambahData_Click;
+            tabPage1.Text = "📝 Formulir";
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Gainsboro;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.BackColor = Color.WhiteSmoke;
+            panel1.Controls.Add(iconButton1);
+            panel1.Controls.Add(panel8);
             panel1.Controls.Add(txtKetuaRT);
             panel1.Controls.Add(label10);
             panel1.Controls.Add(cmbBoxCari);
@@ -182,13 +159,66 @@
             panel1.Controls.Add(txtTempatLahir);
             panel1.Controls.Add(txtWarganegara);
             panel1.ImeMode = ImeMode.Off;
-            panel1.Location = new Point(47, 80);
+            panel1.Location = new Point(15, 87);
             panel1.Name = "panel1";
             panel1.Size = new Size(936, 520);
             panel1.TabIndex = 40;
             // 
+            // iconButton1
+            // 
+            iconButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            iconButton1.BackColor = Color.WhiteSmoke;
+            iconButton1.FlatStyle = FlatStyle.Flat;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+            iconButton1.IconColor = Color.Black;
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.Location = new Point(881, 465);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(55, 55);
+            iconButton1.TabIndex = 198;
+            iconButton1.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = SystemColors.ButtonFace;
+            panel8.Controls.Add(label40);
+            panel8.Controls.Add(btnTambahData);
+            panel8.Location = new Point(669, 385);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(267, 135);
+            panel8.TabIndex = 197;
+            panel8.Visible = false;
+            // 
+            // label40
+            // 
+            label40.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label40.AutoSize = true;
+            label40.BackColor = SystemColors.Control;
+            label40.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label40.Location = new Point(5, 4);
+            label40.Name = "label40";
+            label40.Size = new Size(253, 69);
+            label40.TabIndex = 49;
+            label40.Text = "Tambah data baru apabila data \r\npenduduk yang diinginkan \r\nbelum ada pada database";
+            // 
+            // btnTambahData
+            // 
+            btnTambahData.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnTambahData.BackColor = SystemColors.ActiveCaption;
+            btnTambahData.FlatStyle = FlatStyle.Flat;
+            btnTambahData.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTambahData.Location = new Point(10, 80);
+            btnTambahData.Name = "btnTambahData";
+            btnTambahData.Size = new Size(196, 45);
+            btnTambahData.TabIndex = 47;
+            btnTambahData.Text = "Tambah Data Penduduk";
+            btnTambahData.UseVisualStyleBackColor = false;
+            btnTambahData.Click += btnTambahData_Click;
+            // 
             // txtKetuaRT
             // 
+            txtKetuaRT.Anchor = AnchorStyles.None;
             txtKetuaRT.Location = new Point(624, 229);
             txtKetuaRT.Name = "txtKetuaRT";
             txtKetuaRT.Size = new Size(285, 27);
@@ -196,6 +226,7 @@
             // 
             // label10
             // 
+            label10.Anchor = AnchorStyles.None;
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 10.2F);
             label10.Location = new Point(516, 232);
@@ -206,6 +237,7 @@
             // 
             // cmbBoxCari
             // 
+            cmbBoxCari.Anchor = AnchorStyles.None;
             cmbBoxCari.FormattingEnabled = true;
             cmbBoxCari.Location = new Point(153, 37);
             cmbBoxCari.Name = "cmbBoxCari";
@@ -217,6 +249,7 @@
             // 
             // label27
             // 
+            label27.Anchor = AnchorStyles.None;
             label27.AutoSize = true;
             label27.Font = new Font("Segoe UI", 10.2F);
             label27.Location = new Point(19, 142);
@@ -227,6 +260,7 @@
             // 
             // label26
             // 
+            label26.Anchor = AnchorStyles.None;
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label26.Location = new Point(19, 31);
@@ -237,6 +271,7 @@
             // 
             // txtAlamat
             // 
+            txtAlamat.Anchor = AnchorStyles.None;
             txtAlamat.Location = new Point(624, 37);
             txtAlamat.Name = "txtAlamat";
             txtAlamat.Size = new Size(285, 142);
@@ -245,6 +280,7 @@
             // 
             // txtKades
             // 
+            txtKades.Anchor = AnchorStyles.None;
             txtKades.Location = new Point(624, 262);
             txtKades.Name = "txtKades";
             txtKades.Size = new Size(285, 27);
@@ -252,6 +288,7 @@
             // 
             // txtPekerjaan
             // 
+            txtPekerjaan.Anchor = AnchorStyles.None;
             txtPekerjaan.Location = new Point(153, 332);
             txtPekerjaan.Name = "txtPekerjaan";
             txtPekerjaan.Size = new Size(273, 27);
@@ -259,6 +296,7 @@
             // 
             // label11
             // 
+            label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 10.2F);
             label11.Location = new Point(516, 265);
@@ -269,6 +307,7 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10.2F);
             label5.Location = new Point(19, 294);
@@ -279,6 +318,7 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.2F);
             label6.Location = new Point(19, 335);
@@ -289,6 +329,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10.2F);
             label1.Location = new Point(19, 78);
@@ -299,6 +340,7 @@
             // 
             // txtAgama
             // 
+            txtAgama.Anchor = AnchorStyles.None;
             txtAgama.Location = new Point(153, 290);
             txtAgama.Name = "txtAgama";
             txtAgama.Size = new Size(273, 27);
@@ -306,16 +348,18 @@
             // 
             // label9
             // 
+            label9.Anchor = AnchorStyles.None;
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 10.2F);
             label9.Location = new Point(516, 203);
             label9.Name = "label9";
-            label9.Size = new Size(78, 23);
+            label9.Size = new Size(82, 23);
             label9.TabIndex = 22;
-            label9.Text = "No Surat";
+            label9.Text = "No. Surat";
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 10.2F);
             label7.Location = new Point(516, 42);
@@ -326,6 +370,7 @@
             // 
             // txtNIK
             // 
+            txtNIK.Anchor = AnchorStyles.None;
             txtNIK.Location = new Point(153, 74);
             txtNIK.Name = "txtNIK";
             txtNIK.Size = new Size(273, 27);
@@ -333,6 +378,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10.2F);
             label4.Location = new Point(15, 252);
@@ -343,6 +389,7 @@
             // 
             // txtNoSurat
             // 
+            txtNoSurat.Anchor = AnchorStyles.None;
             txtNoSurat.Location = new Point(624, 196);
             txtNoSurat.Name = "txtNoSurat";
             txtNoSurat.Size = new Size(285, 27);
@@ -350,6 +397,7 @@
             // 
             // dtpTanggalLahir
             // 
+            dtpTanggalLahir.Anchor = AnchorStyles.None;
             dtpTanggalLahir.Location = new Point(153, 251);
             dtpTanggalLahir.Name = "dtpTanggalLahir";
             dtpTanggalLahir.Size = new Size(273, 27);
@@ -357,6 +405,7 @@
             // 
             // rbLK
             // 
+            rbLK.Anchor = AnchorStyles.None;
             rbLK.AutoSize = true;
             rbLK.Location = new Point(158, 142);
             rbLK.Name = "rbLK";
@@ -368,12 +417,14 @@
             // 
             // btnCetakPDF
             // 
-            btnCetakPDF.BackColor = Color.MediumSeaGreen;
+            btnCetakPDF.Anchor = AnchorStyles.None;
+            btnCetakPDF.BackColor = Color.FromArgb(72, 126, 176);
+            btnCetakPDF.FlatStyle = FlatStyle.Flat;
             btnCetakPDF.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCetakPDF.ForeColor = Color.White;
             btnCetakPDF.Location = new Point(624, 312);
             btnCetakPDF.Name = "btnCetakPDF";
-            btnCetakPDF.Size = new Size(140, 65);
+            btnCetakPDF.Size = new Size(158, 65);
             btnCetakPDF.TabIndex = 20;
             btnCetakPDF.Text = "CETAK PDF";
             btnCetakPDF.UseVisualStyleBackColor = false;
@@ -381,6 +432,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10.2F);
             label3.Location = new Point(17, 215);
@@ -391,6 +443,7 @@
             // 
             // txtNamaLengkap
             // 
+            txtNamaLengkap.Anchor = AnchorStyles.None;
             txtNamaLengkap.Location = new Point(153, 107);
             txtNamaLengkap.Name = "txtNamaLengkap";
             txtNamaLengkap.Size = new Size(273, 27);
@@ -398,6 +451,7 @@
             // 
             // rbPR
             // 
+            rbPR.Anchor = AnchorStyles.None;
             rbPR.AutoSize = true;
             rbPR.Location = new Point(279, 142);
             rbPR.Name = "rbPR";
@@ -409,6 +463,7 @@
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10.2F);
             label8.Location = new Point(17, 178);
@@ -419,6 +474,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10.2F);
             label2.Location = new Point(19, 107);
@@ -429,6 +485,7 @@
             // 
             // txtTempatLahir
             // 
+            txtTempatLahir.Anchor = AnchorStyles.None;
             txtTempatLahir.Location = new Point(153, 212);
             txtTempatLahir.Name = "txtTempatLahir";
             txtTempatLahir.Size = new Size(273, 27);
@@ -436,6 +493,7 @@
             // 
             // txtWarganegara
             // 
+            txtWarganegara.Anchor = AnchorStyles.None;
             txtWarganegara.Location = new Point(153, 175);
             txtWarganegara.Name = "txtWarganegara";
             txtWarganegara.Size = new Size(273, 27);
@@ -443,18 +501,21 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.LightGray;
+            panel2.BackColor = Color.FromArgb(15, 94, 101);
             panel2.Controls.Add(label19);
-            panel2.Location = new Point(6, 6);
+            panel2.Dock = DockStyle.Top;
+            panel2.ForeColor = Color.White;
+            panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1018, 60);
+            panel2.Size = new Size(959, 71);
             panel2.TabIndex = 39;
             // 
             // label19
             // 
+            label19.Anchor = AnchorStyles.None;
             label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            label19.Location = new Point(197, 9);
+            label19.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(173, 13);
             label19.Name = "label19";
             label19.Size = new Size(629, 41);
             label19.TabIndex = 0;
@@ -465,17 +526,18 @@
             tabPage2.Controls.Add(panel6);
             tabPage2.Controls.Add(panel4);
             tabPage2.Controls.Add(panel3);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1030, 616);
+            tabPage2.Size = new Size(965, 623);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "Riwayat";
+            tabPage2.Text = "📜 Riwayat";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel6
             // 
-            panel6.BackColor = Color.LightGray;
+            panel6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel6.BackColor = Color.WhiteSmoke;
             panel6.Controls.Add(lblPerBulanKategori);
             panel6.Controls.Add(lblTotalTahunKategori);
             panel6.Controls.Add(label24);
@@ -484,13 +546,14 @@
             panel6.Controls.Add(label39);
             panel6.Controls.Add(label41);
             panel6.Controls.Add(label42);
-            panel6.Location = new Point(6, 451);
+            panel6.Location = new Point(16, 452);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1018, 159);
+            panel6.Size = new Size(935, 159);
             panel6.TabIndex = 133;
             // 
             // lblPerBulanKategori
             // 
+            lblPerBulanKategori.Anchor = AnchorStyles.None;
             lblPerBulanKategori.AutoSize = true;
             lblPerBulanKategori.Font = new Font("Segoe UI", 10.2F);
             lblPerBulanKategori.Location = new Point(349, 83);
@@ -501,6 +564,7 @@
             // 
             // lblTotalTahunKategori
             // 
+            lblTotalTahunKategori.Anchor = AnchorStyles.None;
             lblTotalTahunKategori.AutoSize = true;
             lblTotalTahunKategori.Font = new Font("Segoe UI", 10.2F);
             lblTotalTahunKategori.Location = new Point(349, 117);
@@ -511,6 +575,7 @@
             // 
             // label24
             // 
+            label24.Anchor = AnchorStyles.None;
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label24.Location = new Point(20, 43);
@@ -521,6 +586,7 @@
             // 
             // comboBoxTahun
             // 
+            comboBoxTahun.Anchor = AnchorStyles.None;
             comboBoxTahun.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTahun.FormattingEnabled = true;
             comboBoxTahun.Items.AddRange(new object[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" });
@@ -532,6 +598,7 @@
             // 
             // comboBoxBulan
             // 
+            comboBoxBulan.Anchor = AnchorStyles.None;
             comboBoxBulan.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxBulan.FormattingEnabled = true;
             comboBoxBulan.Items.AddRange(new object[] { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" });
@@ -543,6 +610,7 @@
             // 
             // label39
             // 
+            label39.Anchor = AnchorStyles.None;
             label39.AutoSize = true;
             label39.Font = new Font("Segoe UI", 10.2F);
             label39.Location = new Point(27, 117);
@@ -553,6 +621,7 @@
             // 
             // label41
             // 
+            label41.Anchor = AnchorStyles.None;
             label41.AutoSize = true;
             label41.Font = new Font("Segoe UI", 10.2F);
             label41.Location = new Point(27, 83);
@@ -563,9 +632,10 @@
             // 
             // label42
             // 
+            label42.Anchor = AnchorStyles.Top;
             label42.AutoSize = true;
             label42.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
-            label42.Location = new Point(263, 5);
+            label42.Location = new Point(227, 9);
             label42.Name = "label42";
             label42.Size = new Size(525, 30);
             label42.TabIndex = 6;
@@ -573,25 +643,31 @@
             // 
             // panel4
             // 
-            panel4.BackColor = Color.LightGray;
+            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel4.BackColor = Color.WhiteSmoke;
             panel4.Controls.Add(btnDelete);
             panel4.Controls.Add(label22);
             panel4.Controls.Add(dataGridView1);
             panel4.Controls.Add(label29);
             panel4.Controls.Add(txtNomorSurat);
-            panel4.Location = new Point(6, 72);
+            panel4.Location = new Point(16, 79);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1018, 373);
+            panel4.Size = new Size(935, 359);
             panel4.TabIndex = 132;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(27, 323);
+            btnDelete.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnDelete.BackColor = Color.FromArgb(198, 67, 72);
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(27, 311);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(124, 36);
+            btnDelete.Size = new Size(148, 36);
             btnDelete.TabIndex = 19;
             btnDelete.Text = "Hapus Riwayat";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // label22
@@ -607,15 +683,48 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(242, 251, 252);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(107, 174, 181);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(15, 94, 101);
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.FromArgb(230, 246, 247);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 94, 101);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(10, 8, 10, 8);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(11, 67, 72);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle3.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(107, 174, 181);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(15, 94, 101);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.GridColor = Color.FromArgb(107, 174, 181);
             dataGridView1.Location = new Point(28, 88);
             dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 82;
-            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.RowTemplate.Height = 35;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(964, 228);
+            dataGridView1.Size = new Size(884, 216);
             dataGridView1.TabIndex = 3;
             // 
             // label29
@@ -634,44 +743,49 @@
             txtNomorSurat.Location = new Point(28, 50);
             txtNomorSurat.Margin = new Padding(4);
             txtNomorSurat.Name = "txtNomorSurat";
+            txtNomorSurat.PlaceholderText = "🔎";
             txtNomorSurat.Size = new Size(526, 27);
             txtNomorSurat.TabIndex = 4;
             txtNomorSurat.TextChanged += txtNomorSurat_TextChanged;
             // 
             // panel3
             // 
-            panel3.BackColor = Color.LightGray;
+            panel3.BackColor = Color.FromArgb(15, 94, 101);
             panel3.Controls.Add(label12);
-            panel3.Location = new Point(6, 6);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1018, 60);
+            panel3.Size = new Size(959, 63);
             panel3.TabIndex = 40;
             // 
             // label12
             // 
+            label12.Anchor = AnchorStyles.None;
             label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            label12.Location = new Point(197, 9);
+            label12.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(187, 9);
             label12.Name = "label12";
-            label12.Size = new Size(629, 41);
+            label12.Size = new Size(605, 41);
             label12.TabIndex = 0;
-            label12.Text = "FORMULIR SURAT KETERANGAN DOMISILI";
+            label12.Text = "RIWAYAT SURAT KETERANGAN DOMISILI";
+            label12.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormDomisili
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1062, 673);
+            ClientSize = new Size(987, 673);
             Controls.Add(tabControl1);
             Name = "FormDomisili";
-            Text = "FormDomisili";
-            FormClosing += FormDomisili_FormClosing;
+            Padding = new Padding(7);
+            Text = "Pengajuan Surat Keterangan Domisili";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             tabPage2.ResumeLayout(false);
@@ -741,5 +855,6 @@
         private DataGridView dataGridView1;
         private Label label29;
         private TextBox txtNomorSurat;
+        private FontAwesome.Sharp.IconButton iconButton1;
     }
 }

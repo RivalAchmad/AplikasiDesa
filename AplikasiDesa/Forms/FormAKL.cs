@@ -16,12 +16,10 @@ namespace AplikasiDesa.Forms
     public partial class FormAKL : Form
     {
         private Timer typingTimer;
-        private Timer sessionTimer;
 
         public FormAKL()
         {
             InitializeComponent();
-            VerifySession();
             typingTimer = new Timer();
             typingTimer.Interval = 300;
             typingTimer.Tick += TypeTimerTick;
@@ -29,48 +27,11 @@ namespace AplikasiDesa.Forms
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             textBoxNomorSurat.Text = GenerateNomorSurat();
-            sessionTimer = new Timer();
-            sessionTimer.Interval = 600000; // Periksa setiap 10 menit
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
             string loggedInUserName = Session1.LoggedInUserName;
             textBoxAtasNama.Text = loggedInUserName;
 
             LoadPendudukData();
             LoadStatisticsKK();
-        }
-
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                Session1.ClearSession();
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    this.Close();
-
-                    using (var loginForm = new LoginForm())
-                    {
-                        if (loginForm.ShowDialog() == DialogResult.OK)
-                        {
-                            FormMainMenu mainMenu = new FormMainMenu();
-                            mainMenu.Show();
-                        }
-                        else
-                        {
-                            Application.Exit();
-                        }
-                    }
-                }));
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
         }
 
         #region Formulir
@@ -573,6 +534,25 @@ namespace AplikasiDesa.Forms
         #endregion
 
         #region Riwayat Surat
+        private void ConfigureDataGridView()
+        {
+            dataGridViewPenduduk.Columns["id"].HeaderText = "ID";
+            dataGridViewPenduduk.Columns["nomor_surat"].HeaderText = "Nomor Surat";
+            dataGridViewPenduduk.Columns["anak_ke"].HeaderText = "Anak Ke";
+            dataGridViewPenduduk.Columns["nama_bapak"].HeaderText = "Nama Bapak";
+            dataGridViewPenduduk.Columns["nama_ibu"].HeaderText = "Nama Ibu";
+            dataGridViewPenduduk.Columns["hari_lahir"].HeaderText = "Hari Lahir";
+            dataGridViewPenduduk.Columns["tanggal_lahir"].HeaderText = "Tanggal Lahir";
+            dataGridViewPenduduk.Columns["jam_lahir"].HeaderText = "Jam Lahir";
+            dataGridViewPenduduk.Columns["tanggal_pembuatan_surat"].HeaderText = "Tanggal Pembuatan Surat";
+            dataGridViewPenduduk.Columns["atas_nama"].HeaderText = "Petugas";
+            dataGridViewPenduduk.Columns["nama_anak"].HeaderText = "Nama Anak";
+            dataGridViewPenduduk.Columns["jenis_kelamin"].HeaderText = "Jenis Kelamin";
+            dataGridViewPenduduk.Columns["kewarganegaraan"].HeaderText = "Kewarganegaraan";
+            dataGridViewPenduduk.Columns["dari"].HeaderText = "Dari";
+            dataGridViewPenduduk.Columns["tempat_lahir"].HeaderText = "Tempat Lahir";
+        }
+
         private void LoadPendudukData()
         {
             try
@@ -586,6 +566,7 @@ namespace AplikasiDesa.Forms
                     adapter.Fill(dt);
 
                     dataGridViewPenduduk.DataSource = dt;
+                    ConfigureDataGridView();
                 }
             }
             catch (Exception ex)
@@ -651,6 +632,7 @@ namespace AplikasiDesa.Forms
 
                     var result = connection.Query(sql, new { keyword = $"%{keyword}%" });
                     dataGridViewPenduduk.DataSource = result.ToList();
+                    ConfigureDataGridView();
                 }
             }
             catch (Exception ex)
@@ -728,12 +710,19 @@ namespace AplikasiDesa.Forms
             }
         }
 
-        private void FormAKL_FormClosing(object sender, FormClosingEventArgs e)
+        bool visible = false;
+
+        private void iconButton1_Click(object sender, EventArgs e)
         {
-            if (sessionTimer != null)
+            if (visible == false)
             {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
+                panel8.Visible = true;
+                visible = true;
+            }
+            else
+            {
+                panel8.Visible = false;
+                visible = false;
             }
         }
     }

@@ -351,7 +351,6 @@
             Name = "FormRegister";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Registrasi Petugas";
-            FormClosing += FormRegister_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);

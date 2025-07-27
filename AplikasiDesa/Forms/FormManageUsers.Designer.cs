@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             lblTitle = new Label();
             dataGridViewUsers = new DataGridView();
             btnDeleteUser = new Button();
@@ -42,79 +44,96 @@
             dataGridViewLoginLogs = new DataGridView();
             lblTotalLogs = new Label();
             panelMain = new Panel();
-            label1 = new Label();
             btnRefreshLogs = new Button();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewLoginLogs).BeginInit();
             panelMain.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitle
             // 
+            lblTitle.Anchor = AnchorStyles.None;
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            lblTitle.Location = new Point(26, 27);
+            lblTitle.Location = new Point(397, 10);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(332, 41);
+            lblTitle.Size = new Size(387, 41);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Manajemen Pengguna";
+            lblTitle.Text = "MANAJEMEN PENGGUNA";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dataGridViewUsers
             // 
             dataGridViewUsers.AllowUserToAddRows = false;
-            dataGridViewUsers.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewUsers.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(245, 247, 250);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(139, 150, 178);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(57, 67, 100);
+            dataGridViewUsers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewUsers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewUsers.BackgroundColor = Color.White;
+            dataGridViewUsers.BackgroundColor = Color.FromArgb(230, 233, 240);
             dataGridViewUsers.BorderStyle = BorderStyle.None;
             dataGridViewUsers.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewUsers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = Color.FromArgb(0, 102, 204);
-            dataGridViewCellStyle13.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle13.ForeColor = Color.White;
-            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(0, 102, 204);
-            dataGridViewCellStyle13.SelectionForeColor = Color.White;
-            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
-            dataGridViewUsers.ColumnHeadersHeight = 40;
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = SystemColors.Window;
-            dataGridViewCellStyle14.Font = new Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle14.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle14.SelectionForeColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.False;
-            dataGridViewUsers.DefaultCellStyle = dataGridViewCellStyle14;
-            dataGridViewUsers.GridColor = Color.FromArgb(224, 224, 224);
-            dataGridViewUsers.Location = new Point(26, 93);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(57, 67, 100);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(10, 8, 10, 8);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(38, 45, 67);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridViewUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle3.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(139, 150, 178);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(57, 67, 100);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridViewUsers.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewUsers.EnableHeadersVisualStyles = false;
+            dataGridViewUsers.GridColor = Color.FromArgb(139, 150, 178);
+            dataGridViewUsers.Location = new Point(43, 91);
             dataGridViewUsers.Margin = new Padding(3, 4, 3, 4);
             dataGridViewUsers.Name = "dataGridViewUsers";
             dataGridViewUsers.ReadOnly = true;
             dataGridViewUsers.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = Color.White;
-            dataGridViewCellStyle15.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle15.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = Color.White;
-            dataGridViewCellStyle15.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.White;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridViewUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewUsers.RowHeadersVisible = false;
             dataGridViewUsers.RowHeadersWidth = 51;
             dataGridViewUsers.RowTemplate.Height = 35;
             dataGridViewUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewUsers.Size = new Size(1090, 271);
+            dataGridViewUsers.Size = new Size(1061, 298);
             dataGridViewUsers.TabIndex = 2;
             // 
             // btnDeleteUser
             // 
-            btnDeleteUser.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDeleteUser.Anchor = AnchorStyles.Right;
             btnDeleteUser.BackColor = Color.Crimson;
             btnDeleteUser.FlatAppearance.BorderSize = 0;
             btnDeleteUser.FlatStyle = FlatStyle.Flat;
             btnDeleteUser.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnDeleteUser.ForeColor = Color.White;
-            btnDeleteUser.Location = new Point(949, 381);
+            btnDeleteUser.Location = new Point(937, 397);
             btnDeleteUser.Margin = new Padding(3, 4, 3, 4);
             btnDeleteUser.Name = "btnDeleteUser";
             btnDeleteUser.Size = new Size(167, 47);
@@ -125,13 +144,13 @@
             // 
             // btnChangeRole
             // 
-            btnChangeRole.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnChangeRole.Anchor = AnchorStyles.Right;
             btnChangeRole.BackColor = Color.FromArgb(0, 123, 255);
             btnChangeRole.FlatAppearance.BorderSize = 0;
             btnChangeRole.FlatStyle = FlatStyle.Flat;
             btnChangeRole.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnChangeRole.ForeColor = Color.White;
-            btnChangeRole.Location = new Point(731, 381);
+            btnChangeRole.Location = new Point(708, 397);
             btnChangeRole.Margin = new Padding(3, 4, 3, 4);
             btnChangeRole.Name = "btnChangeRole";
             btnChangeRole.Size = new Size(213, 47);
@@ -142,10 +161,11 @@
             // 
             // lblTotalUsers
             // 
+            lblTotalUsers.Anchor = AnchorStyles.Left;
             lblTotalUsers.AutoSize = true;
             lblTotalUsers.Font = new Font("Segoe UI", 10F);
             lblTotalUsers.ForeColor = Color.FromArgb(64, 64, 64);
-            lblTotalUsers.Location = new Point(26, 368);
+            lblTotalUsers.Location = new Point(43, 409);
             lblTotalUsers.Name = "lblTotalUsers";
             lblTotalUsers.Size = new Size(146, 23);
             lblTotalUsers.TabIndex = 4;
@@ -154,48 +174,57 @@
             // dataGridViewLoginLogs
             // 
             dataGridViewLoginLogs.AllowUserToAddRows = false;
-            dataGridViewLoginLogs.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewLoginLogs.AllowUserToResizeRows = false;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(245, 247, 250);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(139, 150, 178);
+            dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(57, 67, 100);
+            dataGridViewLoginLogs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewLoginLogs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewLoginLogs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewLoginLogs.BackgroundColor = Color.White;
+            dataGridViewLoginLogs.BackgroundColor = Color.FromArgb(230, 233, 240);
             dataGridViewLoginLogs.BorderStyle = BorderStyle.None;
             dataGridViewLoginLogs.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewLoginLogs.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = Color.FromArgb(0, 102, 204);
-            dataGridViewCellStyle16.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle16.ForeColor = Color.White;
-            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb(0, 102, 204);
-            dataGridViewCellStyle16.SelectionForeColor = Color.White;
-            dataGridViewCellStyle16.WrapMode = DataGridViewTriState.True;
-            dataGridViewLoginLogs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
-            dataGridViewLoginLogs.ColumnHeadersHeight = 40;
-            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = SystemColors.Window;
-            dataGridViewCellStyle17.Font = new Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle17.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle17.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle17.SelectionForeColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle17.WrapMode = DataGridViewTriState.False;
-            dataGridViewLoginLogs.DefaultCellStyle = dataGridViewCellStyle17;
-            dataGridViewLoginLogs.GridColor = Color.FromArgb(224, 224, 224);
-            dataGridViewLoginLogs.Location = new Point(26, 499);
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(57, 67, 100);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.Padding = new Padding(10, 8, 10, 8);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(38, 45, 67);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridViewLoginLogs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewLoginLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = SystemColors.Window;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewCellStyle7.Padding = new Padding(8, 6, 8, 6);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(139, 150, 178);
+            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(57, 67, 100);
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dataGridViewLoginLogs.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewLoginLogs.EnableHeadersVisualStyles = false;
+            dataGridViewLoginLogs.GridColor = Color.FromArgb(139, 150, 178);
+            dataGridViewLoginLogs.Location = new Point(43, 578);
             dataGridViewLoginLogs.Margin = new Padding(3, 4, 3, 4);
             dataGridViewLoginLogs.Name = "dataGridViewLoginLogs";
             dataGridViewLoginLogs.ReadOnly = true;
             dataGridViewLoginLogs.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = Color.White;
-            dataGridViewCellStyle18.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle18.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle18.SelectionBackColor = Color.White;
-            dataGridViewCellStyle18.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = DataGridViewTriState.True;
-            dataGridViewLoginLogs.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.White;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dataGridViewLoginLogs.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewLoginLogs.RowHeadersVisible = false;
             dataGridViewLoginLogs.RowHeadersWidth = 51;
             dataGridViewLoginLogs.RowTemplate.Height = 35;
             dataGridViewLoginLogs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewLoginLogs.Size = new Size(1090, 306);
+            dataGridViewLoginLogs.Size = new Size(1061, 221);
             dataGridViewLoginLogs.TabIndex = 5;
             dataGridViewLoginLogs.Click += btnRefreshLogs_Click;
             // 
@@ -205,7 +234,7 @@
             lblTotalLogs.AutoSize = true;
             lblTotalLogs.Font = new Font("Segoe UI", 10F);
             lblTotalLogs.ForeColor = Color.FromArgb(64, 64, 64);
-            lblTotalLogs.Location = new Point(26, 809);
+            lblTotalLogs.Location = new Point(43, 330);
             lblTotalLogs.Name = "lblTotalLogs";
             lblTotalLogs.Size = new Size(97, 23);
             lblTotalLogs.TabIndex = 8;
@@ -213,35 +242,19 @@
             // 
             // panelMain
             // 
-            panelMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelMain.AutoScroll = true;
-            panelMain.BackColor = Color.White;
-            panelMain.Controls.Add(label1);
-            panelMain.Controls.Add(btnRefreshLogs);
-            panelMain.Controls.Add(lblTotalLogs);
-            panelMain.Controls.Add(dataGridViewLoginLogs);
+            panelMain.BackColor = Color.WhiteSmoke;
             panelMain.Controls.Add(lblTotalUsers);
             panelMain.Controls.Add(btnChangeRole);
             panelMain.Controls.Add(btnDeleteUser);
             panelMain.Controls.Add(dataGridViewUsers);
-            panelMain.Controls.Add(lblTitle);
+            panelMain.Controls.Add(panel1);
+            panelMain.Dock = DockStyle.Top;
             panelMain.Location = new Point(0, 0);
             panelMain.Margin = new Padding(3, 4, 3, 4);
             panelMain.Name = "panelMain";
-            panelMain.Padding = new Padding(23, 27, 23, 27);
-            panelMain.Size = new Size(1143, 867);
+            panelMain.Size = new Size(1143, 466);
             panelMain.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 447);
-            label1.Name = "label1";
-            label1.Size = new Size(266, 38);
-            label1.TabIndex = 6;
-            label1.Text = "Log Aktifitas Login";
             // 
             // btnRefreshLogs
             // 
@@ -251,7 +264,7 @@
             btnRefreshLogs.FlatStyle = FlatStyle.Flat;
             btnRefreshLogs.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRefreshLogs.ForeColor = Color.White;
-            btnRefreshLogs.Location = new Point(971, 813);
+            btnRefreshLogs.Location = new Point(959, 318);
             btnRefreshLogs.Margin = new Padding(3, 4, 3, 4);
             btnRefreshLogs.Name = "btnRefreshLogs";
             btnRefreshLogs.Size = new Size(145, 47);
@@ -260,6 +273,52 @@
             btnRefreshLogs.UseVisualStyleBackColor = false;
             btnRefreshLogs.Click += btnRefreshLogs_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(57, 67, 100);
+            panel1.Controls.Add(lblTitle);
+            panel1.Dock = DockStyle.Top;
+            panel1.ForeColor = Color.White;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1143, 64);
+            panel1.TabIndex = 5;
+            // 
+            // panel2
+            // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.BackColor = Color.WhiteSmoke;
+            panel2.Controls.Add(panel3);
+            panel2.Controls.Add(btnRefreshLogs);
+            panel2.Controls.Add(lblTotalLogs);
+            panel2.Location = new Point(0, 489);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1143, 378);
+            panel2.TabIndex = 9;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(57, 67, 100);
+            panel3.Controls.Add(label1);
+            panel3.Dock = DockStyle.Top;
+            panel3.ForeColor = Color.White;
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1143, 64);
+            panel3.TabIndex = 9;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.None;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label1.Location = new Point(427, 11);
+            label1.Name = "label1";
+            label1.Size = new Size(336, 41);
+            label1.TabIndex = 0;
+            label1.Text = "LOG AKTIVITAS LOGIN";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // FormManageUsers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -267,6 +326,8 @@
             AutoScroll = true;
             ClientSize = new Size(1143, 867);
             Controls.Add(panelMain);
+            Controls.Add(dataGridViewLoginLogs);
+            Controls.Add(panel2);
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormManageUsers";
             Text = "Manajemen Pengguna";
@@ -275,6 +336,12 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewLoginLogs).EndInit();
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -288,7 +355,10 @@
         private DataGridView dataGridViewLoginLogs;
         private Label lblTotalLogs;
         private Panel panelMain;
-        private Label label1;
         private Button btnRefreshLogs;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Label label1;
     }
 }

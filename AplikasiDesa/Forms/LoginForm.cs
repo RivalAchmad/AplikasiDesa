@@ -19,7 +19,6 @@ namespace AplikasiDesa
         public LoginForm()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
 
             // Set modern rounded corners for panel
             panel1.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, panel1.Width, panel1.Height, 15, 15));
@@ -142,7 +141,7 @@ namespace AplikasiDesa
                         Session1.LoggedInUser = decryptedUsername;
                         Session1.LoggedInUserName = decryptedNamaPetugas;
                         Session1.SessionToken = sessionToken;
-                        Session1.SessionExpiry = DateTime.Now.AddHours(4); // Session expires after 4 hours
+                        Session1.SessionExpiry = DateTime.Now.AddMinutes(5); // Session expires after 4 hours
                         Session1.UserId = userId;
 
                         // Create a model for the session token to encrypt it
