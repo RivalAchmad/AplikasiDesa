@@ -35,6 +35,14 @@
             label1 = new Label();
             tabPage2 = new TabPage();
             panel3 = new Panel();
+            lblTotalRecords = new Label();
+            cmbPageSize = new ComboBox();
+            label60 = new Label();
+            btnLastPage = new Button();
+            btnNextPage = new Button();
+            lblPageInfo = new Label();
+            btnPreviousPage = new Button();
+            btnFirstPage = new Button();
             btnUpdate = new Button();
             btnHapus = new Button();
             txtCariData = new TextBox();
@@ -43,6 +51,7 @@
             dataGridViewDB = new DataGridView();
             label28 = new Label();
             tabPage1 = new TabPage();
+            btnImportCSV = new Button();
             panel4 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel9 = new Panel();
@@ -195,7 +204,7 @@
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(248, 12);
+            label1.Location = new Point(238, 12);
             label1.Name = "label1";
             label1.Size = new Size(471, 41);
             label1.TabIndex = 0;
@@ -207,7 +216,7 @@
             tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(916, 1131);
+            tabPage2.Size = new Size(885, 1131);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "💾 Database Penduduk";
             tabPage2.UseVisualStyleBackColor = true;
@@ -216,6 +225,14 @@
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel3.BackColor = Color.WhiteSmoke;
+            panel3.Controls.Add(lblTotalRecords);
+            panel3.Controls.Add(cmbPageSize);
+            panel3.Controls.Add(label60);
+            panel3.Controls.Add(btnLastPage);
+            panel3.Controls.Add(btnNextPage);
+            panel3.Controls.Add(lblPageInfo);
+            panel3.Controls.Add(btnPreviousPage);
+            panel3.Controls.Add(btnFirstPage);
             panel3.Controls.Add(btnUpdate);
             panel3.Controls.Add(btnHapus);
             panel3.Controls.Add(txtCariData);
@@ -225,8 +242,102 @@
             panel3.Controls.Add(label28);
             panel3.Location = new Point(17, 16);
             panel3.Name = "panel3";
-            panel3.Size = new Size(883, 632);
+            panel3.Size = new Size(810, 731);
             panel3.TabIndex = 0;
+            // 
+            // lblTotalRecords
+            // 
+            lblTotalRecords.AutoSize = true;
+            lblTotalRecords.Location = new Point(29, 641);
+            lblTotalRecords.Name = "lblTotalRecords";
+            lblTotalRecords.Size = new Size(78, 20);
+            lblTotalRecords.TabIndex = 88;
+            lblTotalRecords.Text = "Total Data";
+            // 
+            // cmbPageSize
+            // 
+            cmbPageSize.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            cmbPageSize.BackColor = SystemColors.Window;
+            cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPageSize.FormattingEnabled = true;
+            cmbPageSize.Items.AddRange(new object[] { "10", "25", "50", "100" });
+            cmbPageSize.Location = new Point(159, 673);
+            cmbPageSize.Name = "cmbPageSize";
+            cmbPageSize.Size = new Size(60, 28);
+            cmbPageSize.TabIndex = 87;
+            cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
+            // 
+            // label60
+            // 
+            label60.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label60.AutoSize = true;
+            label60.Location = new Point(29, 677);
+            label60.Name = "label60";
+            label60.Size = new Size(131, 20);
+            label60.TabIndex = 86;
+            label60.Text = "Data per halaman:";
+            // 
+            // btnLastPage
+            // 
+            btnLastPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnLastPage.BackColor = Color.MistyRose;
+            btnLastPage.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLastPage.Location = new Point(557, 672);
+            btnLastPage.Name = "btnLastPage";
+            btnLastPage.Size = new Size(60, 30);
+            btnLastPage.TabIndex = 85;
+            btnLastPage.Text = ">>";
+            btnLastPage.UseVisualStyleBackColor = false;
+            btnLastPage.Click += btnLastPage_Click;
+            // 
+            // btnNextPage
+            // 
+            btnNextPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnNextPage.BackColor = Color.MistyRose;
+            btnNextPage.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNextPage.Location = new Point(491, 672);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Size = new Size(60, 30);
+            btnNextPage.TabIndex = 84;
+            btnNextPage.Text = ">";
+            btnNextPage.UseVisualStyleBackColor = false;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // lblPageInfo
+            // 
+            lblPageInfo.AutoSize = true;
+            lblPageInfo.BackColor = Color.Transparent;
+            lblPageInfo.Location = new Point(362, 677);
+            lblPageInfo.Name = "lblPageInfo";
+            lblPageInfo.Size = new Size(123, 20);
+            lblPageInfo.TabIndex = 83;
+            lblPageInfo.Text = "Halaman 1 dari 1";
+            // 
+            // btnPreviousPage
+            // 
+            btnPreviousPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnPreviousPage.BackColor = Color.MistyRose;
+            btnPreviousPage.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPreviousPage.Location = new Point(296, 672);
+            btnPreviousPage.Name = "btnPreviousPage";
+            btnPreviousPage.Size = new Size(60, 30);
+            btnPreviousPage.TabIndex = 82;
+            btnPreviousPage.Text = "<";
+            btnPreviousPage.UseVisualStyleBackColor = false;
+            btnPreviousPage.Click += btnPreviousPage_Click;
+            // 
+            // btnFirstPage
+            // 
+            btnFirstPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnFirstPage.BackColor = Color.MistyRose;
+            btnFirstPage.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnFirstPage.Location = new Point(230, 672);
+            btnFirstPage.Name = "btnFirstPage";
+            btnFirstPage.Size = new Size(60, 30);
+            btnFirstPage.TabIndex = 81;
+            btnFirstPage.Text = "<<";
+            btnFirstPage.UseVisualStyleBackColor = false;
+            btnFirstPage.Click += btnFirstPage_Click;
             // 
             // btnUpdate
             // 
@@ -235,7 +346,7 @@
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpdate.ForeColor = Color.White;
-            btnUpdate.Location = new Point(756, 558);
+            btnUpdate.Location = new Point(685, 657);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(98, 45);
             btnUpdate.TabIndex = 80;
@@ -250,7 +361,7 @@
             btnHapus.FlatStyle = FlatStyle.Flat;
             btnHapus.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnHapus.ForeColor = Color.White;
-            btnHapus.Location = new Point(623, 558);
+            btnHapus.Location = new Point(572, 657);
             btnHapus.Name = "btnHapus";
             btnHapus.Size = new Size(98, 45);
             btnHapus.TabIndex = 79;
@@ -271,7 +382,7 @@
             // 
             label29.AutoSize = true;
             label29.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label29.Location = new Point(130, 63);
+            label29.Location = new Point(124, 63);
             label29.Name = "label29";
             label29.Size = new Size(183, 20);
             label29.TabIndex = 77;
@@ -281,7 +392,7 @@
             // 
             label30.AutoSize = true;
             label30.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label30.Location = new Point(33, 56);
+            label30.Location = new Point(27, 56);
             label30.Name = "label30";
             label30.Size = new Size(93, 28);
             label30.TabIndex = 76;
@@ -329,7 +440,7 @@
             dataGridViewDB.RowHeadersWidth = 51;
             dataGridViewDB.RowTemplate.Height = 35;
             dataGridViewDB.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewDB.Size = new Size(821, 419);
+            dataGridViewDB.Size = new Size(750, 518);
             dataGridViewDB.TabIndex = 74;
             dataGridViewDB.DataError += dataGridViewDB_DataError;
             // 
@@ -338,7 +449,7 @@
             label28.Anchor = AnchorStyles.Top;
             label28.AutoSize = true;
             label28.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label28.Location = new Point(351, 10);
+            label28.Location = new Point(346, 10);
             label28.Name = "label28";
             label28.Size = new Size(226, 31);
             label28.TabIndex = 73;
@@ -346,6 +457,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(btnImportCSV);
             tabPage1.Controls.Add(panel4);
             tabPage1.Controls.Add(label32);
             tabPage1.Controls.Add(radioWNA);
@@ -358,10 +470,23 @@
             tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(895, 1131);
+            tabPage1.Size = new Size(885, 1131);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "📥 Tambah Data Penduduk";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnImportCSV
+            // 
+            btnImportCSV.BackColor = SystemColors.ActiveCaption;
+            btnImportCSV.FlatStyle = FlatStyle.Flat;
+            btnImportCSV.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnImportCSV.Location = new Point(6, 689);
+            btnImportCSV.Name = "btnImportCSV";
+            btnImportCSV.Size = new Size(147, 39);
+            btnImportCSV.TabIndex = 48;
+            btnImportCSV.Text = "Import Data 📄";
+            btnImportCSV.UseVisualStyleBackColor = false;
+            btnImportCSV.Click += btnImportCSV_Click;
             // 
             // panel4
             // 
@@ -371,7 +496,7 @@
             panel4.Controls.Add(label33);
             panel4.Location = new Point(6, 734);
             panel4.Name = "panel4";
-            panel4.Size = new Size(881, 390);
+            panel4.Size = new Size(871, 390);
             panel4.TabIndex = 32;
             // 
             // tableLayoutPanel2
@@ -386,7 +511,7 @@
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(844, 339);
+            tableLayoutPanel2.Size = new Size(834, 339);
             tableLayoutPanel2.TabIndex = 140;
             // 
             // panel9
@@ -410,9 +535,9 @@
             panel9.Controls.Add(txtAlamatSponsor);
             panel9.Controls.Add(label45);
             panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(425, 3);
+            panel9.Location = new Point(420, 3);
             panel9.Name = "panel9";
-            panel9.Size = new Size(416, 333);
+            panel9.Size = new Size(411, 333);
             panel9.TabIndex = 139;
             // 
             // label43
@@ -446,7 +571,7 @@
             cmbBoxTipeSponsor.Items.AddRange(new object[] { "Organisasi Internasional", "Pemerintah", "Perusahaan", "Perorangan" });
             cmbBoxTipeSponsor.Location = new Point(152, 37);
             cmbBoxTipeSponsor.Name = "cmbBoxTipeSponsor";
-            cmbBoxTipeSponsor.Size = new Size(249, 28);
+            cmbBoxTipeSponsor.Size = new Size(255, 28);
             cmbBoxTipeSponsor.TabIndex = 137;
             // 
             // label35
@@ -466,7 +591,7 @@
             dtpKedatangan.Enabled = false;
             dtpKedatangan.Location = new Point(152, 286);
             dtpKedatangan.Name = "dtpKedatangan";
-            dtpKedatangan.Size = new Size(249, 27);
+            dtpKedatangan.Size = new Size(255, 27);
             dtpKedatangan.TabIndex = 134;
             // 
             // txtKodeNegara
@@ -521,7 +646,7 @@
             txtNegaraLuar.Font = new Font("Segoe UI", 9F);
             txtNegaraLuar.Location = new Point(261, 130);
             txtNegaraLuar.Name = "txtNegaraLuar";
-            txtNegaraLuar.Size = new Size(140, 27);
+            txtNegaraLuar.Size = new Size(135, 27);
             txtNegaraLuar.TabIndex = 86;
             // 
             // txtTempatDatang
@@ -532,7 +657,7 @@
             txtTempatDatang.Font = new Font("Segoe UI", 9F);
             txtTempatDatang.Location = new Point(152, 253);
             txtTempatDatang.Name = "txtTempatDatang";
-            txtTempatDatang.Size = new Size(249, 27);
+            txtTempatDatang.Size = new Size(244, 27);
             txtTempatDatang.TabIndex = 136;
             // 
             // txtNamaPerwakilan
@@ -543,7 +668,7 @@
             txtNamaPerwakilan.Font = new Font("Segoe UI", 9F);
             txtNamaPerwakilan.Location = new Point(261, 163);
             txtNamaPerwakilan.Name = "txtNamaPerwakilan";
-            txtNamaPerwakilan.Size = new Size(140, 27);
+            txtNamaPerwakilan.Size = new Size(135, 27);
             txtNamaPerwakilan.TabIndex = 87;
             // 
             // dtpAkhirITAS
@@ -552,7 +677,7 @@
             dtpAkhirITAS.Enabled = false;
             dtpAkhirITAS.Location = new Point(152, 220);
             dtpAkhirITAS.Name = "dtpAkhirITAS";
-            dtpAkhirITAS.Size = new Size(249, 27);
+            dtpAkhirITAS.Size = new Size(255, 27);
             dtpAkhirITAS.TabIndex = 132;
             // 
             // txtNamaSponsor
@@ -561,7 +686,7 @@
             txtNamaSponsor.Enabled = false;
             txtNamaSponsor.Location = new Point(152, 4);
             txtNamaSponsor.Name = "txtNamaSponsor";
-            txtNamaSponsor.Size = new Size(249, 27);
+            txtNamaSponsor.Size = new Size(244, 27);
             txtNamaSponsor.TabIndex = 123;
             // 
             // label57
@@ -592,7 +717,7 @@
             txtAlamatSponsor.Enabled = false;
             txtAlamatSponsor.Location = new Point(152, 70);
             txtAlamatSponsor.Name = "txtAlamatSponsor";
-            txtAlamatSponsor.Size = new Size(249, 52);
+            txtAlamatSponsor.Size = new Size(244, 52);
             txtAlamatSponsor.TabIndex = 123;
             txtAlamatSponsor.Text = "";
             // 
@@ -627,7 +752,7 @@
             panel8.Dock = DockStyle.Fill;
             panel8.Location = new Point(3, 3);
             panel8.Name = "panel8";
-            panel8.Size = new Size(416, 333);
+            panel8.Size = new Size(411, 333);
             panel8.TabIndex = 138;
             // 
             // label42
@@ -649,7 +774,7 @@
             txtProvLuar.Font = new Font("Segoe UI", 9F);
             txtProvLuar.Location = new Point(140, 95);
             txtProvLuar.Name = "txtProvLuar";
-            txtProvLuar.Size = new Size(248, 27);
+            txtProvLuar.Size = new Size(243, 27);
             txtProvLuar.TabIndex = 77;
             // 
             // label38
@@ -682,7 +807,7 @@
             txtKotaLuar.Font = new Font("Segoe UI", 9F);
             txtKotaLuar.Location = new Point(140, 62);
             txtKotaLuar.Name = "txtKotaLuar";
-            txtKotaLuar.Size = new Size(248, 27);
+            txtKotaLuar.Size = new Size(243, 27);
             txtKotaLuar.TabIndex = 80;
             // 
             // label37
@@ -713,7 +838,7 @@
             txtAlamatLuar.Enabled = false;
             txtAlamatLuar.Location = new Point(140, 4);
             txtAlamatLuar.Name = "txtAlamatLuar";
-            txtAlamatLuar.Size = new Size(248, 52);
+            txtAlamatLuar.Size = new Size(243, 52);
             txtAlamatLuar.TabIndex = 88;
             txtAlamatLuar.Text = "";
             // 
@@ -723,7 +848,7 @@
             dtpTerbitITAS.Enabled = false;
             dtpTerbitITAS.Location = new Point(140, 290);
             dtpTerbitITAS.Name = "dtpTerbitITAS";
-            dtpTerbitITAS.Size = new Size(248, 27);
+            dtpTerbitITAS.Size = new Size(253, 27);
             dtpTerbitITAS.TabIndex = 123;
             // 
             // txtITAS
@@ -734,7 +859,7 @@
             txtITAS.Font = new Font("Segoe UI", 9F);
             txtITAS.Location = new Point(140, 224);
             txtITAS.Name = "txtITAS";
-            txtITAS.Size = new Size(248, 27);
+            txtITAS.Size = new Size(243, 27);
             txtITAS.TabIndex = 127;
             txtITAS.TextChanged += txtITAS_TextChanged;
             // 
@@ -790,7 +915,7 @@
             txtTempatITAS.Font = new Font("Segoe UI", 9F);
             txtTempatITAS.Location = new Point(140, 257);
             txtTempatITAS.Name = "txtTempatITAS";
-            txtTempatITAS.Size = new Size(248, 27);
+            txtTempatITAS.Size = new Size(243, 27);
             txtTempatITAS.TabIndex = 130;
             // 
             // label33
@@ -798,7 +923,7 @@
             label33.Anchor = AnchorStyles.None;
             label33.AutoSize = true;
             label33.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label33.Location = new Point(186, 10);
+            label33.Location = new Point(181, 10);
             label33.Name = "label33";
             label33.Size = new Size(513, 25);
             label33.TabIndex = 73;
@@ -866,7 +991,7 @@
             btnReset.FlatStyle = FlatStyle.Flat;
             btnReset.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnReset.ForeColor = Color.White;
-            btnReset.Location = new Point(630, 689);
+            btnReset.Location = new Point(620, 689);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(117, 39);
             btnReset.TabIndex = 27;
@@ -883,7 +1008,7 @@
             panel1.Font = new Font("Microsoft Sans Serif", 9F);
             panel1.Location = new Point(6, 36);
             panel1.Name = "panel1";
-            panel1.Size = new Size(884, 647);
+            panel1.Size = new Size(874, 647);
             panel1.TabIndex = 26;
             // 
             // tableLayoutPanel1
@@ -898,7 +1023,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(863, 576);
+            tableLayoutPanel1.Size = new Size(853, 576);
             tableLayoutPanel1.TabIndex = 125;
             // 
             // panel5
@@ -944,7 +1069,7 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(3, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(425, 570);
+            panel5.Size = new Size(420, 570);
             panel5.TabIndex = 123;
             // 
             // label2
@@ -966,7 +1091,7 @@
             cmbWargaNegara.Items.AddRange(new object[] { "WNI", "WNA" });
             cmbWargaNegara.Location = new Point(153, 191);
             cmbWargaNegara.Name = "cmbWargaNegara";
-            cmbWargaNegara.Size = new Size(249, 26);
+            cmbWargaNegara.Size = new Size(255, 26);
             cmbWargaNegara.TabIndex = 122;
             // 
             // label3
@@ -986,7 +1111,7 @@
             dtpTanggalMasuk.Enabled = false;
             dtpTanggalMasuk.Location = new Point(153, 536);
             dtpTanggalMasuk.Name = "dtpTanggalMasuk";
-            dtpTanggalMasuk.Size = new Size(249, 24);
+            dtpTanggalMasuk.Size = new Size(255, 24);
             dtpTanggalMasuk.TabIndex = 121;
             // 
             // label4
@@ -1104,7 +1229,7 @@
             txtNIK.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNIK.Location = new Point(153, 4);
             txtNIK.Name = "txtNIK";
-            txtNIK.Size = new Size(249, 24);
+            txtNIK.Size = new Size(244, 24);
             txtNIK.TabIndex = 11;
             // 
             // txtKK
@@ -1112,7 +1237,7 @@
             txtKK.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtKK.Location = new Point(153, 34);
             txtKK.Name = "txtKK";
-            txtKK.Size = new Size(249, 24);
+            txtKK.Size = new Size(244, 24);
             txtKK.TabIndex = 12;
             // 
             // txtNama
@@ -1120,7 +1245,7 @@
             txtNama.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNama.Location = new Point(153, 64);
             txtNama.Name = "txtNama";
-            txtNama.Size = new Size(249, 24);
+            txtNama.Size = new Size(244, 24);
             txtNama.TabIndex = 13;
             // 
             // txtTempatLahir
@@ -1128,7 +1253,7 @@
             txtTempatLahir.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtTempatLahir.Location = new Point(153, 131);
             txtTempatLahir.Name = "txtTempatLahir";
-            txtTempatLahir.Size = new Size(249, 24);
+            txtTempatLahir.Size = new Size(244, 24);
             txtTempatLahir.TabIndex = 15;
             // 
             // txtEmail
@@ -1138,7 +1263,7 @@
             txtEmail.Font = new Font("Segoe UI", 9F);
             txtEmail.Location = new Point(153, 503);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(249, 27);
+            txtEmail.Size = new Size(244, 27);
             txtEmail.TabIndex = 75;
             // 
             // dtpTanggalLahir
@@ -1146,7 +1271,7 @@
             dtpTanggalLahir.Anchor = AnchorStyles.Left;
             dtpTanggalLahir.Location = new Point(153, 161);
             dtpTanggalLahir.Name = "dtpTanggalLahir";
-            dtpTanggalLahir.Size = new Size(249, 24);
+            dtpTanggalLahir.Size = new Size(255, 24);
             dtpTanggalLahir.TabIndex = 17;
             // 
             // txtAlamat
@@ -1154,7 +1279,7 @@
             txtAlamat.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtAlamat.Location = new Point(153, 253);
             txtAlamat.Name = "txtAlamat";
-            txtAlamat.Size = new Size(249, 52);
+            txtAlamat.Size = new Size(244, 52);
             txtAlamat.TabIndex = 19;
             txtAlamat.Text = "";
             // 
@@ -1163,7 +1288,7 @@
             txtTelp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtTelp.Location = new Point(153, 467);
             txtTelp.Name = "txtTelp";
-            txtTelp.Size = new Size(249, 24);
+            txtTelp.Size = new Size(244, 24);
             txtTelp.TabIndex = 20;
             // 
             // label12
@@ -1215,7 +1340,7 @@
             comboBoxPendidikan.Items.AddRange(new object[] { "Tidak/Belum Sekolah", "Tamat SD/Sederajat", "SLTP/Sederajat", "SLTA/Sederajat", "Diploma I/II", "Akademi/Diploma III/Sarjana Muda", "Diploma IV/Strata I", "Strata II", "Strata III" });
             comboBoxPendidikan.Location = new Point(153, 405);
             comboBoxPendidikan.Name = "comboBoxPendidikan";
-            comboBoxPendidikan.Size = new Size(249, 26);
+            comboBoxPendidikan.Size = new Size(255, 26);
             comboBoxPendidikan.TabIndex = 96;
             // 
             // panel2
@@ -1225,7 +1350,7 @@
             panel2.Controls.Add(rbLakiLaki);
             panel2.Location = new Point(153, 94);
             panel2.Name = "panel2";
-            panel2.Size = new Size(249, 31);
+            panel2.Size = new Size(255, 31);
             panel2.TabIndex = 71;
             // 
             // rbPerempuan
@@ -1271,7 +1396,7 @@
             comboBoxAgama.Items.AddRange(new object[] { "Islam", "Kristen", "Katholik", "Hindu", "Budha", "Konghucu", "Lainnya" });
             comboBoxAgama.Location = new Point(153, 373);
             comboBoxAgama.Name = "comboBoxAgama";
-            comboBoxAgama.Size = new Size(249, 26);
+            comboBoxAgama.Size = new Size(255, 26);
             comboBoxAgama.TabIndex = 95;
             // 
             // textBoxRW
@@ -1301,7 +1426,7 @@
             comboBoxPekerjaan.Items.AddRange(new object[] { "1. Belum/Tidak Bekerja", "2. Mengurus Rumah Tangga", "3. Pelajar/Mahasiswa", "4. Pensiunan", "5. Pegawai Negeri Sipil (PNS)", "6. Tentara Nasional Indonesia (TNI)", "7. Kepolisian RI (POLRI)", "8. Perdagangan", "9. Petani/Pekebun", "10. Peternak", "11. Nelayan/Perikanan", "12. Industri", "13. Konstruksi", "14. Transportasi", "15. Karyawan Swasta", "16. Karyawan BUMN", "17. Karyawan BUMD", "18. Karyawan Honorer", "19. Buruh Harian Lepas", "20. Buruh Tani/Perkebunan", "21. Buruh Nelayan/Perikanan", "22. Buruh Peternakan", "23. Pembantu Rumah Tangga", "24. Tukang Cukur", "25. Tukang Listrik", "26. Tukang Batu", "27. Tukang Kayu", "28. Tukang Sol Sepatu", "29. Tukang Las/Pandai Besi", "30. Tukang Jahit", "31. Tukang Gigi", "32. Penata Rias", "33. Penata Busana", "34. Penata Rambut", "35. Mekanik", "36. Seniman", "37. Tabib", "38. Paraji", "39. Perancang Busana", "40. Penterjemah", "41. Imam Masjid", "42. Pendeta", "43. Pastor", "44. Wartawan", "45. Ustadz/Mubaligh", "46. Juru Masak", "47. Promotor Acara", "48. Anggota DPR-RI", "49. Anggota DPD", "50. Anggota BPK", "51. Presiden", "52. Wakil Presiden", "53. Anggota Mahkamah Konstitusi", "54. Anggota Kabinet/Kementrian", "55. Duta Besar", "56. Gubernur", "57. Wakil Gubernur", "58. Bupati", "59. Wakil Bupati", "60. Walikota", "61. Wakil Walikota", "62. Anggota DPRD Prop.", "63. Anggota DPRD Kab./Kota", "64. Dosen", "65. Guru", "66. Pilot", "67. Pengacara", "68. Notaris", "69. Arsitek", "70. Akuntan", "71. Konsultan", "72. Dokter", "73. Bidan", "74. Perawat", "75. Apoteker", "76. Psikiater/Psikolog", "77. Penyiar Televisi", "78. Penyiar Radio", "79. Pelaut", "80. Peneliti", "81. Sopir", "82. Pialang", "83. Paranormal", "84. Pedagang", "85. Perangkat Desa", "86. Kepala Desa", "87. Biarawati", "88. Wiraswasta" });
             comboBoxPekerjaan.Location = new Point(153, 221);
             comboBoxPekerjaan.Name = "comboBoxPekerjaan";
-            comboBoxPekerjaan.Size = new Size(249, 26);
+            comboBoxPekerjaan.Size = new Size(255, 26);
             comboBoxPekerjaan.TabIndex = 94;
             // 
             // label17
@@ -1350,7 +1475,7 @@
             txtGlrBlkg.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtGlrBlkg.Location = new Point(351, 437);
             txtGlrBlkg.Name = "txtGlrBlkg";
-            txtGlrBlkg.Size = new Size(51, 24);
+            txtGlrBlkg.Size = new Size(46, 24);
             txtGlrBlkg.TabIndex = 81;
             // 
             // panel7
@@ -1394,9 +1519,9 @@
             panel7.Controls.Add(textNoAktaKawin);
             panel7.Controls.Add(comboBoxDarah);
             panel7.Dock = DockStyle.Fill;
-            panel7.Location = new Point(434, 3);
+            panel7.Location = new Point(429, 3);
             panel7.Name = "panel7";
-            panel7.Size = new Size(426, 570);
+            panel7.Size = new Size(421, 570);
             panel7.TabIndex = 124;
             // 
             // label21
@@ -1415,7 +1540,7 @@
             txtNamaAyah.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNamaAyah.Location = new Point(160, 497);
             txtNamaAyah.Name = "txtNamaAyah";
-            txtNamaAyah.Size = new Size(250, 24);
+            txtNamaAyah.Size = new Size(245, 24);
             txtNamaAyah.TabIndex = 119;
             // 
             // label47
@@ -1434,7 +1559,7 @@
             txtNIKAyah.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNIKAyah.Location = new Point(160, 467);
             txtNIKAyah.Name = "txtNIKAyah";
-            txtNIKAyah.Size = new Size(250, 24);
+            txtNIKAyah.Size = new Size(245, 24);
             txtNIKAyah.TabIndex = 118;
             // 
             // label46
@@ -1464,7 +1589,7 @@
             txtNIKIbu.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNIKIbu.Location = new Point(160, 407);
             txtNIKIbu.Name = "txtNIKIbu";
-            txtNIKIbu.Size = new Size(250, 24);
+            txtNIKIbu.Size = new Size(245, 24);
             txtNIKIbu.TabIndex = 16;
             // 
             // comboBoxStatusKawin
@@ -1475,7 +1600,7 @@
             comboBoxStatusKawin.Items.AddRange(new object[] { "Belum Kawin", "Kawin", "Cerai Hidup", "Cerai Mati" });
             comboBoxStatusKawin.Location = new Point(160, 188);
             comboBoxStatusKawin.Name = "comboBoxStatusKawin";
-            comboBoxStatusKawin.Size = new Size(250, 26);
+            comboBoxStatusKawin.Size = new Size(255, 26);
             comboBoxStatusKawin.TabIndex = 103;
             comboBoxStatusKawin.SelectedIndexChanged += comboBoxStatusKawin_SelectedIndexChanged;
             // 
@@ -1506,7 +1631,7 @@
             txtNoPaspor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNoPaspor.Location = new Point(160, 4);
             txtNoPaspor.Name = "txtNoPaspor";
-            txtNoPaspor.Size = new Size(250, 24);
+            txtNoPaspor.Size = new Size(245, 24);
             txtNoPaspor.TabIndex = 84;
             txtNoPaspor.TextChanged += txtNoPaspor_TextChanged;
             // 
@@ -1516,7 +1641,7 @@
             dtpPerkawinan.Enabled = false;
             dtpPerkawinan.Location = new Point(160, 218);
             dtpPerkawinan.Name = "dtpPerkawinan";
-            dtpPerkawinan.Size = new Size(250, 24);
+            dtpPerkawinan.Size = new Size(255, 24);
             dtpPerkawinan.TabIndex = 102;
             // 
             // dtpPaspor
@@ -1526,7 +1651,7 @@
             dtpPaspor.Enabled = false;
             dtpPaspor.Location = new Point(160, 34);
             dtpPaspor.Name = "dtpPaspor";
-            dtpPaspor.Size = new Size(250, 24);
+            dtpPaspor.Size = new Size(255, 24);
             dtpPaspor.TabIndex = 85;
             // 
             // txtNamaIbu
@@ -1534,7 +1659,7 @@
             txtNamaIbu.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNamaIbu.Location = new Point(160, 437);
             txtNamaIbu.Name = "txtNamaIbu";
-            txtNamaIbu.Size = new Size(250, 24);
+            txtNamaIbu.Size = new Size(245, 24);
             txtNamaIbu.TabIndex = 115;
             // 
             // label22
@@ -1579,7 +1704,7 @@
             comboBoxCacat.Items.AddRange(new object[] { "Fisik", "Netra/Buta", "Rungu/Wicara", "Mental/Jiwa", "Fisik dan Mental", "Lainnya" });
             comboBoxCacat.Location = new Point(255, 375);
             comboBoxCacat.Name = "comboBoxCacat";
-            comboBoxCacat.Size = new Size(155, 26);
+            comboBoxCacat.Size = new Size(160, 26);
             comboBoxCacat.TabIndex = 114;
             // 
             // txtSKWNI
@@ -1587,7 +1712,7 @@
             txtSKWNI.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtSKWNI.Location = new Point(160, 64);
             txtSKWNI.Name = "txtSKWNI";
-            txtSKWNI.Size = new Size(250, 24);
+            txtSKWNI.Size = new Size(245, 24);
             txtSKWNI.TabIndex = 87;
             // 
             // label27
@@ -1643,7 +1768,7 @@
             txtOrganisasi.Location = new Point(160, 158);
             txtOrganisasi.Name = "txtOrganisasi";
             txtOrganisasi.PlaceholderText = "Nama Organisasi Keagamaan";
-            txtOrganisasi.Size = new Size(250, 24);
+            txtOrganisasi.Size = new Size(245, 24);
             txtOrganisasi.TabIndex = 98;
             // 
             // comboBoxAktaLahir
@@ -1666,7 +1791,7 @@
             comboStatus.Items.AddRange(new object[] { "Kepala Keluarga", "Suami", "Istri", "Anak", "Menantu", "Cucu", "Orang Tua", "Mertua", "Famili Lain", "Pembantu", "Lainnya" });
             comboStatus.Location = new Point(160, 342);
             comboStatus.Name = "comboStatus";
-            comboStatus.Size = new Size(250, 26);
+            comboStatus.Size = new Size(255, 26);
             comboStatus.TabIndex = 113;
             // 
             // label52
@@ -1698,7 +1823,7 @@
             txtNoAktaLahir.Location = new Point(255, 94);
             txtNoAktaLahir.Name = "txtNoAktaLahir";
             txtNoAktaLahir.PlaceholderText = "No. Akta Kelahiran";
-            txtNoAktaLahir.Size = new Size(155, 24);
+            txtNoAktaLahir.Size = new Size(150, 24);
             txtNoAktaLahir.TabIndex = 91;
             // 
             // label49
@@ -1753,7 +1878,7 @@
             dtpCerai.Enabled = false;
             dtpCerai.Location = new Point(160, 312);
             dtpCerai.Name = "dtpCerai";
-            dtpCerai.Size = new Size(250, 24);
+            dtpCerai.Size = new Size(255, 24);
             dtpCerai.TabIndex = 111;
             // 
             // txtNoAktaCerai
@@ -1763,7 +1888,7 @@
             txtNoAktaCerai.Location = new Point(255, 280);
             txtNoAktaCerai.Name = "txtNoAktaCerai";
             txtNoAktaCerai.PlaceholderText = "No. Akta Cerai";
-            txtNoAktaCerai.Size = new Size(155, 24);
+            txtNoAktaCerai.Size = new Size(150, 24);
             txtNoAktaCerai.TabIndex = 108;
             // 
             // label51
@@ -1784,7 +1909,7 @@
             textNoAktaKawin.Location = new Point(255, 248);
             textNoAktaKawin.Name = "textNoAktaKawin";
             textNoAktaKawin.PlaceholderText = "No. Akta Perkawinan";
-            textNoAktaKawin.Size = new Size(155, 24);
+            textNoAktaKawin.Size = new Size(150, 24);
             textNoAktaKawin.TabIndex = 109;
             // 
             // comboBoxDarah
@@ -1803,7 +1928,7 @@
             label16.Anchor = AnchorStyles.Top;
             label16.AutoSize = true;
             label16.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.Location = new Point(352, 10);
+            label16.Location = new Point(347, 10);
             label16.Name = "label16";
             label16.Size = new Size(208, 25);
             label16.TabIndex = 72;
@@ -1816,7 +1941,7 @@
             btnTambah.FlatStyle = FlatStyle.Flat;
             btnTambah.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnTambah.ForeColor = Color.White;
-            btnTambah.Location = new Point(772, 689);
+            btnTambah.Location = new Point(762, 689);
             btnTambah.Name = "btnTambah";
             btnTambah.Size = new Size(118, 39);
             btnTambah.TabIndex = 21;
@@ -1833,7 +1958,7 @@
             tabControl1.Location = new Point(8, 75);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(903, 1167);
+            tabControl1.Size = new Size(893, 1167);
             tabControl1.TabIndex = 27;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
@@ -1859,6 +1984,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormTambahPenduduk";
             Text = "Manajemen Data Penduduk";
+            FormClosed += FormTambahPenduduk_FormClosed;
             tabPage2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -2030,5 +2156,14 @@
         private Panel panel9;
         private Panel panel8;
         private TableLayoutPanel tableLayoutPanel2;
+        private Button btnFirstPage;
+        private Label lblPageInfo;
+        private Button btnPreviousPage;
+        private Button btnLastPage;
+        private Button btnNextPage;
+        private ComboBox cmbPageSize;
+        private Label label60;
+        private Label lblTotalRecords;
+        private Button btnImportCSV;
     }
 }

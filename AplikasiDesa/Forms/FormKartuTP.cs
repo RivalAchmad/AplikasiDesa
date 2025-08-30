@@ -82,7 +82,7 @@ namespace AplikasiDesa
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM gabungan_keluarga";
+                    string sql = "SELECT NIK, Nama_Lengkap FROM gabungan_keluarga";
                     var allRecords = connection.QueryWithDecryption<PendudukModel>(sql);
 
                     var filteredRecords = allRecords.Where(p =>
@@ -264,14 +264,14 @@ namespace AplikasiDesa
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
                     string query = @"SELECT no_surat FROM sks_ktp 
-                         WHERE no_surat LIKE '476/SKSKTP-%/%/" + tahunSekarang + @"' 
+                         WHERE no_surat LIKE '400.12.2.1/%/%/" + tahunSekarang + @"' 
                          ORDER BY id DESC LIMIT 1";
 
                     var result = connection.ExecuteScalar<string>(query);
 
-                    if (!string.IsNullOrEmpty(result) && result.Contains("SKSKTP-"))
+                    if (!string.IsNullOrEmpty(result) && result.Contains("400.12.2.1/"))
                     {
-                        int start = result.IndexOf("SKSKTP-") + 7;
+                        int start = result.IndexOf("400.12.2.1/") + 11;
                         int end = result.IndexOf("/", start);
 
                         if (end > start)
@@ -290,7 +290,7 @@ namespace AplikasiDesa
                 MessageBox.Show($"Error generating nomor surat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return $"476/SKSKTP-{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
+            return $"400.12.2.1/{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
         }
 
         private string ConvertToRoman(int number)
@@ -351,18 +351,27 @@ namespace AplikasiDesa
                 return;
             }
 
-            using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
+            // Check for duplicate letter number with error handling
+            try
             {
-                string nomorSurat = txtNoSurat.Text;
-
-                string sqlCheck = "SELECT COUNT(*) FROM SKS_KTP WHERE no_surat = @NoSurat";
-                int count = db.ExecuteScalar<int>(sqlCheck, new { NoSurat = nomorSurat });
-
-                if (count > 0)
+                using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    MessageBox.Show("Nomor surat sudah ada di database. Harap masukkan nomor surat yang berbeda.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    string nomorSurat = txtNoSurat.Text;
+
+                    string sqlCheck = "SELECT COUNT(*) FROM SKS_KTP WHERE no_surat = @NoSurat";
+                    int count = db.ExecuteScalar<int>(sqlCheck, new { NoSurat = nomorSurat });
+
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Nomor surat sudah ada di database. Harap masukkan nomor surat yang berbeda.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Tidak dapat terhubung ke database untuk memeriksa nomor surat.\nSurat akan tetap dicetak tanpa menyimpan riwayat.\n\nError: {ex.Message}",
+                                "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             string archiveDirectory = Path.Combine(
@@ -422,17 +431,28 @@ namespace AplikasiDesa
                     form.FlattenFields();
                 }
 
-                using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
+                // Save to database with error handling
+                bool historySaved = false;
+                try
                 {
-                    string sqlInsert = "INSERT INTO SKS_KTP (no_surat, tanggal_dikeluarkan, nama_pemohon, petugas) VALUES (@NoSurat, @TanggalDikeluarkan, @NamaPemohon, @Petugas)";
-                    var parameters = new
+                    using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
                     {
-                        NoSurat = InputSanitizer.SanitizeInput(txtNoSurat.Text),
-                        TanggalDikeluarkan = DateTime.Now,
-                        NamaPemohon = InputSanitizer.SanitizeInput(txtNamaLengkap.Text),
-                        Petugas = Session1.LoggedInUserName
-                    };
-                    db.Execute(sqlInsert, parameters);
+                        string sqlInsert = "INSERT INTO SKS_KTP (no_surat, tanggal_dikeluarkan, nama_pemohon, petugas) VALUES (@NoSurat, @TanggalDikeluarkan, @NamaPemohon, @Petugas)";
+                        var parameters = new
+                        {
+                            NoSurat = InputSanitizer.SanitizeInput(txtNoSurat.Text),
+                            TanggalDikeluarkan = DateTime.Now,
+                            NamaPemohon = InputSanitizer.SanitizeInput(txtNamaLengkap.Text),
+                            Petugas = Session1.LoggedInUserName
+                        };
+                        db.Execute(sqlInsert, parameters);
+                        historySaved = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Surat berhasil dicetak, tetapi tidak dapat menyimpan riwayat ke database.\nError: {ex.Message}",
+                                    "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 bool savedToArchiveDirectory = saveDirectory.Equals(archiveDirectory, StringComparison.OrdinalIgnoreCase);
@@ -460,9 +480,17 @@ namespace AplikasiDesa
                     }
                 }
 
-                MessageBox.Show($"File PDF telah tersimpan di {pdfPath}" +
-                    (!savedToArchiveDirectory ? $"\nSalinan arsip tersimpan di {archiveDirectory}" : ""),
-                    "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string message = $"File PDF telah tersimpan di {pdfPath}";
+                if (!savedToArchiveDirectory)
+                {
+                    message += $"\nSalinan arsip tersimpan di {archiveDirectory}";
+                }
+                if (!historySaved)
+                {
+                    message += "\n\nCatatan: Riwayat surat tidak tersimpan karena masalah koneksi database.";
+                }
+
+                MessageBox.Show(message, "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 txtNoSurat.Text = GenerateNomorSurat();
             }
@@ -490,17 +518,28 @@ namespace AplikasiDesa
                 string pejabatDesa = textBoxPejabatDesa.Text;
                 string petugas = Session1.LoggedInUserName;
 
-                using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+                // Save to database with error handling
+                bool historySaved = false;
+                try
                 {
-                    string query = "INSERT INTO form_ktp (NIK, nama_lengkap, jenis_pengajuan, tanggal_dikeluarkan, petugas) VALUES (@NIK, @Nama, @JenisPengajuan, @TanggalDikeluarkan, @Petugas)";
-                    connection.Execute(query, new
+                    using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                     {
-                        NIK = nik,
-                        Nama = InputSanitizer.SanitizeInput(nama),
-                        JenisPengajuan = opsi,
-                        TanggalDikeluarkan = DateTime.Now,
-                        Petugas = InputSanitizer.SanitizeInput(petugas)
-                    });
+                        string query = "INSERT INTO form_ktp (NIK, nama_lengkap, jenis_pengajuan, tanggal_dikeluarkan, petugas) VALUES (@NIK, @Nama, @JenisPengajuan, @TanggalDikeluarkan, @Petugas)";
+                        connection.Execute(query, new
+                        {
+                            NIK = nik,
+                            Nama = InputSanitizer.SanitizeInput(nama),
+                            JenisPengajuan = opsi,
+                            TanggalDikeluarkan = DateTime.Now,
+                            Petugas = InputSanitizer.SanitizeInput(petugas)
+                        });
+                        historySaved = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Formulir akan tetap dibuat, tetapi tidak dapat menyimpan riwayat ke database.\nError: {ex.Message}",
+                                    "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 string archiveDirectory2 = Path.Combine(
@@ -601,9 +640,17 @@ namespace AplikasiDesa
                         }
                     }
 
-                    MessageBox.Show($"File Excel telah tersimpan di {outputPath}" +
-                        (!savedToArchiveDirectory2 ? $"\nSalinan arsip tersimpan di {archiveDirectory2}" : ""),
-                        "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string message = $"File Excel telah tersimpan di {outputPath}";
+                    if (!savedToArchiveDirectory2)
+                    {
+                        message += $"\nSalinan arsip tersimpan di {archiveDirectory2}";
+                    }
+                    if (!historySaved)
+                    {
+                        message += "\n\nCatatan: Riwayat formulir tidak tersimpan karena masalah koneksi database.";
+                    }
+
+                    MessageBox.Show(message, "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

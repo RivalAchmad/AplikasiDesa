@@ -13,11 +13,11 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace AplikasiDesa.Forms
 {
-    public partial class FormDomisili : Form
+    public partial class FormSKU : Form
     {
         private Timer typingTimer;
 
-        public FormDomisili()
+        public FormSKU()
         {
             InitializeComponent();
             typingTimer = new Timer();
@@ -28,16 +28,16 @@ namespace AplikasiDesa.Forms
             CultureInfo culture = new CultureInfo("id-ID");
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
-            LoadSKD();
-            LoadStatistikSKD();
+            LoadSKU();
+            LoadStatistikSKU();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 1)
             {
-                LoadSKD();
-                LoadStatistikSKD();
+                LoadSKU();
+                LoadStatistikSKU();
             }
         }
 
@@ -186,8 +186,8 @@ namespace AplikasiDesa.Forms
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string query = @"SELECT No_Surat FROM sk_domisili
-                         WHERE no_surat LIKE '400.12.3/%/%/" + tahunSekarang + @"' 
+                    string query = @"SELECT No_surat FROM sk_usaha
+                         WHERE no_surat LIKE '400.10.5/%/%/" + tahunSekarang + @"' 
                          ORDER BY id DESC LIMIT 1";
 
                     var result = connection.ExecuteScalar(query);
@@ -195,9 +195,9 @@ namespace AplikasiDesa.Forms
                     if (result != null)
                     {
                         string lastNumber = result.ToString();
-                        if (lastNumber.Contains("400.12.3/"))
+                        if (lastNumber.Contains("400.10.5/"))
                         {
-                            int start = lastNumber.IndexOf("400.12.3/") + 9;
+                            int start = lastNumber.IndexOf("400.10.5/") + 9;
                             int end = lastNumber.IndexOf("/", start);
 
                             if (end > start)
@@ -221,7 +221,7 @@ namespace AplikasiDesa.Forms
                 MessageBox.Show($"Error generating nomor surat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            string newNomor = $"400.12.3/{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
+            string newNomor = $"400.10.5/{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
             return newNomor;
         }
 
@@ -282,12 +282,14 @@ namespace AplikasiDesa.Forms
                 return;
             }
 
+            // Check for duplicate letter number with error handling
             try
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
                     string nomorSurat = txtNoSurat.Text;
-                    string sqlCheck = "SELECT COUNT(*) FROM sk_domisili WHERE No_Surat = @NoSurat";
+
+                    string sqlCheck = "SELECT COUNT(*) FROM sk_usaha WHERE No_surat = @NoSurat";
                     int count = connection.ExecuteScalar<int>(sqlCheck, new { NoSurat = nomorSurat });
 
                     if (count > 0)
@@ -306,17 +308,17 @@ namespace AplikasiDesa.Forms
             string archiveDirectory = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "Arsip Surat",
-                "Surat Keterangan Domisili");
+                "Surat Keterangan Usaha");
 
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "PDF files (*.pdf)|*.pdf",
-                FileName = $"Surat_Keterangan_Domisili_{txtNamaLengkap.Text}_{txtNIK.Text}.pdf"
+                FileName = $"Surat_Keterangan_Usaha_{txtNamaLengkap.Text}_{txtNIK.Text}.pdf"
             };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string pdfTemplatePath = "Format_Suket_Domisili.pdf";
+                string pdfTemplatePath = "Format_Suket_Usaha.pdf";
                 string pdfPath = saveFileDialog.FileName;
                 string saveDirectory = Path.GetDirectoryName(pdfPath);
 
@@ -342,15 +344,12 @@ namespace AplikasiDesa.Forms
                     SetFieldValue(fields, "agama", CapitalizeWords(txtAgama.Text), regularFont);
                     SetFieldValue(fields, "pekerjaan", CapitalizeWords(txtPekerjaan.Text), regularFont);
                     SetFieldValue(fields, "alamat", txtAlamat.Text, regularFont, true);
-                    SetFieldValue(fields, "nama5", CapitalizeWords(txtNIK.Text), regularFont);
-                    string alamatsingkat = txtAlamat.Text.Split(", RT")[0].Trim();
-                    SetFieldValue(fields, "domisili", CapitalizeWords(alamatsingkat), regularFont);
+                    SetFieldValue(fields, "nik", CapitalizeWords(txtNIK.Text), regularFont);
+                    SetFieldValue(fields, "JenisUsaha", CapitalizeWords(txtJenisUsaha.Text), regularFont);
                     SetFieldValue(fields, "petugas", txtKades.Text.ToUpper(), boldFont);
-                    SetFieldValue(fields, "namart", txtKetuaRT.Text.ToUpper(), boldFont);
-                    string RT = txtAlamat.Text.Split("RT")[1].Split("RW")[0].Trim();
-                    string RW = txtAlamat.Text.Split("RW")[1].Split(",")[0].Trim();
-                    string rtRw = $"Ketua RT {RT}/{RW}";
-                    SetFieldValue(fields, "mengetahuirt", rtRw, regularFont);
+                    SetFieldValue(fields, "LokasiUsaha", txtLokasiUsaha.Text, regularFont, true);
+                    string sejakTahun = $"{txtSejak.Text} s/d {txtSampai.Text}";
+                    SetFieldValue(fields, "SejakTahun", sejakTahun, regularFont, true);
                     string nomorSurat = $"NOMOR : {txtNoSurat.Text}";
                     SetFieldValue(fields, "nosurat", nomorSurat, regularFont);
                     string tanggalHariIni = DateTime.Today.ToString("dd MMMM yyyy", new CultureInfo("id-ID"));
@@ -360,12 +359,13 @@ namespace AplikasiDesa.Forms
                     form.FlattenFields();
                 }
 
+                // Save to database with error handling
                 bool historySaved = false;
                 try
                 {
                     using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                     {
-                        string sqlInsert = "INSERT INTO sk_domisili (No_Surat, Tanggal_Terbit, Nama_Pemohon, Petugas) VALUES (@NoSurat, @TanggalTerbit, @NamaPemohon, @Petugas)";
+                        string sqlInsert = "INSERT INTO sk_usaha (No_surat, Tanggal_Terbit, Nama_Pemohon, Petugas) VALUES (@NoSurat, @TanggalTerbit, @NamaPemohon, @Petugas)";
                         var parameters = new
                         {
                             NoSurat = InputSanitizer.SanitizeInput(txtNoSurat.Text),
@@ -440,18 +440,18 @@ namespace AplikasiDesa.Forms
         private void ConfigureDataGridView()
         {
             dataGridView1.Columns["Id"].HeaderText = "ID";
-            dataGridView1.Columns["No_Surat"].HeaderText = "Nomor Surat";
+            dataGridView1.Columns["No_surat"].HeaderText = "Nomor Surat";
             dataGridView1.Columns["Tanggal_Terbit"].HeaderText = "Tanggal Terbit";
             dataGridView1.Columns["Nama_Pemohon"].HeaderText = "Nama Pemohon";
         }
 
-        private void LoadSKD()
+        private void LoadSKU()
         {
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM sk_domisili ORDER BY Tanggal_Terbit DESC";
+                    string sql = "SELECT * FROM sk_usaha ORDER BY Tanggal_Terbit DESC";
 
                     MySqlDataAdapter adapter = new MySqlDataAdapter(sql, connection);
                     DataTable dt = new DataTable();
@@ -463,7 +463,7 @@ namespace AplikasiDesa.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saat memuat data SKD: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error saat memuat data SKU: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -475,9 +475,9 @@ namespace AplikasiDesa.Forms
             {
                 using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = @"SELECT * FROM sk_domisili
+                    string sql = @"SELECT * FROM sk_usaha
                      WHERE Nama_Pemohon LIKE @keyword 
-                     OR No_Surat LIKE @keyword
+                     OR No_surat LIKE @keyword
                      OR Tanggal_Terbit LIKE @keyword
                      ORDER BY Tanggal_Terbit DESC";
 
@@ -498,7 +498,7 @@ namespace AplikasiDesa.Forms
             }
         }
 
-        private void LoadStatistikSKD()
+        private void LoadStatistikSKU()
         {
             try
             {
@@ -519,13 +519,13 @@ namespace AplikasiDesa.Forms
                     {
                         string queryFilter = @"
                             SELECT COUNT(*) 
-                            FROM sk_domisili
+                            FROM sk_usaha
                             WHERE MONTH(Tanggal_Terbit) = @Bulan
                             AND YEAR(Tanggal_Terbit) = @Tahun";
 
                         string queryFilterTahun = @"
                             SELECT COUNT(*) 
-                            FROM sk_domisili
+                            FROM sk_usaha
                             WHERE YEAR(Tanggal_Terbit) = @Tahun";
 
                         int jumlahFilterBulan = connection.ExecuteScalar<int>(queryFilter,
@@ -534,8 +534,8 @@ namespace AplikasiDesa.Forms
                         int jumlahFilterTahun = connection.ExecuteScalar<int>(queryFilterTahun,
                             new { Tahun = tahunDipilih });
 
-                        lblPerBulanKategori.Text = $"Jumlah pengajuan Surat Keterangan Domisili bulan {namaBulan[bulanDipilih - 1]} {tahunDipilih}: {jumlahFilterBulan}";
-                        lblTotalTahunKategori.Text = $"Jumlah pengajuan Surat Keterangan Domisili tahun {tahunDipilih}: {jumlahFilterTahun}";
+                        lblPerBulanKategori.Text = $"Jumlah pengajuan Surat Keterangan Usaha bulan {namaBulan[bulanDipilih - 1]} {tahunDipilih}: {jumlahFilterBulan}";
+                        lblTotalTahunKategori.Text = $"Jumlah pengajuan Surat Keterangan Usaha tahun {tahunDipilih}: {jumlahFilterTahun}";
                     }
                 }
             }
@@ -548,12 +548,12 @@ namespace AplikasiDesa.Forms
 
         private void comboBoxBulan_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadStatistikSKD();
+            LoadStatistikSKU();
         }
 
         private void comboBoxTahun_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadStatistikSKD();
+            LoadStatistikSKU();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -580,9 +580,9 @@ namespace AplikasiDesa.Forms
                 {
                     using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                     {
-                        connection.Execute("DELETE FROM sk_domisili WHERE Id = @Id", new { Id });
-                        LoadSKD();
-                        LoadStatistikSKD();
+                        connection.Execute("DELETE FROM sk_usaha WHERE Id = @Id", new { Id });
+                        LoadSKU();
+                        LoadStatistikSKU();
                         MessageBox.Show($"Data berhasil dihapus.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }

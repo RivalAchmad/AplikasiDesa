@@ -9,38 +9,12 @@ namespace AplikasiDesa.Forms
     public partial class FormManageUsers : Form
     {
         private string _currentUsername = string.Empty;
-        private System.Windows.Forms.Timer sessionTimer;
 
         public FormManageUsers()
         {
             InitializeComponent();
-            VerifySession();
-            sessionTimer = new System.Windows.Forms.Timer();
-            sessionTimer.Interval = 600000; // Check every 10 minutes
-            sessionTimer.Tick += SessionTimer_Tick;
-            sessionTimer.Start();
-
-            this.Text = "Manajemen Pengguna";
-
             LoadUserData();
             LoadLoginLogs();
-        }
-
-        private void VerifySession()
-        {
-            if (!Session1.IsSessionValid())
-            {
-                MessageBox.Show("Sesi Anda telah berakhir. Silakan login kembali.",
-                              "Session Expired", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Session1.ClearSession();
-                this.Close();
-                Application.Restart();
-            }
-        }
-
-        private void SessionTimer_Tick(object sender, EventArgs e)
-        {
-            VerifySession();
         }
 
         private void LoadUserData()
@@ -385,12 +359,30 @@ namespace AplikasiDesa.Forms
             }
         }
 
-        private void FormManageUsers_FormClosing(object sender, FormClosingEventArgs e)
+        private void btnHapusLog_Click(object sender, EventArgs e)
         {
-            if (sessionTimer != null)
+            DialogResult result = MessageBox.Show(
+                $"Apakah Anda yakin akan menghapus semua log?",
+                "Konfirmasi Hapus Data",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                sessionTimer.Stop();
-                sessionTimer.Dispose();
+                try
+                {
+                    using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+                    {
+                        connection.Execute("TRUNCATE TABLE login_logs");
+                        MessageBox.Show($"Data berhasil dihapus.", "Delete Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    LoadLoginLogs();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error saat menghapus data: {ex.Message}", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

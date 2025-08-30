@@ -1,7 +1,6 @@
 using AplikasiDesa.Models;
 using AplikasiDesa.Utils;
 using Dapper;
-using DocumentFormat.OpenXml.Vml.Spreadsheet;
 using MySql.Data.MySqlClient;
 using OfficeOpenXml;
 using System.Data;
@@ -65,7 +64,7 @@ namespace AplikasiDesa
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM gabungan_keluarga";
+                    string sql = "SELECT NIK, Nama_Lengkap FROM gabungan_keluarga WHERE Status_Hubungan_Dalam_Keluarga = 'Kepala Keluarga'";
                     var allRecords = connection.QueryWithDecryption<PendudukModel>(sql);
 
                     var filteredRecords = allRecords.Where(p =>
@@ -124,7 +123,7 @@ namespace AplikasiDesa
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM gabungan_keluarga WHERE NIK = @NIK";
+                    string sql = "SELECT Nomor_KK, alamat, rt, rw FROM gabungan_keluarga WHERE NIK = @NIK";
                     var result = connection.QuerySingleOrDefaultWithDecryption<PendudukModel>(sql, new { NIK = nik });
 
                     if (result != null)
@@ -146,6 +145,11 @@ namespace AplikasiDesa
         private void LoadAnggotaKeluarga(string nomorKK)
         {
             checkedListBoxAnggotaKeluarga.Items.Clear();
+
+            if (string.IsNullOrWhiteSpace(nomorKK))
+            {
+                return;
+            }
 
             try
             {
@@ -334,14 +338,14 @@ namespace AplikasiDesa
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
                     string query = @"SELECT nomor_surat FROM data_pindah 
-                         WHERE nomor_surat LIKE '477/SKPD-%/%/" + tahunSekarang + @"' 
+                         WHERE nomor_surat LIKE '400.12.2.2.2/%/%/" + tahunSekarang + @"' 
                          ORDER BY id DESC LIMIT 1";
 
                     var result = connection.ExecuteScalar<string>(query);
 
-                    if (!string.IsNullOrEmpty(result) && result.Contains("SKPD-"))
+                    if (!string.IsNullOrEmpty(result) && result.Contains("400.12.2.2.2/"))
                     {
-                        int start = result.IndexOf("SKPD-") + 5;
+                        int start = result.IndexOf("400.12.2.2.2/") + 13;
                         int end = result.IndexOf("/", start);
 
                         if (end > start)
@@ -360,7 +364,7 @@ namespace AplikasiDesa
                 MessageBox.Show($"Error generating nomor surat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return $"477/SKPD-{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
+            return $"400.12.2.2.2/{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
         }
 
         private string ConvertToRoman(int number)
@@ -430,15 +434,24 @@ namespace AplikasiDesa
             string NoSurat = txtNoSurat.Text;
             string petugas = txtPetugas.Text;
 
-            using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
+            // Check for duplicate letter number with error handling
+            try
             {
-                string checkSql = "SELECT COUNT(*) FROM data_pindah WHERE nomor_surat = @nomor_surat";
-                int count = db.ExecuteScalar<int>(checkSql, new { nomor_surat = NoSurat });
-                if (count > 0)
+                using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    MessageBox.Show("Nomor Surat sudah ada. Harap gunakan Nomor Surat yang lain.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    string checkSql = "SELECT COUNT(*) FROM data_pindah WHERE nomor_surat = @nomor_surat";
+                    int count = db.ExecuteScalar<int>(checkSql, new { nomor_surat = NoSurat });
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Nomor Surat sudah ada. Harap gunakan Nomor Surat yang lain.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Tidak dapat terhubung ke database untuk memeriksa nomor surat.\nFormulir akan tetap dibuat tanpa menyimpan riwayat.\n\nError: {ex.Message}",
+                                "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             List<Tuple<string, string, string>> anggotaYangPindah = new List<Tuple<string, string, string>>();
@@ -447,35 +460,46 @@ namespace AplikasiDesa
                 anggotaYangPindah.Add((Tuple<string, string, string>)item);
             }
 
-            using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+            // Save to database with error handling
+            bool historySaved = false;
+            try
             {
-                string query = @"INSERT INTO data_pindah (
-                                nomor_kk, nama_kepala_keluarga, nomor_surat, 
-                                Tanggal_Terbit, alasan_pindah, klasifikasi_pindah, 
-                                jenis_kepindahan, status_kk, status_yang_pindah, 
-                                tanggal_pindah, anggota_yang_pindah) 
-                                VALUES (
-                                @Nomor_KK, @nama_kepala_keluarga, @nomor_surat, 
-                                @Tanggal_Terbit, @alasan_pindah, @klasifikasi_pindah, 
-                                @jenis_kepindahan, @status_kk, @status_yang_pindah, 
-                                @tanggal_pindah, @anggota_yang_pindah)";
-
-                var parameters = new
+                using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    Nomor_KK = InputSanitizer.SanitizeInput(noKartuKeluarga),
-                    nama_kepala_keluarga = InputSanitizer.SanitizeInput(namaKepalaKeluarga),
-                    nomor_surat = InputSanitizer.SanitizeInput(NoSurat),
-                    Tanggal_Terbit = DateTime.Now,
-                    alasan_pindah = alasan,
-                    klasifikasi_pindah = klasifikasi,
-                    jenis_kepindahan = jenis,
-                    status_kk = statuskk,
-                    status_yang_pindah = statuspindah,
-                    tanggal_pindah = tanggalPindah.ToString("yyyy-MM-dd"),
-                    anggota_yang_pindah = string.Join(",", anggotaYangPindah.Select(item => item.Item2))
-                };
+                    string query = @"INSERT INTO data_pindah (
+                                    nomor_kk, nama_kepala_keluarga, nomor_surat, 
+                                    Tanggal_Terbit, alasan_pindah, klasifikasi_pindah, 
+                                    jenis_kepindahan, status_kk, status_yang_pindah, 
+                                    tanggal_pindah, anggota_yang_pindah) 
+                                    VALUES (
+                                    @Nomor_KK, @nama_kepala_keluarga, @nomor_surat, 
+                                    @Tanggal_Terbit, @alasan_pindah, @klasifikasi_pindah, 
+                                    @jenis_kepindahan, @status_kk, @status_yang_pindah, 
+                                    @tanggal_pindah, @anggota_yang_pindah)";
 
-                connection.Execute(query, parameters);
+                    var parameters = new
+                    {
+                        Nomor_KK = InputSanitizer.SanitizeInput(noKartuKeluarga),
+                        nama_kepala_keluarga = InputSanitizer.SanitizeInput(namaKepalaKeluarga),
+                        nomor_surat = InputSanitizer.SanitizeInput(NoSurat),
+                        Tanggal_Terbit = DateTime.Now,
+                        alasan_pindah = alasan,
+                        klasifikasi_pindah = klasifikasi,
+                        jenis_kepindahan = jenis,
+                        status_kk = statuskk,
+                        status_yang_pindah = statuspindah,
+                        tanggal_pindah = tanggalPindah.ToString("yyyy-MM-dd"),
+                        anggota_yang_pindah = string.Join(",", anggotaYangPindah.Select(item => item.Item2))
+                    };
+
+                    connection.Execute(query, parameters);
+                    historySaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Formulir akan tetap dibuat, tetapi tidak dapat menyimpan riwayat ke database.\nError: {ex.Message}",
+                                "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             string archiveDirectory = Path.Combine(
@@ -630,9 +654,17 @@ namespace AplikasiDesa
                     }
                 }
 
-                MessageBox.Show($"File Excel telah tersimpan di {penyimpanan}" +
-                    (!savedToArchiveDirectory ? $"\nSalinan arsip tersimpan di {archiveDirectory}" : ""),
-                    "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string message = $"File Excel telah tersimpan di {penyimpanan}";
+                if (!savedToArchiveDirectory)
+                {
+                    message += $"\nSalinan arsip tersimpan di {archiveDirectory}";
+                }
+                if (!historySaved)
+                {
+                    message += "\n\nCatatan: Riwayat surat tidak tersimpan karena masalah koneksi database.";
+                }
+
+                MessageBox.Show(message, "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 txtNoSurat.Text = GenerateNomorSurat();
             }

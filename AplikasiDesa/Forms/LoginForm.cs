@@ -11,7 +11,7 @@ namespace AplikasiDesa
 {
     public partial class LoginForm : Form
     {
-        private readonly int _maxLoginAttempts = 5;
+        private readonly int _maxLoginAttempts = 8;
         private int _loginAttempts = 0;
         private DateTime _lockoutTime = DateTime.MinValue;
         private const int _lockoutDurationMinutes = 15;
@@ -88,9 +88,15 @@ namespace AplikasiDesa
 
                     if (encryptedUser == null)
                     {
-                        MessageBox.Show("Username atau password salah.", "Peringatan",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         _loginAttempts++;
+                        int remainingAttempts = _maxLoginAttempts - _loginAttempts;
+
+                        if (remainingAttempts > 0)
+                        {
+                            MessageBox.Show($"Username atau password salah.\nSisa percobaan: {remainingAttempts}", "Peringatan",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
                         CheckLockout();
                         return;
                     }
@@ -141,7 +147,7 @@ namespace AplikasiDesa
                         Session1.LoggedInUser = decryptedUsername;
                         Session1.LoggedInUserName = decryptedNamaPetugas;
                         Session1.SessionToken = sessionToken;
-                        Session1.SessionExpiry = DateTime.Now.AddMinutes(5); // Session expires after 4 hours
+                        Session1.SessionExpiry = DateTime.Now.AddHours(4); // Session expires after 4 hours
                         Session1.UserId = userId;
 
                         // Create a model for the session token to encrypt it
@@ -185,6 +191,10 @@ namespace AplikasiDesa
                             Id = userId
                         });
 
+                        // Calculate remaining attempts for this user
+                        int currentFailedAttempts = failedAttempts + 1;
+                        int remainingAttempts = _maxLoginAttempts - currentFailedAttempts;
+
                         // Log failed login
                         string logLoginSql = "INSERT INTO login_logs (user_id, login_time, ip_address, login_status) VALUES (@UserId, @LoginTime, @IpAddress, @LoginStatus)";
                         await connection.ExecuteAsync(logLoginSql, new
@@ -195,8 +205,17 @@ namespace AplikasiDesa
                             LoginStatus = "FAILED"
                         });
 
-                        MessageBox.Show("Username atau password salah.", "Peringatan",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (remainingAttempts > 0)
+                        {
+                            MessageBox.Show($"Username atau password salah.\nSisa percobaan: {remainingAttempts}", "Peringatan",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Username atau password salah.\nAkun akan terkunci karena terlalu banyak percobaan login gagal.", "Peringatan",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
                         _loginAttempts++;
                         CheckLockout();
                     }

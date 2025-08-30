@@ -9,13 +9,54 @@ namespace AplikasiDesa
 {
     public partial class FormTambahPenduduk : Form
     {
+        private System.Windows.Forms.Timer searchTimer;
+        private CancellationTokenSource searchCancellationTokenSource;
+        private int currentPage = 1;
+        private int pageSize = 25;
+        private int totalRecords = 0;
+        private int totalPages = 0;
+        private string currentSearchFilter = "";
+
         public FormTambahPenduduk()
         {
             InitializeComponent();
             CultureInfo culture = new CultureInfo("id-ID");
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
+            InitializeSearchTimer();
+            InitializePagination();
             LoadDatabasePenduduk();
+        }
+
+        private void InitializeSearchTimer()
+        {
+            searchTimer = new System.Windows.Forms.Timer();
+            searchTimer.Interval = 500; // 500ms delay
+            searchTimer.Tick += SearchTimer_Tick;
+        }
+
+        private void InitializePagination()
+        {
+            cmbPageSize.SelectedItem = "25";
+            pageSize = 25;
+            currentPage = 1;
+            UpdatePaginationControls();
+        }
+
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            searchTimer.Stop();
+            PerformSearch();
+        }
+
+        private async void PerformSearch()
+        {
+            // Cancel previous search if it's still running
+            searchCancellationTokenSource?.Cancel();
+            searchCancellationTokenSource = new CancellationTokenSource();
+
+            currentPage = 1; // Reset to first page when searching
+            await LoadDatabasePendudukAsync(searchCancellationTokenSource.Token);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -319,6 +360,13 @@ namespace AplikasiDesa
                 return;
             }
 
+            if (!string.IsNullOrEmpty(txtKK.Text) && !InputSanitizer.ValidateNIK(txtKK.Text))
+            {
+                MessageBox.Show("No. KK harus terdiri dari 16 angka.", "Peringatan",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!InputSanitizer.ValidateRT_RW(textBoxRT.Text) || !InputSanitizer.ValidateRT_RW(textBoxRW.Text))
             {
                 MessageBox.Show("RT dan RW harus terdiri dari 3 angka.", "Peringatan",
@@ -395,7 +443,7 @@ namespace AplikasiDesa
                 var penduduk = new PendudukModel
                 {
                     NIK = txtNIK.Text,
-                    Nomor_KK = InputSanitizer.SanitizeInput(txtKK.Text),
+                    Nomor_KK = txtKK.Text,
                     Nama_Lengkap = InputSanitizer.SanitizeInput(txtNama.Text),
                     Jenis_Kelamin = jenisKelamin,
                     Tempat_Lahir = InputSanitizer.SanitizeInput(txtTempatLahir.Text),
@@ -738,67 +786,192 @@ namespace AplikasiDesa
 
         private void LoadDatabasePenduduk()
         {
+            _ = LoadDatabasePendudukAsync(CancellationToken.None);
+        }
+
+        private async Task LoadDatabasePendudukAsync(CancellationToken cancellationToken = default)
+        {
             try
             {
+                // Show loading indicator
+                dataGridViewDB.DataSource = null;
+
                 using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM gabungan_keluarga";
-                    var result = db.QueryWithDecryption<PendudukModel>(sql);
+                    // Get total count for pagination
+                    string countSql = "SELECT COUNT(*) FROM gabungan_keluarga";
+                    if (!string.IsNullOrWhiteSpace(currentSearchFilter))
+                    {
+                        if (long.TryParse(currentSearchFilter, out _))
+                        {
+                            countSql += " WHERE NIK LIKE @Filter";
+                        }
+                        else
+                        {
+                            // For name search, we need to get all records to filter after decryption
+                            countSql = "SELECT COUNT(*) FROM gabungan_keluarga";
+                        }
+                    }
 
-                    dataGridViewDB.DataSource = result.ToList();
-                    ConfigureDataGridViewKK();
+                    if (string.IsNullOrWhiteSpace(currentSearchFilter) || long.TryParse(currentSearchFilter, out _))
+                    {
+                        var parameters = string.IsNullOrWhiteSpace(currentSearchFilter) ? null : new { Filter = "%" + currentSearchFilter + "%" };
+                        totalRecords = await db.QuerySingleAsync<int>(countSql, parameters);
+                    }
+                    else
+                    {
+                        // For name search, get total from memory filtering
+                        string sqlAll = "SELECT * FROM gabungan_keluarga";
+                        var allRecords = db.QueryWithDecryption<PendudukModel>(sqlAll);
+                        totalRecords = allRecords.Count(p =>
+                            (p.Nama_Lengkap != null && p.Nama_Lengkap.Contains(currentSearchFilter, StringComparison.OrdinalIgnoreCase)) ||
+                            (p.NIK != null && p.NIK.Contains(currentSearchFilter))
+                        );
+                    }
+
+                    totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+                    // Check for cancellation
+                    if (cancellationToken.IsCancellationRequested)
+                        return;
+
+                    // Get paginated data
+                    string sql;
+                    IEnumerable<PendudukModel> result;
+
+                    if (string.IsNullOrWhiteSpace(currentSearchFilter))
+                    {
+                        // No filter - direct pagination
+                        sql = $"SELECT * FROM gabungan_keluarga LIMIT {pageSize} OFFSET {(currentPage - 1) * pageSize}";
+                        result = db.QueryWithDecryption<PendudukModel>(sql);
+                    }
+                    else if (long.TryParse(currentSearchFilter, out _))
+                    {
+                        // NIK search - can paginate directly
+                        sql = $@"SELECT * FROM gabungan_keluarga 
+                        WHERE NIK LIKE @Filter
+                        LIMIT {pageSize} OFFSET {(currentPage - 1) * pageSize}";
+                        result = db.QueryWithDecryption<PendudukModel>(sql, new { Filter = "%" + currentSearchFilter + "%" });
+                    }
+                    else
+                    {
+                        // Name search - need to filter in memory then paginate
+                        string sqlAll = "SELECT * FROM gabungan_keluarga";
+                        var allRecords = db.QueryWithDecryption<PendudukModel>(sqlAll);
+
+                        var filteredRecords = allRecords.Where(p =>
+                            (p.Nama_Lengkap != null && p.Nama_Lengkap.Contains(currentSearchFilter, StringComparison.OrdinalIgnoreCase)) ||
+                            (p.NIK != null && p.NIK.Contains(currentSearchFilter))
+                        ).Skip((currentPage - 1) * pageSize).Take(pageSize);
+
+                        result = filteredRecords;
+                    }
+
+                    // Check for cancellation before updating UI
+                    if (cancellationToken.IsCancellationRequested)
+                        return;
+
+                    // Update UI on main thread
+                    if (InvokeRequired)
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            dataGridViewDB.DataSource = result.ToList();
+                            ConfigureDataGridViewKK();
+                            UpdatePaginationControls();
+                        }));
+                    }
+                    else
+                    {
+                        dataGridViewDB.DataSource = result.ToList();
+                        ConfigureDataGridViewKK();
+                        UpdatePaginationControls();
+                    }
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                // Search was cancelled, ignore
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() =>
+                        MessageBox.Show($"Error loading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ));
+                }
+                else
+                {
+                    MessageBox.Show($"Error loading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+        }
+
+        private void UpdatePaginationControls()
+        {
+            lblPageInfo.Text = $"Halaman {currentPage} dari {Math.Max(totalPages, 1)}";
+            lblTotalRecords.Text = $"Total Data: {totalRecords}";
+            btnFirstPage.Enabled = currentPage > 1;
+            btnPreviousPage.Enabled = currentPage > 1;
+            btnNextPage.Enabled = currentPage < totalPages;
+            btnLastPage.Enabled = currentPage < totalPages;
         }
 
         private void txtCariData_TextChanged(object sender, EventArgs e)
         {
-            string filter = txtCariData.Text;
-            try
+            currentSearchFilter = txtCariData.Text;
+
+            // Cancel the previous timer
+            searchTimer.Stop();
+
+            // Start the timer for delayed search
+            searchTimer.Start();
+        }
+
+        private async void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
             {
-                using (IDbConnection db = new MySqlConnection(DbConfig.ConnectionString))
-                {
-                    // For NIK which is not encrypted, we can search directly
-                    if (long.TryParse(filter, out _))
-                    {
-                        string sqlNIK = @"SELECT * FROM gabungan_keluarga 
-                            WHERE NIK LIKE @Filter";
-
-                        var resultNIK = db.QueryWithDecryption<PendudukModel>(sqlNIK, new { Filter = "%" + filter + "%" });
-                        dataGridViewDB.DataSource = resultNIK.ToList();
-                    }
-                    else if (!string.IsNullOrWhiteSpace(filter))
-                    {
-                        // For names, we need to fetch all records and filter in memory after decryption
-                        string sqlAll = "SELECT * FROM gabungan_keluarga";
-                        var allRecords = db.QueryWithDecryption<PendudukModel>(sqlAll);
-
-                        // Filter in memory after decryption has been applied
-                        var filteredRecords = allRecords.Where(p =>
-                            (p.Nama_Lengkap != null && p.Nama_Lengkap.Contains(filter, StringComparison.OrdinalIgnoreCase)) ||
-                            (p.NIK != null && p.NIK.Contains(filter))
-                        ).ToList();
-
-                        dataGridViewDB.DataSource = filteredRecords;
-                    }
-                    else
-                    {
-                        // If filter is empty, show all records
-                        string sqlAll = "SELECT * FROM gabungan_keluarga";
-                        var allRecords = db.QueryWithDecryption<PendudukModel>(sqlAll);
-                        dataGridViewDB.DataSource = allRecords.ToList();
-                    }
-
-                    ConfigureDataGridViewKK();
-                }
+                currentPage = 1;
+                await LoadDatabasePendudukAsync();
             }
-            catch (Exception ex)
+        }
+
+        private async void btnPreviousPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
             {
-                MessageBox.Show($"Error searching data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                currentPage--;
+                await LoadDatabasePendudukAsync();
+            }
+        }
+
+        private async void btnNextPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                await LoadDatabasePendudukAsync();
+            }
+        }
+
+        private async void btnLastPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage = totalPages;
+                await LoadDatabasePendudukAsync();
+            }
+        }
+
+        private async void cmbPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(cmbPageSize.SelectedItem.ToString(), out int newPageSize))
+            {
+                pageSize = newPageSize;
+                currentPage = 1; // Reset to first page
+                await LoadDatabasePendudukAsync();
             }
         }
 
@@ -1082,6 +1255,26 @@ namespace AplikasiDesa
             {
                 return null;
             }
+        }
+
+        private void btnImportCSV_Click(object sender, EventArgs e)
+        {
+            using (var formImportExcel = new Forms.FormImportExcel())
+            {
+                if (formImportExcel.ShowDialog() == DialogResult.OK)
+                {
+                    // Refresh the database view after successful import
+                    LoadDatabasePenduduk();
+                }
+            }
+        }
+
+        private void FormTambahPenduduk_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            searchTimer?.Stop();
+            searchTimer?.Dispose();
+            searchCancellationTokenSource?.Cancel();
+            searchCancellationTokenSource?.Dispose();
         }
         #endregion Manajemen Database Penduduk
 

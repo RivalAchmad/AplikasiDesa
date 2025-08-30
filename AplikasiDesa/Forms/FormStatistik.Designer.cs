@@ -154,7 +154,7 @@
             // 
             // tabControl
             // 
-            tabControl.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl.Appearance = TabAppearance.FlatButtons;
             tabControl.Controls.Add(tabDemografiDasar);
             tabControl.Controls.Add(tabPersebaranGeografis);

@@ -65,6 +65,7 @@ namespace AplikasiDesa
             public static Color color7 = Color.FromArgb(244, 143, 177);
             public static Color color8 = Color.FromArgb(255, 204, 188);
             public static Color color9 = Color.FromArgb(57, 67, 100);
+            public static Color color10 = Color.FromArgb(191, 223, 210);
         }
 
         private void ActivateButton(object senderBtn, Color color)
@@ -175,6 +176,12 @@ namespace AplikasiDesa
             OpenChildForm(new FormStatistik());
         }
 
+        private void btnSKU_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color10);
+            OpenChildForm(new FormSKU());
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             if (currentChildForm != null)
@@ -188,7 +195,7 @@ namespace AplikasiDesa
         {
             DisableButton();
             leftBorderBtn.Visible = false;
-            iconCurrentChildForm.IconChar = IconChar.Home;
+            iconCurrentChildForm.IconChar = IconChar.HomeLg;
             iconCurrentChildForm.IconColor = Color.Yellow;
             lblTitleChildForm.Text = "Home";
         }

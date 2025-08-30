@@ -103,7 +103,7 @@ namespace AplikasiDesa.Forms
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM gabungan_keluarga";
+                    string sql = "SELECT NIK, Nama_Lengkap FROM gabungan_keluarga";
                     var allRecords = connection.QueryWithDecryption<PendudukModel>(sql);
 
                     var filteredRecords = allRecords.Where(p =>
@@ -346,15 +346,24 @@ namespace AplikasiDesa.Forms
                 return;
             }
 
-            using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+            // Check for duplicate letter number with error handling
+            try
             {
-                string checkSql = "SELECT COUNT(*) FROM daftar_surat_kematian WHERE Nomor_Surat = @Nomor_Surat";
-                int count = connection.ExecuteScalar<int>(checkSql, new { Nomor_Surat = textBoxNomorSurat.Text });
-                if (count > 0)
+                using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    MessageBox.Show("Nomor Surat sudah ada. Harap gunakan Nomor Surat yang lain.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    string checkSql = "SELECT COUNT(*) FROM surat WHERE nomor_surat = @Nomor_Surat";
+                    int count = connection.ExecuteScalar<int>(checkSql, new { Nomor_Surat = textBoxNomorSurat.Text });
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Nomor Surat sudah ada. Harap gunakan Nomor Surat yang lain.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Tidak dapat terhubung ke database untuk memeriksa nomor surat.\nSurat akan tetap dicetak tanpa menyimpan riwayat.\n\nError: {ex.Message}",
+                                "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             string archiveDirectory = Path.Combine(
@@ -423,7 +432,18 @@ namespace AplikasiDesa.Forms
 
                 pdfDoc.Close();
 
-                SaveDataToDatabase();
+                // Save to database with error handling
+                bool historySaved = false;
+                try
+                {
+                    SaveDataToDatabase();
+                    historySaved = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Surat berhasil dicetak, tetapi tidak dapat menyimpan riwayat ke database.\nError: {ex.Message}",
+                                    "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 bool savedToArchiveDirectory = saveDirectory.Equals(archiveDirectory, StringComparison.OrdinalIgnoreCase);
 
@@ -450,9 +470,17 @@ namespace AplikasiDesa.Forms
                     }
                 }
 
-                MessageBox.Show($"File PDF telah tersimpan di {filePath}" +
-                    (!savedToArchiveDirectory ? $"\nSalinan arsip tersimpan di {archiveDirectory}" : ""),
-                    "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string message = $"File PDF telah tersimpan di {filePath}";
+                if (!savedToArchiveDirectory)
+                {
+                    message += $"\nSalinan arsip tersimpan di {archiveDirectory}";
+                }
+                if (!historySaved)
+                {
+                    message += "\n\nCatatan: Riwayat surat tidak tersimpan karena masalah koneksi database.";
+                }
+
+                MessageBox.Show(message, "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 textBoxNomorSurat.Text = GenerateNomorSurat();
             }
@@ -522,7 +550,7 @@ namespace AplikasiDesa.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error menyimpan data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception($"Gagal menyimpan data ke database: {ex.Message}");
             }
         }
 

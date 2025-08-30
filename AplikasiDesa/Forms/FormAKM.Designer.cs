@@ -1001,7 +1001,7 @@
             // txtNamaPetugas
             // 
             txtNamaPetugas.Anchor = AnchorStyles.None;
-            txtNamaPetugas.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtNamaPetugas.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtNamaPetugas.Location = new Point(148, 110);
             txtNamaPetugas.Name = "txtNamaPetugas";
             txtNamaPetugas.Size = new Size(407, 27);

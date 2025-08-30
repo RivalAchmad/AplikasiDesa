@@ -31,8 +31,9 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             panelMenu = new Panel();
-            BtnStat = new FontAwesome.Sharp.IconButton();
-            btnDP = new FontAwesome.Sharp.IconButton();
+            btnStat = new FontAwesome.Sharp.IconButton();
+            BtnDP = new FontAwesome.Sharp.IconButton();
+            btnSKU = new FontAwesome.Sharp.IconButton();
             btnDomisili = new FontAwesome.Sharp.IconButton();
             btnPD = new FontAwesome.Sharp.IconButton();
             btnAKM = new FontAwesome.Sharp.IconButton();
@@ -84,8 +85,9 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(22, 17, 121);
-            panelMenu.Controls.Add(BtnStat);
-            panelMenu.Controls.Add(btnDP);
+            panelMenu.Controls.Add(btnStat);
+            panelMenu.Controls.Add(BtnDP);
+            panelMenu.Controls.Add(btnSKU);
             panelMenu.Controls.Add(btnDomisili);
             panelMenu.Controls.Add(btnPD);
             panelMenu.Controls.Add(btnAKM);
@@ -96,50 +98,71 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(220, 636);
+            panelMenu.Size = new Size(220, 694);
             panelMenu.TabIndex = 0;
             // 
-            // BtnStat
+            // btnStat
             // 
-            BtnStat.Dock = DockStyle.Top;
-            BtnStat.FlatAppearance.BorderSize = 0;
-            BtnStat.FlatStyle = FlatStyle.Flat;
-            BtnStat.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnStat.ForeColor = Color.Gainsboro;
-            BtnStat.IconChar = FontAwesome.Sharp.IconChar.PieChart;
-            BtnStat.IconColor = Color.Gainsboro;
-            BtnStat.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnStat.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnStat.Location = new Point(0, 560);
-            BtnStat.Name = "BtnStat";
-            BtnStat.Size = new Size(220, 60);
-            BtnStat.TabIndex = 8;
-            BtnStat.Text = "Statistik";
-            BtnStat.TextAlign = ContentAlignment.MiddleLeft;
-            BtnStat.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnStat.UseVisualStyleBackColor = true;
-            BtnStat.Click += BtnStat_Click;
+            btnStat.Dock = DockStyle.Top;
+            btnStat.FlatAppearance.BorderSize = 0;
+            btnStat.FlatStyle = FlatStyle.Flat;
+            btnStat.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnStat.ForeColor = Color.Gainsboro;
+            btnStat.IconChar = FontAwesome.Sharp.IconChar.PieChart;
+            btnStat.IconColor = Color.Gainsboro;
+            btnStat.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnStat.ImageAlign = ContentAlignment.MiddleLeft;
+            btnStat.Location = new Point(0, 620);
+            btnStat.Name = "btnStat";
+            btnStat.Size = new Size(220, 60);
+            btnStat.TabIndex = 9;
+            btnStat.Text = "Statistik";
+            btnStat.TextAlign = ContentAlignment.MiddleLeft;
+            btnStat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnStat.UseVisualStyleBackColor = true;
+            btnStat.Click += BtnStat_Click;
             // 
-            // btnDP
+            // BtnDP
             // 
-            btnDP.Dock = DockStyle.Top;
-            btnDP.FlatAppearance.BorderSize = 0;
-            btnDP.FlatStyle = FlatStyle.Flat;
-            btnDP.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDP.ForeColor = Color.Gainsboro;
-            btnDP.IconChar = FontAwesome.Sharp.IconChar.Book;
-            btnDP.IconColor = Color.Gainsboro;
-            btnDP.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnDP.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDP.Location = new Point(0, 500);
-            btnDP.Name = "btnDP";
-            btnDP.Size = new Size(220, 60);
-            btnDP.TabIndex = 7;
-            btnDP.Text = "Data Penduduk";
-            btnDP.TextAlign = ContentAlignment.MiddleLeft;
-            btnDP.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnDP.UseVisualStyleBackColor = true;
-            btnDP.Click += btnDP_Click;
+            BtnDP.Dock = DockStyle.Top;
+            BtnDP.FlatAppearance.BorderSize = 0;
+            BtnDP.FlatStyle = FlatStyle.Flat;
+            BtnDP.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnDP.ForeColor = Color.Gainsboro;
+            BtnDP.IconChar = FontAwesome.Sharp.IconChar.Book;
+            BtnDP.IconColor = Color.Gainsboro;
+            BtnDP.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnDP.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnDP.Location = new Point(0, 560);
+            BtnDP.Name = "BtnDP";
+            BtnDP.Size = new Size(220, 60);
+            BtnDP.TabIndex = 8;
+            BtnDP.Text = "Data Penduduk";
+            BtnDP.TextAlign = ContentAlignment.MiddleLeft;
+            BtnDP.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnDP.UseVisualStyleBackColor = true;
+            BtnDP.Click += btnDP_Click;
+            // 
+            // btnSKU
+            // 
+            btnSKU.Dock = DockStyle.Top;
+            btnSKU.FlatAppearance.BorderSize = 0;
+            btnSKU.FlatStyle = FlatStyle.Flat;
+            btnSKU.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSKU.ForeColor = Color.Gainsboro;
+            btnSKU.IconChar = FontAwesome.Sharp.IconChar.Briefcase;
+            btnSKU.IconColor = Color.Gainsboro;
+            btnSKU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnSKU.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSKU.Location = new Point(0, 500);
+            btnSKU.Name = "btnSKU";
+            btnSKU.Size = new Size(220, 60);
+            btnSKU.TabIndex = 7;
+            btnSKU.Text = "Usaha";
+            btnSKU.TextAlign = ContentAlignment.MiddleLeft;
+            btnSKU.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnSKU.UseVisualStyleBackColor = true;
+            btnSKU.Click += btnSKU_Click;
             // 
             // btnDomisili
             // 
@@ -148,7 +171,7 @@
             btnDomisili.FlatStyle = FlatStyle.Flat;
             btnDomisili.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnDomisili.ForeColor = Color.Gainsboro;
-            btnDomisili.IconChar = FontAwesome.Sharp.IconChar.MapLocationDot;
+            btnDomisili.IconChar = FontAwesome.Sharp.IconChar.HomeUser;
             btnDomisili.IconColor = Color.Gainsboro;
             btnDomisili.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnDomisili.ImageAlign = ContentAlignment.MiddleLeft;
@@ -278,10 +301,11 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Desa_Cibeuteung_Muara;
-            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Dock = DockStyle.Top;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(196, 109);
+            pictureBox1.Size = new Size(220, 137);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -330,7 +354,7 @@
             // 
             iconCurrentChildForm.BackColor = Color.FromArgb(18, 16, 103);
             iconCurrentChildForm.ForeColor = Color.Yellow;
-            iconCurrentChildForm.IconChar = FontAwesome.Sharp.IconChar.House;
+            iconCurrentChildForm.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
             iconCurrentChildForm.IconColor = Color.Yellow;
             iconCurrentChildForm.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconCurrentChildForm.Location = new Point(6, 21);
@@ -360,7 +384,7 @@
             panelDesktop.Dock = DockStyle.Fill;
             panelDesktop.Location = new Point(220, 84);
             panelDesktop.Name = "panelDesktop";
-            panelDesktop.Size = new Size(962, 552);
+            panelDesktop.Size = new Size(962, 610);
             panelDesktop.TabIndex = 3;
             // 
             // label3
@@ -368,7 +392,7 @@
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
             label3.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(82, 509);
+            label3.Location = new Point(82, 567);
             label3.Name = "label3";
             label3.Size = new Size(240, 19);
             label3.TabIndex = 5;
@@ -379,17 +403,17 @@
             label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 10.2F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            label2.Location = new Point(82, 490);
+            label2.Location = new Point(82, 548);
             label2.Name = "label2";
-            label2.Size = new Size(299, 19);
+            label2.Size = new Size(212, 19);
             label2.TabIndex = 4;
-            label2.Text = "Dikembangkan oleh: Rival Achmad Firdaus";
+            label2.Text = "Dikembangkan oleh TARUNA";
             // 
             // pictureBox3
             // 
             pictureBox3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(6, 476);
+            pictureBox3.Location = new Point(6, 534);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(70, 64);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
@@ -398,11 +422,12 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(202, 83);
+            label1.Location = new Point(202, 112);
             label1.Name = "label1";
             label1.Size = new Size(576, 35);
             label1.TabIndex = 2;
@@ -410,9 +435,9 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox2.Anchor = AnchorStyles.None;
             pictureBox2.Image = Properties.Resources.Desa_Cibeuteung_Muara;
-            pictureBox2.Location = new Point(246, 121);
+            pictureBox2.Location = new Point(246, 150);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(481, 281);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -606,7 +631,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            ClientSize = new Size(1182, 636);
+            ClientSize = new Size(1182, 694);
             Controls.Add(dropdownContainer);
             Controls.Add(panelDesktop);
             Controls.Add(panelShadow);
@@ -653,8 +678,8 @@
         private Panel panelShadow;
         private Panel panelDesktop;
         private PictureBox pictureBox2;
-        private FontAwesome.Sharp.IconButton btnDP;
-        private FontAwesome.Sharp.IconButton BtnStat;
+        private FontAwesome.Sharp.IconButton btnSKU;
+        private FontAwesome.Sharp.IconButton BtnDP;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private System.Windows.Forms.Timer timer1;
         private FlowLayoutPanel dropdownContainer;
@@ -672,5 +697,6 @@
         private PictureBox pictureBox3;
         private Label label3;
         private Label label2;
+        private FontAwesome.Sharp.IconButton btnStat;
     }
 }

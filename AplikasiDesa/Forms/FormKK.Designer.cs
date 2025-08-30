@@ -802,7 +802,7 @@
             // 
             comboBoxNama.Anchor = AnchorStyles.None;
             comboBoxNama.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboBoxNama.Font = new Font("Segoe UI", 10.2F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            comboBoxNama.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxNama.FormattingEnabled = true;
             comboBoxNama.Location = new Point(273, 84);
             comboBoxNama.Name = "comboBoxNama";

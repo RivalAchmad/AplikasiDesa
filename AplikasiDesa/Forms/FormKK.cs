@@ -104,7 +104,7 @@ namespace AplikasiDesa.Forms
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM gabungan_keluarga";
+                    string sql = "SELECT NIK, Nama_Lengkap FROM gabungan_keluarga";
                     var allRecords = connection.QueryWithDecryption<PendudukModel>(sql);
 
                     var filteredRecords = allRecords.Where(p =>
@@ -160,10 +160,10 @@ namespace AplikasiDesa.Forms
             List<string> UnneededColumns = new List<string>
             {
                 "Nomor_KK","alamat", "kode_pos", "rt", "rw", "no_hp", "email",
-                "nama_provinsi", "nama_kabupaten", "nama_kecamatan", "nama_desa", 
-                "nama_dusun", "alamat_luar_negeri", "kota_luar_negeri", 
-                "provinsi_negara_bagian_luar_negeri","kode_pos_luar_negeri", 
-                "kode_negara", "nama_negara", "kode_perwakilan_ri", "nama_perwakilan_ri", 
+                "nama_provinsi", "nama_kabupaten", "nama_kecamatan", "nama_desa",
+                "nama_dusun", "alamat_luar_negeri", "kota_luar_negeri",
+                "provinsi_negara_bagian_luar_negeri","kode_pos_luar_negeri",
+                "kode_negara", "nama_negara", "kode_perwakilan_ri", "nama_perwakilan_ri",
                 "Status_Kependudukan", "Tgl_Kematian", "Tanggal_Masuk"
             };
 
@@ -960,31 +960,37 @@ namespace AplikasiDesa.Forms
         private void textCariSurat_TextChanged(object sender, EventArgs e)
         {
             string keyword = textCariSurat.Text.Trim();
-
-            using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+            try
             {
-                connection.Open();
+                using (MySqlConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+                {
+                    connection.Open();
 
-                string sql = @"SELECT p.id, p.tanggal_pengajuan, p.nik_kepala, 
-                 (SELECT nama_lengkap FROM gabungan_keluarga WHERE NIK = p.nik_kepala LIMIT 1) AS nama_kepala, 
-                 p.jenis_formulir, p.status, p.nomor_kk_baru,
-                 (SELECT COUNT(*) FROM anggota_pengajuan_kk WHERE id_pengajuan = p.id) AS jumlah_anggota
-                 FROM pengajuan_kk p
-                 WHERE p.nik_kepala LIKE @keyword 
-                 OR p.jenis_formulir LIKE @keyword
-                 OR p.tanggal_pengajuan LIKE @keyword
-                 OR EXISTS (SELECT 1 FROM gabungan_keluarga WHERE NIK = p.nik_kepala AND nama_lengkap LIKE @keyword)
-                 ORDER BY p.tanggal_pengajuan DESC";
+                    string sql = @"SELECT p.id, p.tanggal_pengajuan, p.nik_kepala, 
+                     (SELECT nama_lengkap FROM gabungan_keluarga WHERE NIK = p.nik_kepala LIMIT 1) AS nama_kepala, 
+                     p.jenis_formulir, p.status, p.nomor_kk_baru,
+                     (SELECT COUNT(*) FROM anggota_pengajuan_kk WHERE id_pengajuan = p.id) AS jumlah_anggota
+                     FROM pengajuan_kk p
+                     WHERE p.nik_kepala LIKE @keyword 
+                     OR p.jenis_formulir LIKE @keyword
+                     OR p.tanggal_pengajuan LIKE @keyword
+                     OR EXISTS (SELECT 1 FROM gabungan_keluarga WHERE NIK = p.nik_kepala AND nama_lengkap LIKE @keyword)
+                     ORDER BY p.tanggal_pengajuan DESC";
 
-                MySqlCommand cmd = new MySqlCommand(sql, connection);
-                cmd.Parameters.AddWithValue("@keyword", $"%{keyword}%");
+                    MySqlCommand cmd = new MySqlCommand(sql, connection);
+                    cmd.Parameters.AddWithValue("@keyword", $"%{keyword}%");
 
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
 
-                dataGridViewPengajuan.DataSource = dt;
-                FormatDataGridView();
+                    dataGridViewPengajuan.DataSource = dt;
+                    FormatDataGridView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

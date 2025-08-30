@@ -44,9 +44,10 @@
             dataGridViewLoginLogs = new DataGridView();
             lblTotalLogs = new Label();
             panelMain = new Panel();
-            btnRefreshLogs = new Button();
             panel1 = new Panel();
+            btnRefreshLogs = new Button();
             panel2 = new Panel();
+            btnHapusLog = new Button();
             panel3 = new Panel();
             label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).BeginInit();
@@ -256,6 +257,17 @@
             panelMain.Size = new Size(1143, 466);
             panelMain.TabIndex = 0;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(57, 67, 100);
+            panel1.Controls.Add(lblTitle);
+            panel1.Dock = DockStyle.Top;
+            panel1.ForeColor = Color.White;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1143, 64);
+            panel1.TabIndex = 5;
+            // 
             // btnRefreshLogs
             // 
             btnRefreshLogs.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -273,21 +285,11 @@
             btnRefreshLogs.UseVisualStyleBackColor = false;
             btnRefreshLogs.Click += btnRefreshLogs_Click;
             // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(57, 67, 100);
-            panel1.Controls.Add(lblTitle);
-            panel1.Dock = DockStyle.Top;
-            panel1.ForeColor = Color.White;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1143, 64);
-            panel1.TabIndex = 5;
-            // 
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel2.BackColor = Color.WhiteSmoke;
+            panel2.Controls.Add(btnHapusLog);
             panel2.Controls.Add(panel3);
             panel2.Controls.Add(btnRefreshLogs);
             panel2.Controls.Add(lblTotalLogs);
@@ -295,6 +297,23 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1143, 378);
             panel2.TabIndex = 9;
+            // 
+            // btnHapusLog
+            // 
+            btnHapusLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnHapusLog.BackColor = Color.Crimson;
+            btnHapusLog.FlatAppearance.BorderSize = 0;
+            btnHapusLog.FlatStyle = FlatStyle.Flat;
+            btnHapusLog.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnHapusLog.ForeColor = Color.White;
+            btnHapusLog.Location = new Point(809, 318);
+            btnHapusLog.Margin = new Padding(3, 4, 3, 4);
+            btnHapusLog.Name = "btnHapusLog";
+            btnHapusLog.Size = new Size(135, 47);
+            btnHapusLog.TabIndex = 10;
+            btnHapusLog.Text = "Hapus Log";
+            btnHapusLog.UseVisualStyleBackColor = false;
+            btnHapusLog.Click += btnHapusLog_Click;
             // 
             // panel3
             // 
@@ -331,7 +350,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormManageUsers";
             Text = "Manajemen Pengguna";
-            FormClosing += FormManageUsers_FormClosing;
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewLoginLogs).EndInit();
             panelMain.ResumeLayout(false);
@@ -360,5 +378,6 @@
         private Panel panel2;
         private Panel panel3;
         private Label label1;
+        private Button btnHapusLog;
     }
 }

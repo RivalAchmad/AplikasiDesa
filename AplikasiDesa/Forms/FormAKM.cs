@@ -82,7 +82,7 @@ namespace AplikasiDesa
             {
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    string sql = "SELECT * FROM gabungan_keluarga";
+                    string sql = "SELECT NIK, Nama_Lengkap FROM gabungan_keluarga";
                     var allRecords = connection.QueryWithDecryption<PendudukModel>(sql);
 
                     var filteredRecords = allRecords.Where(p =>
@@ -254,7 +254,7 @@ namespace AplikasiDesa
                 using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
                     string query = @"SELECT Nomor_Surat FROM daftar_surat_kematian 
-                         WHERE Nomor_Surat LIKE '475/SKK-%/%/" + tahunSekarang + @"' 
+                         WHERE Nomor_Surat LIKE '400.12.3.1/%/%/" + tahunSekarang + @"' 
                          ORDER BY id DESC LIMIT 1";
 
                     var result = connection.ExecuteScalar(query);
@@ -262,9 +262,9 @@ namespace AplikasiDesa
                     if (result != null)
                     {
                         string lastNumber = result.ToString();
-                        if (lastNumber.Contains("SKK-"))
+                        if (lastNumber.Contains("400.12.3.1/"))
                         {
-                            int start = lastNumber.IndexOf("SKK-") + 4;
+                            int start = lastNumber.IndexOf("400.12.3.1/") + 11;
                             int end = lastNumber.IndexOf("/", start);
 
                             if (end > start)
@@ -288,7 +288,7 @@ namespace AplikasiDesa
                 MessageBox.Show($"Error generating nomor surat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            string newNomor = $"475/SKK-{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
+            string newNomor = $"400.12.3.1/{nextNumber:D3}/{bulanRomawi}/{tahunSekarang}";
             return newNomor;
         }
 
@@ -328,35 +328,50 @@ namespace AplikasiDesa
                     string nik_nonsurat = comboBoxNonSurat.SelectedItem.ToString().Split(',')[0].Trim();
                     UpdateStatusPenduduk(nik_nonsurat, "MENINGGAL", dtpHariTglNonSurat.Value);
                     MessageBox.Show("Status penduduk berhasil diubah", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error updating data: {ex.Message}");
+                    MessageBox.Show($"Tidak dapat mengubah status penduduk.\nError: {ex.Message}", "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void UpdateStatusPenduduk(string nik, string status, DateTime tglKematian)
         {
-            using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+            try
             {
-                string sql = "UPDATE gabungan_keluarga SET Status_Kependudukan = @Status, Tgl_Kematian = @TglKematian WHERE NIK = @NIK";
-                connection.Execute(sql, new { Status = status, TglKematian = tglKematian, NIK = nik });
+                using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+                {
+                    string sql = "UPDATE gabungan_keluarga SET Status_Kependudukan = @Status, Tgl_Kematian = @TglKematian WHERE NIK = @NIK";
+                    connection.Execute(sql, new { Status = status, TglKematian = tglKematian, NIK = nik });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Gagal memperbarui status penduduk: {ex.Message}");
             }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
+            // Check for duplicate letter number with error handling
+            try
             {
-                string checkSql = "SELECT COUNT(*) FROM daftar_surat_kematian WHERE Nomor_Surat = @Nomor_Surat";
-                int count = connection.ExecuteScalar<int>(checkSql, new { Nomor_Surat = txtNomorSurat.Text });
-                if (count > 0)
+                using (IDbConnection connection = new MySqlConnection(DbConfig.ConnectionString))
                 {
-                    MessageBox.Show("Nomor Surat sudah ada. Harap gunakan Nomor Surat yang lain.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    string checkSql = "SELECT COUNT(*) FROM daftar_surat_kematian WHERE Nomor_Surat = @Nomor_Surat";
+                    int count = connection.ExecuteScalar<int>(checkSql, new { Nomor_Surat = txtNomorSurat.Text });
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Nomor Surat sudah ada. Harap gunakan Nomor Surat yang lain.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Tidak dapat terhubung ke database untuk memeriksa nomor surat.\nSurat akan tetap dicetak tanpa menyimpan riwayat.\n\nError: {ex.Message}",
+                                "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             if (string.IsNullOrWhiteSpace(textBoxNama.Text) ||
@@ -443,12 +458,34 @@ namespace AplikasiDesa
                     pdfDoc.Close();
                 }
 
-                SaveSuratDetailsToDatabase();
-                if (comboBoxNama.SelectedItem != null || !string.IsNullOrWhiteSpace(comboBoxNama.Text))
+                // Save to database with error handling
+                bool historySaved = false;
+                try
                 {
-                    string nik_terlapor = comboBoxNama.SelectedItem.ToString().Split(',')[0].Trim();
-                    UpdateStatusPenduduk(nik_terlapor, "MENINGGAL", dtpHariTgl.Value);
+                    SaveSuratDetailsToDatabase();
+                    historySaved = true;
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Surat berhasil dicetak, tetapi tidak dapat menyimpan riwayat ke database.\nError: {ex.Message}",
+                                    "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                // Update status penduduk with error handling
+                try
+                {
+                    if (comboBoxNama.SelectedItem != null || !string.IsNullOrWhiteSpace(comboBoxNama.Text))
+                    {
+                        string nik_terlapor = comboBoxNama.SelectedItem.ToString().Split(',')[0].Trim();
+                        UpdateStatusPenduduk(nik_terlapor, "MENINGGAL", dtpHariTgl.Value);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Surat berhasil dicetak, tetapi tidak dapat memperbarui status penduduk.\nError: {ex.Message}",
+                                    "Peringatan Database", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 bool savedToArchiveDirectory = saveDirectory.Equals(archiveDirectory, StringComparison.OrdinalIgnoreCase);
 
                 if (!savedToArchiveDirectory)
@@ -474,9 +511,17 @@ namespace AplikasiDesa
                     }
                 }
 
-                MessageBox.Show($"File PDF telah tersimpan di {Penyimpanan}" +
-                    (!savedToArchiveDirectory ? $"\nSalinan arsip tersimpan di {archiveDirectory}" : ""),
-                    "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string message = $"File PDF telah tersimpan di {Penyimpanan}";
+                if (!savedToArchiveDirectory)
+                {
+                    message += $"\nSalinan arsip tersimpan di {archiveDirectory}";
+                }
+                if (!historySaved)
+                {
+                    message += "\n\nCatatan: Riwayat surat tidak tersimpan karena masalah koneksi database.";
+                }
+
+                MessageBox.Show(message, "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 txtNomorSurat.Text = GenerateNomorSurat();
             }
